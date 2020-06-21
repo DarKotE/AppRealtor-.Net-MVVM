@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
-using AcademicPerformance.WindowsFolder;
+
 using Esoft.ViewModelsFolder;
 
 namespace Esoft.ViewsFolder
@@ -20,7 +20,7 @@ namespace Esoft.ViewsFolder
 
         private async void LiveSortWorkaround()
         {
-            await Task.Delay(50);
+            await Task.Delay(100);
             dgHouseList.Items.SortDescriptions.Add(
                 new SortDescription("City",
                 ListSortDirection.Ascending));

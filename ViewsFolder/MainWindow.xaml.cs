@@ -17,7 +17,7 @@ namespace Esoft.ViewsFolder
 
         private async void LiveSortWorkaround()
         {
-            await Task.Delay(50);
+            await Task.Delay(100);
             dgHouseList.Items.SortDescriptions.Add(
                 new SortDescription("NameHousingComplex",
                 ListSortDirection.Ascending));

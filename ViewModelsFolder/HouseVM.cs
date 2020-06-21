@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using Esoft.ClassFolder;
+using Esoft.ClassFolder.ModelsFolder;
 using Esoft.CommandsFolder;
 
 namespace Esoft.ViewModelsFolder

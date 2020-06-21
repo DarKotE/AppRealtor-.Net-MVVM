@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using Esoft.ClassFolder.ModelsFolder;
 
 namespace Esoft.ClassFolder
 {
     public class Validator
     {
-        public DataController DataController { get; }
+        public DataController DataController { get; set; }
         public string Validate(Complex complex)
         {
             var err = String.Empty;
@@ -30,15 +32,11 @@ namespace Esoft.ClassFolder
             {
                 return err = "Укажите город";
             }
-            else if (complex.StatusConstructionHousingComplex.Equals("1"))
+            else if(complex.StatusConstructionHousingComplex.Equals("1"))
             {
-                
-                    //todo доделать условие
-                if (false)
-                {
-                    return err = "В редактируемом жилищном комплексе есть квартирысо статусом “продана”.";
-                }
-                
+                DataController = new DataController();
+                if(!DataController.CanPlan(complex))
+                    return err = "Невозможно установить выбранный статус т.к. в данном комплексе есть проданные квартиры";
             }
             return err;
         }

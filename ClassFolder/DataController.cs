@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Esoft.ClassFolder.ModelsFolder;
 
 namespace Esoft.ClassFolder
 {
@@ -45,6 +46,16 @@ namespace Esoft.ClassFolder
 
 
         #region CRUD operations for Complex 
+        public bool CanDelete(Complex newComplex)
+        {
+            return DataAccess != null && DataAccess.CanDeleteComplex(newComplex);
+        }
+        public bool CanPlan(Complex newComplex)
+        {
+            return DataAccess != null && DataAccess.CanDeleteComplex(newComplex);
+        }
+
+
         public bool Create(Complex newComplex)
         {
             return DataAccess != null && DataAccess.InsertComplex(newComplex);

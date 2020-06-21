@@ -14,9 +14,6 @@ namespace Esoft
     public partial class App : Application
     {
         public static int Id { get; set; }
-        public static int IdUser { get; set; }
-        public static string LoginUser { get; set; }
-        public static string PasswordUser { get; set; }
-        public static int RoleUser { get; set; }
+        
     }
 }

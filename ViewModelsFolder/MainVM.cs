@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using Esoft.ClassFolder;
+using Esoft.ClassFolder.ModelsFolder;
 using Esoft.CommandsFolder;
 
 namespace Esoft.ViewModelsFolder

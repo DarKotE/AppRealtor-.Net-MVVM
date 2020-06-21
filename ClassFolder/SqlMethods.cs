@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Windows;
+using Esoft.ClassFolder.ModelsFolder;
 
 namespace Esoft.ClassFolder
 {
     public class SqlMethods
     {
+        
         public List<Complex> SelectAllComplex()
         {
             var tempComplexList = new List<Complex>();
@@ -301,6 +303,51 @@ namespace Esoft.ClassFolder
             }
 
             return tempApartmentList;
+        }
+
+
+        public bool CanDeleteComplex(Complex complexToDelete)
+        {
+            var isPossible = true;
+
+            using (var sqlConnection = new SqlConnection(CSqlConfig.DefaultCnnVal()))
+            {
+                try
+                {
+                    var sqlQuery =
+                        "SELECT [Id]";
+                    sqlQuery += " FROM [dbo].[Apartments]";
+                    sqlQuery += " inner join[dbo].[House] on[House].IdHouse = Apartments.Id_LCD ";
+                    sqlQuery += " inner join[dbo].[Complex] on[Complex].IdComplex = House.IdComplex";
+                    sqlQuery += " WHERE Apartments.Status_Sale = 'sold' and [Complex].IdComplex = @IdComplex";
+
+                    var sqlCommand = new SqlCommand(sqlQuery,
+                        sqlConnection);
+                    sqlCommand.Parameters.AddWithValue("IdComplex", complexToDelete.IdComplex);
+                    sqlConnection.Open();
+                    var reader = sqlCommand.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        isPossible = false;
+                    }
+
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message,
+                        "Ошибка",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error);
+                }
+                finally
+                {
+                    sqlConnection.Close();
+
+                }
+            }
+
+            return isPossible;
         }
 
         public bool InsertComplex(Complex newComplex)

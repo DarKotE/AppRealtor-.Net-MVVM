@@ -1,6 +1,6 @@
-﻿using System.Collections;
-using System.ComponentModel;
-namespace Esoft.ClassFolder
+﻿using System.ComponentModel;
+
+namespace Esoft.ClassFolder.ModelsFolder
 {
     public class Complex : INotifyPropertyChanged
     {

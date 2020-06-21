@@ -1,6 +1,6 @@
-﻿using System.Collections;
-using System.ComponentModel;
-namespace Esoft.ClassFolder
+﻿using System.ComponentModel;
+
+namespace Esoft.ClassFolder.ModelsFolder
 {
     //for easy binding to view via viewmodel
     public class ComplexWithHouses : Complex, INotifyPropertyChanged
