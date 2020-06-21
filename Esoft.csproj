@@ -78,6 +78,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ClassFolder\ModelsFolder\Apartment.cs" />
+    <Compile Include="ClassFolder\ModelsFolder\ComplexWithHouses.cs" />
     <Compile Include="ClassFolder\ModelsFolder\Complex.cs" />
     <Compile Include="ClassFolder\ModelsFolder\HouseInComplex.cs" />
     <Compile Include="ClassFolder\SqlMethods.cs" />
@@ -100,6 +101,7 @@
     <Compile Include="ClassFolder\old\StudentModel.cs" />
     <Compile Include="ClassFolder\old\TeacherModel.cs" />
     <Compile Include="CommandsFolder\RelayCommand.cs" />
+    <Compile Include="ViewModelsFolder\SecondVM.cs" />
     <Compile Include="ViewModelsFolder\old\VMProfileTeacher.cs" />
     <Compile Include="ViewModelsFolder\old\VMAddJournal.cs" />
     <Compile Include="ViewModelsFolder\old\VMProfileStudent.cs" />

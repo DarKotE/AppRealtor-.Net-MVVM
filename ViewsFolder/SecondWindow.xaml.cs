@@ -12,14 +12,103 @@ namespace Esoft.ViewsFolder
     /// </summary>
     public partial class SecondWindow : Window
     {
-        
+
+        public delegate void Refresh();
+        public event Refresh RefreshEvent;
+
+        private async void LiveSortWorkaround()
+        {
+            await Task.Delay(50);
+            dgHouseList.Items.SortDescriptions.Add(
+                new SortDescription("City",
+                ListSortDirection.Ascending));
+            dgHouseList.Items.SortDescriptions.Add(
+                new SortDescription("StatusConstructionHousingComplexName",
+                ListSortDirection.Ascending));
+        }
+
+        private void RefreshView()
+        {
+            var secondVM = new SecondVM();
+            this.DataContext = null;
+            this.DataContext = secondVM;
+            dgHouseList.Items.IsLiveSorting = true;
+            LiveSortWorkaround();
+
+        }
+
         public SecondWindow()
         {
             InitializeComponent();
-            
+            RefreshView();
         }
 
+
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            tbSearch.Focus();
+        }
+
+
+        private void Exit_Click(object sender, RoutedEventArgs e)
+        {
+            var result = MessageBox.Show("Вы действительно желаете выйти?",
+                "Информация",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                Application.Current.Shutdown();
+                System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
+            }
+        }
+
+
+        private void Add_OnClick(object sender, RoutedEventArgs e)
+        {
+            RefreshEvent += new Refresh(RefreshView);
+            HouseAddWindow winAdd = new HouseAddWindow();
+            winAdd.UpdateActor = RefreshEvent;
+            winAdd.Show();
+        }
+
+        private void tbSearch_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            LiveSortWorkaround();
+            cbStatus.Text = String.Empty;
+            cbCity.Text = String.Empty;
+        }
+
+        private void cbStatus_DropDownClosed(object sender, EventArgs e)
+        {
+            LiveSortWorkaround();
+            cbCity.Text = String.Empty;
+        }
+
+        private void cbCity_DropDownClosed(object sender, EventArgs e)
+        {
+            LiveSortWorkaround();
+            cbStatus.Text = String.Empty;
+        }
+
+
+
+        private void tbApartmentWindow_OnClick(object sender, RoutedEventArgs e)
+        {
+            ViewsFolder.SecondWindow appartmentWindow = new ViewsFolder.SecondWindow();
+            appartmentWindow.ShowDialog();
+        }
+
+        private void tbEdit_OnClick(object sender, RoutedEventArgs e)
+        {
+            RefreshEvent += new Refresh(RefreshView);
+            HouseEditWindow winAdd = new HouseEditWindow();
+            winAdd.UpdateActor = RefreshEvent;
+            winAdd.Show();
+        }
+
+        private void tbDelete_OnClick(object sender, RoutedEventArgs e)
         {
 
         }

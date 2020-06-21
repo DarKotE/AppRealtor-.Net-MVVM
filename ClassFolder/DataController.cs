@@ -36,6 +36,11 @@ namespace Esoft.ClassFolder
             var houseList = DataAccess.SelectAllHouseInComplex();
             return houseList ?? new List<HouseInComplex>();
         }
+        public List<ComplexWithHouses> GetAllComplexWithHouses()
+        {
+            var houseList = DataAccess.SelectAllComplexWithHouses();
+            return houseList ?? new List<ComplexWithHouses>();
+        }
         #endregion
 
 

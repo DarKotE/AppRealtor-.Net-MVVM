@@ -7,9 +7,61 @@ namespace Esoft.ClassFolder
 {
     public class SqlMethods
     {
-        internal List<Complex> SelectAllComplex()
+        public List<Complex> SelectAllComplex()
         {
-            throw new NotImplementedException();
+            var tempComplexList = new List<Complex>();
+            using (var sqlConnection = new SqlConnection(CSqlConfig.DefaultCnnVal()))
+            {
+                try
+                {
+                    var sqlQuery =
+                        "SELECT [IdComplex], [Name_Housing_Complex], [City], [Status_Construction_Housing_Complex], " +
+                        "[Added_Value], [Building_Costs]"; 
+                    sqlQuery += " FROM [dbo].[Complex]";
+                    sqlQuery += " WHERE [Complex].IsDeleted = 0";
+
+                    var sqlCommand = new SqlCommand(sqlQuery,
+                        sqlConnection);
+                    sqlConnection.Open();
+                    var reader = sqlCommand.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        var items = new List<Complex>();
+                        while (reader.Read())
+                        {
+                            var u = new Complex
+                            {
+                                IdComplex = reader.GetInt32(0),
+                                NameHousingComplex = reader.GetString(1),
+                                City = reader.GetString(2),
+                                StatusConstructionHousingComplex = reader.GetString(3),
+                                AddedValue = reader.GetInt64(4),
+                                BuildingCost = reader.GetInt64(5)
+                            };
+
+                            items.Add(u);
+                        }
+
+                        tempComplexList = items;
+                    }
+
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message,
+                        "Ошибка",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error);
+                }
+                finally
+                {
+                    sqlConnection.Close();
+
+                }
+            }
+
+            return tempComplexList;
         }
 
         public List<HouseInComplex> SelectAllHouseInComplex()
@@ -73,6 +125,66 @@ namespace Esoft.ClassFolder
             return tempHouseList;
 
         }
+
+        public List<ComplexWithHouses> SelectAllComplexWithHouses()
+        {
+            var tempComplexList = new List<ComplexWithHouses>();
+            using (var sqlConnection = new SqlConnection(CSqlConfig.DefaultCnnVal()))
+            {
+                try
+                {
+                    var sqlQuery =
+                        "SELECT [IdComplex], [Name_Housing_Complex], [City], [Status_Construction_Housing_Complex], " +
+                        "[Added_Value], [Building_Costs]";
+                    sqlQuery += " FROM [dbo].[Complex]";
+                    sqlQuery += " WHERE [Complex].IsDeleted = 0";
+
+                    var sqlCommand = new SqlCommand(sqlQuery,
+                        sqlConnection);
+                    sqlConnection.Open();
+                    var reader = sqlCommand.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        var items = new List<ComplexWithHouses>();
+                        while (reader.Read())
+                        {
+                            var u = new ComplexWithHouses
+                            {
+                                IdComplex = reader.GetInt32(0),
+                                NameHousingComplex = reader.GetString(1),
+                                City = reader.GetString(2),
+                                StatusConstructionHousingComplex = reader.GetString(3),
+                                StatusConstructionHousingComplexName = reader.GetString(3),
+                                AddedValue = reader.GetInt64(4),
+                                BuildingCost = reader.GetInt64(5)
+                            };
+
+                            items.Add(u);
+                        }
+
+                        tempComplexList = items;
+                    }
+
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message,
+                        "Ошибка",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error);
+                }
+                finally
+                {
+                    sqlConnection.Close();
+
+                }
+            }
+
+            return tempComplexList;
+
+        }
+
 
         public List<House> SelectAllHouse()
         {

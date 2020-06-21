@@ -2,6 +2,7 @@
 
 namespace Esoft.ClassFolder
 {
+    //properties for easy binding to view via viewmodel
     public class HouseInComplex :House, INotifyPropertyChanged
     {
         private string _nameHousingComplex;
@@ -40,7 +41,7 @@ namespace Esoft.ClassFolder
         }
 
 
-        //Поля отсутствуют в бд
+        //properties don't exist in database
         private int _soldApartmentCount;
         public int SoldApartmentCount
         {

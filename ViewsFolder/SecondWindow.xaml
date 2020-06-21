@@ -8,5 +8,80 @@
         Title="Esoft" Height="613.5" Width="874.4"
         WindowStartupLocation="CenterScreen"
         Style="{DynamicResource WindowsStyle}" Loaded="Window_Loaded">
-    
+    <Grid Margin="0,0,0,-2" Height="586" VerticalAlignment="Top" HorizontalAlignment="Left" Width="864">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="32.6"/>
+            <ColumnDefinition Width="138.6"/>
+            <ColumnDefinition Width="165.067"/>
+            <ColumnDefinition Width="383.733"/>
+            <ColumnDefinition Width="207*"/>
+
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="47.2"/>
+
+            <RowDefinition Height="52"/>
+            <RowDefinition Height="70"/>
+
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="70"/>
+
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="70"/>
+
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="70"/>
+
+            <RowDefinition Height="30"/>
+
+
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Label x:Name="lblSearch" Content="Поиск" Style="{DynamicResource LabelStyle}"  Margin="16,29,93.2,27.6" Padding="0" Grid.RowSpan="2" Height="Auto" Grid.ColumnSpan="2"/>
+        <Label x:Name="lbTitle" Content="Список жилищных комплексов" Style="{DynamicResource LabelTitle}" Grid.ColumnSpan="4" Margin="10,0,10,0.4" Height="Auto" />
+        <TextBox x:Name="tbSearch" Style="{DynamicResource TbStyle}"
+                 Text="{Binding Path=SearchText, Mode=TwoWay, Delay=5, UpdateSourceTrigger=PropertyChanged}" TextChanged="tbSearch_TextChanged" Margin="45.2,30,102.267,27.6" Height="Auto" Grid.RowSpan="2" Grid.ColumnSpan="2" Grid.Column="1" />
+        <DataGrid x:Name="dgHouseList" Grid.Row="1" Grid.RowSpan="11" 
+                  AutoGenerateColumns="False" ItemsSource="{Binding Path=FilteredComplexList}" SelectedItem="{Binding Path=SelectedRow, Mode=TwoWay}"
+                  IsReadOnly="True" FontSize="12"  Margin="16,35.6,16,32.2" Grid.ColumnSpan="4">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="dgTcNameHousingComplex"
+                                    Header="ЖК"
+                                    Binding="{Binding NameHousingComplex}"
+                                    Width="*"/>
+                <DataGridTextColumn x:Name="dgTcStatus"
+                                    Header="Статус"
+                                    Binding="{Binding StatusConstructionHousingComplexName}"
+                                    Width="100"/>
+                <DataGridTextColumn x:Name="dgTcCountHouses"
+                                    Header="Количество домов"
+                                    Binding="{Binding HouseCount}"
+                                    Width="120"/>
+                <DataGridTextColumn x:Name="dgTcCity"
+                                    Header="Город"
+                                    Binding="{Binding City}"
+                                    Width="160"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <ComboBox x:Name="cbStatus" 
+                  ItemsSource="{Binding StatusList}"  
+                  
+                  SelectedItem="{Binding SelectedStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="130.8,30,249,27.6" IsReadOnly="True" Grid.Column="2" Grid.RowSpan="2" DropDownClosed="cbStatus_DropDownClosed" Grid.ColumnSpan="2" />
+        <ComboBox x:Name="cbCity" 
+                 ItemsSource="{Binding CityList}"
+                 SelectedItem="{Binding SelectedCity, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}" Margin="188.733,29,16,28.6" RenderTransformOrigin="-0.776,-1.077" Grid.Column="3" Grid.RowSpan="2" DropDownClosed="cbCity_DropDownClosed"/>
+        <Button x:Name="Exit" Content="Выход" Style="{DynamicResource BtnStyle}" Grid.Row="10"  Click="Exit_Click"  Grid.Column="4" Margin="10,30.2,10,34.2" Grid.RowSpan="2" />
+        <Button x:Name="Add" Content="Создать дом" Style="{DynamicResource BtnBigStyle}" 
+                Grid.Column="4"  Margin="10,17.6,9,0" Click="Add_OnClick" Height="38" VerticalAlignment="Top" Grid.Row="7"/>
+        <Label x:Name="lblStatus" Content="Статус" Style="{DynamicResource LabelStyle}"  Margin="85.8,30,34,26.6" Padding="0" Height="Auto" Grid.Column="2" Grid.RowSpan="2" RenderTransformOrigin="1.074,0.433"/>
+        <Label x:Name="lblCity" Content="Город" Style="{DynamicResource LabelStyle}"  Margin="144.733,29,195,28.6" Padding="0" Height="Auto" Grid.Column="3" Grid.RowSpan="2" RenderTransformOrigin="-0.01,0.462"/>
+        <Button x:Name="tbEdit" Content="Редактировать" Style="{DynamicResource BtnBigStyle}" 
+                Command="{Binding Path=EditCommand}" 
+            Grid.Column="4"  Margin="9,60.6,10,0" Click="tbEdit_OnClick" Height="38" VerticalAlignment="Top" Grid.Row="7" Grid.RowSpan="2"/>
+        <Button x:Name="tbDelete" Content="Удалить" Style="{DynamicResource BtnBigStyle}" 
+                Command="{Binding Path=DeleteCommand}"
+            Grid.Column="4"  Margin="9,46.2,10,0" Grid.RowSpan="2" Click="tbDelete_OnClick" Height="38" VerticalAlignment="Top" Grid.Row="9"/>
+    </Grid>
+
 </Window>
