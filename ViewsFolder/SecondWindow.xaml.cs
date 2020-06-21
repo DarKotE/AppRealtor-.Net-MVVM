@@ -8,13 +8,15 @@ using Esoft.ViewModelsFolder;
 namespace Esoft.ViewsFolder
 {
     /// <summary>
-    /// Interaction logic for SecondWindow.xaml
+    /// Interaction logic for .xaml
     /// </summary>
     public partial class SecondWindow : Window
     {
 
         public delegate void Refresh();
         public event Refresh RefreshEvent;
+
+        
 
         private async void LiveSortWorkaround()
         {
@@ -36,6 +38,8 @@ namespace Esoft.ViewsFolder
             LiveSortWorkaround();
 
         }
+
+       
 
         public SecondWindow()
         {
@@ -59,16 +63,17 @@ namespace Esoft.ViewsFolder
                 MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
-                Application.Current.Shutdown();
-                System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
+                this.Close();
+                
             }
         }
 
 
-        private void Add_OnClick(object sender, RoutedEventArgs e)
+        private async void Add_OnClick(object sender, RoutedEventArgs e)
         {
+            await Task.Delay(100);
             RefreshEvent += new Refresh(RefreshView);
-            HouseAddWindow winAdd = new HouseAddWindow();
+            ComplexAddWindow winAdd = new ComplexAddWindow();
             winAdd.UpdateActor = RefreshEvent;
             winAdd.Show();
         }
@@ -100,12 +105,13 @@ namespace Esoft.ViewsFolder
             appartmentWindow.ShowDialog();
         }
 
-        private void tbEdit_OnClick(object sender, RoutedEventArgs e)
+        private async void tbEdit_OnClick(object sender, RoutedEventArgs e)
         {
+            await Task.Delay(100);
             RefreshEvent += new Refresh(RefreshView);
-            HouseEditWindow winAdd = new HouseEditWindow();
-            winAdd.UpdateActor = RefreshEvent;
-            winAdd.Show();
+            ComplexEditWindow winEdit = new ComplexEditWindow();
+            winEdit.UpdateActor = RefreshEvent;
+            winEdit.Show();
         }
 
         private void tbDelete_OnClick(object sender, RoutedEventArgs e)

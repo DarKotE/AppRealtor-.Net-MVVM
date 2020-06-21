@@ -29,7 +29,10 @@ namespace Esoft.ClassFolder
         private string _statusConstructionHousingComplex;
         public string StatusConstructionHousingComplex
         {
-            get { return _statusConstructionHousingComplex; }
+            get
+            {
+                return _statusConstructionHousingComplex;
+            }
             set { _statusConstructionHousingComplex = value;
                 OnPropertyChanged("StatusConstructionHousingComplex"); }
         }

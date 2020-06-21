@@ -305,22 +305,160 @@ namespace Esoft.ClassFolder
 
         public bool InsertComplex(Complex newComplex)
         {
-            throw new NotImplementedException();
+            var isInserted = false;
+            using (var sqlConnection = new SqlConnection(CSqlConfig.DefaultCnnVal()))
+            {
+                try
+                {
+                    var sqlQuery = "INSERT INTO dbo.[Complex] (Name_Housing_Complex," +
+                                   " City, Status_Construction_Housing_Complex, Added_Value, Building_Costs, IsDeleted)" +
+                                   " VALUES (@Name_Housing_Complex, @City, " +
+                                   "@Status_Construction_Housing_Complex, @Added_Value, @Building_Costs, 0)";
+                    var sqlCommand = new SqlCommand(sqlQuery, sqlConnection);
+                    sqlCommand.Parameters.AddWithValue("Name_Housing_Complex", newComplex.NameHousingComplex);
+                    sqlCommand.Parameters.AddWithValue("Status_Construction_Housing_Complex", newComplex.StatusConstructionHousingComplex);
+                    sqlCommand.Parameters.AddWithValue("Added_Value", newComplex.AddedValue);
+                    sqlCommand.Parameters.AddWithValue("Building_Costs", newComplex.BuildingCost);
+                    sqlCommand.Parameters.AddWithValue("City", newComplex.City);
+                    sqlConnection.Open();
+                    var noOfRowsAffected = sqlCommand.ExecuteNonQuery();
+                    isInserted = noOfRowsAffected > 0;
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK,
+                        MessageBoxImage.Error);
+                }
+                finally
+                {
+                    sqlConnection.Close();
+                }
+            }
+
+            return isInserted;
         }
 
-        public bool SelectComplex(Complex newComplex)
+        public Complex SelectComplex(Complex newComplex)
         {
-            throw new NotImplementedException();
+            var tempComplex = new Complex();
+            using (var sqlConnection = new SqlConnection(CSqlConfig.DefaultCnnVal()))
+            {
+                try
+                {
+                    var sqlQuery = "SELECT [IdComplex], [City]," + 
+                                   " [Name_Housing_Complex], [Status_Construction_Housing_Complex]," +
+                                   " [Added_Value], [Building_Costs]";
+                    sqlQuery += " FROM [dbo].[Complex]";
+                    sqlQuery += " WHERE [Complex].IdComplex = @IdComplex AND [Complex].IsDeleted=0";
+                    var sqlCommand = new SqlCommand(sqlQuery, sqlConnection);
+                    sqlConnection.Open();
+                    sqlCommand.Parameters.AddWithValue("IdComplex", newComplex.IdComplex);
+                    var reader = sqlCommand.ExecuteReader();
+                    var items = new List<Complex>();
+                    while (reader.Read())
+                    {
+                        var u = new Complex
+                        {
+                            IdComplex = (int)reader["IdComplex"],
+                            City = (string)reader["City"],
+                            NameHousingComplex = (string)reader["Name_Housing_Complex"],
+                            StatusConstructionHousingComplex = (string)reader["Status_Construction_Housing_Complex"],
+                            AddedValue = (long)reader["Added_Value"],
+                            BuildingCost = (long)reader["Building_Costs"]
+                            
+                            
+                        };
+                        items.Add(u);
+                    }
+                    if (items.Count > 0) tempComplex = items[0];
+                    
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK,
+                        MessageBoxImage.Error);
+                }
+                finally
+                {
+                    sqlConnection.Close();
+
+                }
+            }
+             
+            return tempComplex;
         }
 
         public bool UpdateComplex(Complex newComplex)
         {
-            throw new NotImplementedException();
+            var isUpdated = false;
+            using (var sqlConnection = new SqlConnection(CSqlConfig.DefaultCnnVal()))
+            {
+                try
+                {
+                    const string sqlQuery = "UPDATE dbo.[Complex] set " +
+                                            " Name_Housing_Complex=@Name_Housing_Complex, " +
+                                            " City=@City, " +
+                                            " Status_Construction_Housing_Complex=@Status_Construction_Housing_Complex," +
+                                            " Added_Value=@Added_Value," +
+                                            " Building_Costs=@Building_Costs," +
+                                            " IsDeleted=0" +
+                                            " WHERE IdComplex=@IdComplex";
+                    var sqlCommand = new SqlCommand(sqlQuery, sqlConnection);
+                    sqlCommand.Parameters.AddWithValue("Name_Housing_Complex", newComplex.NameHousingComplex);
+                    sqlCommand.Parameters.AddWithValue("City", newComplex.City);
+                    sqlCommand.Parameters.AddWithValue("Status_Construction_Housing_Complex", newComplex.StatusConstructionHousingComplex);
+                    sqlCommand.Parameters.AddWithValue("Added_Value", newComplex.AddedValue);
+                    sqlCommand.Parameters.AddWithValue("Building_Costs", newComplex.BuildingCost);
+                    sqlCommand.Parameters.AddWithValue("NumberPhoneTeacher", newComplex.NameHousingComplex);
+                    sqlCommand.Parameters.AddWithValue("IdComplex", newComplex.IdComplex);
+                    sqlConnection.Open();
+                    var noOfRowsAffected = sqlCommand.ExecuteNonQuery();
+                    isUpdated = noOfRowsAffected > 0;
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK,
+                        MessageBoxImage.Error);
+                }
+                finally
+                {
+                    sqlConnection.Close();
+                }
+            }
+            return isUpdated;
         }
 
         public bool DeleteComplex(Complex newComplex)
         {
-            throw new NotImplementedException();
+            var isDeleted = false;
+            using (var sqlConnection = new SqlConnection(CSqlConfig.DefaultCnnVal()))
+            {
+
+                try
+                {
+                    const string sqlQuery = "UPDATE dbo.[Complex] set IsDeleted=1 "
+                                            + "WHERE IdComplex=@IdComplex";
+                    var sqlCommand = new SqlCommand(sqlQuery, sqlConnection);
+                    sqlCommand.Parameters.AddWithValue("IdComplex", newComplex.IdComplex);
+                    sqlConnection.Open();
+                    var noOfRowsAffected = sqlCommand.ExecuteNonQuery();
+                    isDeleted = noOfRowsAffected > 0;
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK,
+                        MessageBoxImage.Error);
+                }
+                finally
+                {
+                    sqlConnection.Close();
+                }
+            }
+
+            return isDeleted;
         }
 
         public bool InsertApartment(Apartment newApartment)
@@ -345,17 +483,129 @@ namespace Esoft.ClassFolder
 
         public bool InsertHouse(House newHouse)
         {
-            throw new NotImplementedException();
+            var isInserted = false;
+            using (var sqlConnection = new SqlConnection(CSqlConfig.DefaultCnnVal()))
+            {
+                try
+                {
+                    var sqlQuery = "INSERT INTO dbo.[House] ([Street]," +
+                                   " [Number_House], [Cost_House_Construction], [Additional_Cost_Apartament_House], [IdComplex], [IsDeleted])" +
+                                   " VALUES (@Street, @Number_House, " +
+                                   "@Cost_House_Construction, @Additional_Cost_Apartament_House, @IdComplex, 0)";
+                    var sqlCommand = new SqlCommand(sqlQuery, sqlConnection);
+                    sqlCommand.Parameters.AddWithValue("Street", newHouse.Street);
+                    sqlCommand.Parameters.AddWithValue("Number_House", newHouse.NumberHouse);
+                    sqlCommand.Parameters.AddWithValue("Cost_House_Construction", newHouse.CostHouseConstruction);
+                    sqlCommand.Parameters.AddWithValue("Additional_Cost_Apartament_House", newHouse.AdditionalCostHouseConstruction);
+                    sqlCommand.Parameters.AddWithValue("IdComplex", newHouse.IdComplex);
+                    sqlConnection.Open();
+                    var noOfRowsAffected = sqlCommand.ExecuteNonQuery();
+                    isInserted = noOfRowsAffected > 0;
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK,
+                        MessageBoxImage.Error);
+                }
+                finally
+                {
+                    sqlConnection.Close();
+                }
+            }
+
+            return isInserted;
         }
 
-        public bool SelectHouse(House selectHouse)
+        public House SelectHouse(House selectHouse)
         {
-            throw new NotImplementedException();
+            var tempHouse = new House();
+            using (var sqlConnection = new SqlConnection(CSqlConfig.DefaultCnnVal()))
+            {
+                try
+                {
+                    var sqlQuery = "SELECT [IdHouse], [Street]," +
+                                   " [Number_House], [Cost_House_Construction]," +
+                                   " [Additional_Cost_Apartament_House], [IdComplex]";
+                    sqlQuery += " FROM [dbo].[House]";
+                    sqlQuery += " WHERE [House].IdHouse = @IdHouse AND [House].IsDeleted=0";
+                    var sqlCommand = new SqlCommand(sqlQuery, sqlConnection);
+                    sqlConnection.Open();
+                    sqlCommand.Parameters.AddWithValue("IdHouse", selectHouse.IdHouse);
+                    var reader = sqlCommand.ExecuteReader();
+                    var items = new List<House>();
+                    while (reader.Read())
+                    {
+                        var u = new House
+                        {
+                            IdHouse = (int)reader["IdHouse"],
+                            Street = (string)reader["Street"],
+                            NumberHouse = (string)reader["Number_House"],
+                            CostHouseConstruction = (long)reader["Cost_House_Construction"],
+                            AdditionalCostHouseConstruction = (long)reader["Additional_Cost_Apartament_House"],
+                            IdComplex = (int)reader["IdComplex"]
+
+
+                        };
+                        items.Add(u);
+                    }
+                    if (items.Count > 0) tempHouse = items[0];
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK,
+                        MessageBoxImage.Error);
+                }
+                finally
+                {
+                    sqlConnection.Close();
+
+                }
+            }
+
+            return tempHouse;
         }
 
         public bool UpdateHouse(House updateHouse)
         {
-            throw new NotImplementedException();
+            var isUpdated = false;
+            using (var sqlConnection = new SqlConnection(CSqlConfig.DefaultCnnVal()))
+            {
+                try
+                {
+                    const string sqlQuery = "UPDATE dbo.[House] set " +
+                                            " Street=@Street, " +
+                                            " Number_House=@Number_House, " +
+                                            " Cost_House_Construction=@Cost_House_Construction," +
+                                            " Additional_Cost_Apartament_House=@Additional_Cost_Apartament_House," +
+                                            " IdComplex=@IdComplex," +
+                                            " IsDeleted=0" +
+                                            " WHERE IdHouse=@IdHouse";
+                    var sqlCommand = new SqlCommand(sqlQuery, sqlConnection);
+                    sqlCommand.Parameters.AddWithValue("Street", updateHouse.Street);
+                    sqlCommand.Parameters.AddWithValue("Number_House", updateHouse.NumberHouse);
+                    sqlCommand.Parameters.AddWithValue("Cost_House_Construction", updateHouse.CostHouseConstruction);
+                    sqlCommand.Parameters.AddWithValue("Additional_Cost_Apartament_House", updateHouse.AdditionalCostHouseConstruction);
+                    sqlCommand.Parameters.AddWithValue("IdComplex", updateHouse.IdComplex);
+                    sqlCommand.Parameters.AddWithValue("IdHouse", updateHouse.IdHouse);
+                    
+                    sqlConnection.Open();
+                    var noOfRowsAffected = sqlCommand.ExecuteNonQuery();
+                    isUpdated = noOfRowsAffected > 0;
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK,
+                        MessageBoxImage.Error);
+                }
+                finally
+                {
+                    sqlConnection.Close();
+                }
+            }
+            return isUpdated;
         }
 
         public bool DeleteHouse(House deleteHouse)

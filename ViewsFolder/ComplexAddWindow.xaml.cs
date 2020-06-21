@@ -8,12 +8,12 @@ using Esoft.ViewModelsFolder;
 namespace Esoft.ViewsFolder
 {
     /// <summary>
-    /// Interaction logic for HouseEditWindow.xaml
+    /// Interaction logic for ComplexAddWindow.xaml
     /// </summary>
-    public partial class HouseEditWindow : Window
+    public partial class ComplexAddWindow : Window
     {
         public Delegate UpdateActor;
-        public HouseEditWindow()
+        public ComplexAddWindow()
         {
             InitializeComponent();
             
@@ -21,9 +21,9 @@ namespace Esoft.ViewsFolder
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            var houseVM = new HouseVM();
+            var complexVM = new ComplexVM();
             this.DataContext = null;
-            this.DataContext = houseVM;
+            this.DataContext = complexVM;
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)

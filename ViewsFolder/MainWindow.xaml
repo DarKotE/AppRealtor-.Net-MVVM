@@ -79,8 +79,8 @@
                  ItemsSource="{Binding StreetList}"
                  SelectedItem="{Binding SelectedStreet, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}" Margin="353.8,29,16,28.6" RenderTransformOrigin="-0.776,-1.077" Grid.Column="2" Grid.RowSpan="2" DropDownClosed="cbStreet_DropDownClosed"/>
         <Button x:Name="Exit" Content="Выход" Style="{DynamicResource BtnStyle}" Grid.Row="10"  Click="Exit_Click"  Grid.Column="3" Margin="10,30.2,10,34.2" Grid.RowSpan="2" />
-        <Button x:Name="Add" Content="Создать дом" Style="{DynamicResource BtnBigStyle}" 
-                Grid.Column="3"  Margin="10,17.6,9,0" Click="Add_OnClick" Height="38" VerticalAlignment="Top" Grid.Row="7"/>
+        <Button x:Name="Add" Content="Создать дом" Style="{DynamicResource BtnBigStyle}" Command="{Binding Path=AddCommand}"
+                Grid.Column="3"  Margin="10,17.6,9,14.4" Click="Add_OnClick" Height="Auto" Grid.Row="7"/>
         <Label x:Name="lblComplex" Content="ЖК" Style="{DynamicResource LabelStyle}"  Margin="98.8,30,423,26.6" Padding="0" Height="Auto" Grid.Column="2" Grid.RowSpan="2" RenderTransformOrigin="1.074,0.433"/>
         <Label x:Name="lblStreet" Content="Улица" Style="{DynamicResource LabelStyle}"  Margin="309.8,29,195,28.6" Padding="0" Height="Auto" Grid.Column="2" Grid.RowSpan="2" RenderTransformOrigin="-0.01,0.462"/>
         <Button x:Name="tbEdit" Content="Редактировать" Style="{DynamicResource BtnBigStyle}" 
@@ -89,7 +89,7 @@
         <Button x:Name="tbDelete" Content="Удалить" Style="{DynamicResource BtnBigStyle}" 
                 Command="{Binding Path=DeleteCommand}"
             Grid.Column="3"  Margin="9,46.2,10,0" Grid.RowSpan="2" Click="tbDelete_OnClick" Height="38" VerticalAlignment="Top" Grid.Row="9"/>
-        <Button x:Name="tbApartmentWindow" Content="Список квартир" Style="{DynamicResource BtnBigStyle}" 
+        <Button x:Name="tbApartmentWindow" Content="Список ЖК" Style="{DynamicResource BtnBigStyle}" 
             Grid.Column="3"  Margin="10,30,9,0" Click="tbApartmentWindow_OnClick" Height="38" VerticalAlignment="Top" Grid.RowSpan="2"/>
     </Grid>
 </Window>

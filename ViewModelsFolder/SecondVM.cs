@@ -18,11 +18,14 @@ namespace Esoft.ViewModelsFolder
 
         public SecondVM()
         {
-            SaveCommand = new RelayCommand(Save);
+            EditCommand = new RelayCommand(Edit);
+            AddCommand = new RelayCommand(Add);
             DeleteCommand = new RelayCommand(Delete);
             DataController = new DataController();
             LoadData();
         }
+
+        public RelayCommand EditCommand { get; set; }
 
         public DataController DataController { get; }
 
@@ -177,6 +180,8 @@ namespace Esoft.ViewModelsFolder
         
 
         public RelayCommand DeleteCommand { get; }
+        public RelayCommand AddCommand { get; }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -205,16 +210,16 @@ namespace Esoft.ViewModelsFolder
         }
 
 
-        public void Save(object param)
+        public void Add(object param)
         {
-            //var isAllSaved = true;
-            //foreach (var item in filteredJournalList)
-            //    if (!JournalController.Update(item))
-            //        isAllSaved = false;
+            App.Id = 0;
+        }
 
-            //Message = isAllSaved ? "Изменения сохранены" : "При сохранении произошла ошибка";
-            //MessageBox.Show(Message);
-            //LoadData();
+
+
+        public void Edit(object param)
+        {
+            App.Id = SelectedRow.IdComplex;
         }
 
         public void Delete(object param)

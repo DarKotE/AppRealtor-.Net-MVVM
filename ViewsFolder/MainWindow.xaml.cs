@@ -42,6 +42,7 @@ namespace Esoft.ViewsFolder
         public MainWindow()
         {
             InitializeComponent();
+            
             RefreshView();
         }
 
@@ -69,6 +70,7 @@ namespace Esoft.ViewsFolder
 
         private void Add_OnClick(object sender, RoutedEventArgs e)
         {
+            App.Id = 0;
             RefreshEvent += new Refresh(RefreshView);
             HouseAddWindow winAdd = new HouseAddWindow();
             winAdd.UpdateActor = RefreshEvent;
@@ -102,12 +104,14 @@ namespace Esoft.ViewsFolder
             appartmentWindow.ShowDialog();
         }
 
-        private void tbEdit_OnClick(object sender, RoutedEventArgs e)
+        private async void tbEdit_OnClick(object sender, RoutedEventArgs e)
         {
+            await Task.Delay(100);
             RefreshEvent += new Refresh(RefreshView);
             HouseEditWindow winAdd = new HouseEditWindow();
             winAdd.UpdateActor = RefreshEvent;
             winAdd.Show();
+
         }
 
         private void tbDelete_OnClick(object sender, RoutedEventArgs e)

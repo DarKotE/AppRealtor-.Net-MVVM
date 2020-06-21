@@ -26,13 +26,13 @@ namespace Esoft.ClassFolder
             set { _statusConstructionHousingComplex = value;
                 switch (_statusConstructionHousingComplex)
                 {
-                    case "built":
-                        _statusConstructionHousingComplex = "Строительство";
-                        break;
-                    case "plan":
+                    case "1":
                         _statusConstructionHousingComplex = "План";
                         break;
-                    case "realization":
+                    case "2":
+                        _statusConstructionHousingComplex = "Строительство";
+                        break;
+                    case "3":
                         _statusConstructionHousingComplex = "Реализация";
                         break;
 

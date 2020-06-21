@@ -100,7 +100,10 @@
     <Compile Include="ClassFolder\old\EvaluationModel.cs" />
     <Compile Include="ClassFolder\old\StudentModel.cs" />
     <Compile Include="ClassFolder\old\TeacherModel.cs" />
+    <Compile Include="ClassFolder\Validator.cs" />
     <Compile Include="CommandsFolder\RelayCommand.cs" />
+    <Compile Include="ViewModelsFolder\HouseVM.cs" />
+    <Compile Include="ViewModelsFolder\ComplexVM.cs" />
     <Compile Include="ViewModelsFolder\SecondVM.cs" />
     <Compile Include="ViewModelsFolder\old\VMProfileTeacher.cs" />
     <Compile Include="ViewModelsFolder\old\VMAddJournal.cs" />
@@ -115,6 +118,12 @@
     </Compile>
     <Compile Include="ViewsFolder\HouseEditWindow.xaml.cs">
       <DependentUpon>HouseEditWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewsFolder\ComplexEditWindow.xaml.cs">
+      <DependentUpon>ComplexEditWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewsFolder\ComplexAddWindow.xaml.cs">
+      <DependentUpon>ComplexAddWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewsFolder\SecondWindow.xaml.cs">
       <DependentUpon>SecondWindow.xaml</DependentUpon>
@@ -176,6 +185,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ViewsFolder\HouseEditWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ViewsFolder\ComplexEditWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ViewsFolder\ComplexAddWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

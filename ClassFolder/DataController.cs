@@ -50,9 +50,10 @@ namespace Esoft.ClassFolder
             return DataAccess != null && DataAccess.InsertComplex(newComplex);
         }
 
-        public bool Read(Complex selectComplex)
+        public Complex Read(Complex selectComplex)
         {
-            return DataAccess != null && DataAccess.SelectComplex(selectComplex);
+            if (DataAccess != null) return DataAccess.SelectComplex(selectComplex);
+            return new Complex();
         }
 
         public bool Update(Complex updateComplex)
@@ -97,9 +98,11 @@ namespace Esoft.ClassFolder
             return DataAccess != null && DataAccess.InsertHouse(newHouse);
         }
 
-        public bool Read(House selectHouse)
+        public House Read(House selectHouse)
         {
-            return DataAccess != null && DataAccess.SelectHouse(selectHouse);
+            if (DataAccess != null) return DataAccess.SelectHouse(selectHouse);
+            return new House();
+
         }
 
         public bool Update(House updateHouse)
@@ -116,25 +119,6 @@ namespace Esoft.ClassFolder
 
         #region CRUD operations for HouseInComplex
 
-        public bool Create(HouseInComplex newHouse)
-        {
-            return DataAccess != null && DataAccess.InsertHouse(newHouse);
-        }
-
-        public bool Read(HouseInComplex selectHouse)
-        {
-            return DataAccess != null && DataAccess.SelectHouse(selectHouse);
-        }
-
-        public bool Update(HouseInComplex updateHouse)
-        {
-            return DataAccess != null && DataAccess.UpdateHouse(updateHouse);
-        }
-
-        public bool Delete(HouseInComplex deleteHouse)
-        {
-            return DataAccess != null && DataAccess.DeleteHouse(deleteHouse);
-        }
 
         #endregion
 

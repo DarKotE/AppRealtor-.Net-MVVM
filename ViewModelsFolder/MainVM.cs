@@ -18,11 +18,14 @@ namespace Esoft.ViewModelsFolder
 
         public MainVM()
         {
-            SaveCommand = new RelayCommand(Save);
+            AddCommand = new RelayCommand(Add);
+            EditCommand = new RelayCommand(Edit);
             DeleteCommand = new RelayCommand(Delete);
             DataController = new DataController();
             LoadData();
         }
+
+        public RelayCommand EditCommand { get; set; }
 
         public DataController DataController { get; }
 
@@ -170,6 +173,7 @@ namespace Esoft.ViewModelsFolder
         }
 
         public RelayCommand DeleteCommand { get; }
+        public RelayCommand AddCommand { get; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -177,7 +181,7 @@ namespace Esoft.ViewModelsFolder
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        
+
 
         private void LoadData()
         {
@@ -185,37 +189,52 @@ namespace Esoft.ViewModelsFolder
             ApartmentList = new ObservableCollection<Apartment>(DataController.GetAllApartment());
             foreach (var house in HouseList)
             {
-                house.ReadyApartmentCount = ApartmentList.Count(x => x.IdLsd.Equals(house.IdHouse) && x.StatusSale.Equals("ready"));
-                house.SoldApartmentCount = ApartmentList.Count(x => x.IdLsd.Equals(house.IdHouse) && x.StatusSale.Equals("sold"));
+                house.ReadyApartmentCount =
+                    ApartmentList.Count(x => x.IdLsd.Equals(house.IdHouse) && x.StatusSale.Equals("ready"));
+                house.SoldApartmentCount =
+                    ApartmentList.Count(x => x.IdLsd.Equals(house.IdHouse) && x.StatusSale.Equals("sold"));
             }
-            ComplexList = new ObservableCollection<string>(HouseList.Select(c => c.NameHousingComplex).Distinct().ToList());
-            StreetList = new ObservableCollection<string>(HouseList.Select(c => c.Street).Distinct().ToList());
+
+            ComplexList = new ObservableCollection<string>(HouseList.Select(c => c.NameHousingComplex)
+                .Distinct()
+                .ToList());
+            StreetList = new ObservableCollection<string>(HouseList.Select(c => c.Street)
+                .Distinct()
+                .ToList());
             SelectedRow = new House();
             SearchText = String.Empty;
-            
+
 
         }
 
 
-        public void Save(object param)
+        public void Add(object param)
         {
-            //var isAllSaved = true;
-            //foreach (var item in filteredJournalList)
-            //    if (!JournalController.Update(item))
-            //        isAllSaved = false;
 
-            //Message = isAllSaved ? "Изменения сохранены" : "При сохранении произошла ошибка";
-            //MessageBox.Show(Message);
-            //LoadData();
+            App.Id = 0;
+
+
+        }
+        public void Edit(object param)
+        {
+
+            App.Id = SelectedRow.IdHouse;
+
+
         }
 
         public void Delete(object param)
         {
-            MessageBoxResult result = MessageBox.Show("Удалить?", "Информация", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            MessageBoxResult result = MessageBox.Show("Удалить?",
+                "Информация",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
                 var isDeleted = DataController.Delete(SelectedRow);
-                Message = isDeleted ? "Удалено" : "При удалении произошла ошибка";
+                Message = isDeleted
+                    ? "Удалено"
+                    : "При удалении произошла ошибка";
                 MessageBox.Show(Message);
                 LoadData();
             }

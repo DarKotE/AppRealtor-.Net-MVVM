@@ -5,8 +5,79 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Esoft.ViewsFolder"
         mc:Ignorable="d"
-        Title="Esoft" Height="613.5" Width="874.4"
+        Title="Esoft" Height="613.5" Width="500.417"
         WindowStartupLocation="CenterScreen"
         Style="{DynamicResource WindowsStyle}" Loaded="Window_Loaded">
-    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="16"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="16"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="16"/>
+            <RowDefinition Height="38"/>
+            <RowDefinition Height="16"/>
+            <RowDefinition Height="62"/>
+            <RowDefinition Height="62"/>
+            <RowDefinition Height="62"/>
+            <RowDefinition Height="62"/>
+            <RowDefinition Height="62"/>
+            <RowDefinition Height="62"/>
+            <RowDefinition Height="62"/>
+
+
+            <RowDefinition Height="16"/>
+            <RowDefinition Height="38"/>
+            <RowDefinition Height="16"/>
+        </Grid.RowDefinitions>
+        <Label Content="Редактировать дом" Grid.Row="1"  Grid.ColumnSpan="2" 
+               Style="{DynamicResource LabelTitle}" Grid.Column="1" Margin="0,0" />
+        <Label Grid.Row="3"   
+               Style="{DynamicResource LabelStyle}" Grid.Column="1" Margin="16,0.2,10.2,0" Height="Auto" RenderTransformOrigin="0.811,0.575"  >
+            <Label.Content>
+                <AccessText TextWrapping="Wrap" Text="Улица" TextAlignment="Center"/>
+            </Label.Content>
+        </Label>
+        <Label Grid.Row="4"   
+            Style="{DynamicResource LabelStyle}" Grid.Column="1" Margin="16,0,10.2,0.2" Height="Auto" RenderTransformOrigin="0.811,0.575"  >
+            <AccessText TextWrapping="Wrap" Text="Номер дома" TextAlignment="Center"/>
+        </Label>
+        <Label Grid.Row="4"   
+            Style="{DynamicResource LabelStyle}" Grid.Column="1" Margin="16,63,10.2,0.4" Height="Auto" RenderTransformOrigin="0.811,0.575" Grid.RowSpan="2"  >
+            <AccessText TextWrapping="Wrap" Text="ЖК" TextAlignment="Center"/>
+        </Label>
+        <Label Grid.Row="5"   
+            Style="{DynamicResource LabelStyle}" Grid.Column="1" Margin="16,62.8,10.2,62.2" Height="Auto" RenderTransformOrigin="0.811,0.575" Grid.RowSpan="3"  >
+            <AccessText TextWrapping="Wrap" Text="Добавочная стоимость" TextAlignment="Center"/>
+        </Label>
+        <Label Grid.Row="7"   
+            Style="{DynamicResource LabelStyle}" Grid.Column="1" Margin="16,0.2,10.2,61.6" Height="Auto" RenderTransformOrigin="0.811,0.575" Grid.RowSpan="2"  >
+            <AccessText TextWrapping="Wrap" Text="Затраты на строительство" TextAlignment="Center"/>
+        </Label>
+        <TextBox x:Name="tbStreet" Grid.Column="2" Grid.Row="3"
+                 Text="{Binding Path=CurrentHouse.Street}"
+                 Style="{DynamicResource TbStyle}"/>
+        <TextBox x:Name="tbStreetNumber" Grid.Column="2" Grid.Row="4"
+                 Text="{Binding Path=CurrentHouse.NumberHouse}"
+                 Style="{DynamicResource TbStyle}"/>
+        <ComboBox x:Name="cbComplex"  
+                  ItemsSource="{Binding ComplexList}" DisplayMemberPath="NameHousingComplex"
+                  SelectedItem="{Binding SelectedComplex, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Margin="9.8,16.8,10.4,16.4" Grid.Row="5"/>
+        <TextBox x:Name="tbAddCost" Grid.Column="2" Grid.Row="6" PreviewTextInput="NumberValidationTextBox"
+                 Text="{Binding Path=CurrentHouse.AdditionalCostHouseConstruction}"
+                 Style="{DynamicResource TbStyle}"/>
+        <TextBox x:Name="tbCost" Grid.Column="2" Grid.Row="7" PreviewTextInput="NumberValidationTextBox"
+                 Text="{Binding Path=CurrentHouse.CostHouseConstruction}"
+                 Style="{DynamicResource TbStyle}"/>
+        <Button x:Name="btnBack" Content="Назад" Grid.Column="1" Grid.Row="9"
+                                                                                                                                                                                                                                                       Style="{DynamicResource BtnStyle}" Background="#ffd800" Click="btnBack_Click"/>
+        <Button x:Name="btnSaveChanges" Content="Сохранить изменения" Grid.Column="2" 
+                Command="{Binding Path=SaveCommand}" CommandParameter="{Binding ElementName=PbPassword}"
+                Grid.Row="9" Style="{DynamicResource BtnStyle}" Click="btnSaveChanges_Click" Background="#ffd800"/>
+
+
+    </Grid>
+
 </Window>
