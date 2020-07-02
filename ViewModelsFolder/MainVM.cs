@@ -37,7 +37,7 @@ namespace Esoft.ViewModelsFolder
             set
             {
                 _filteredHouseList = value;
-                OnPropertyChanged("FilteredHouseList");
+                OnPropertyChanged(nameof(FilteredHouseList));
             }
         }
 
@@ -49,7 +49,7 @@ namespace Esoft.ViewModelsFolder
             set
             {
                 _houseList = value;
-                OnPropertyChanged("HouseList");
+                OnPropertyChanged(nameof(HouseList));
             }
         }
         private ObservableCollection<Apartment> _apartmentList;
@@ -59,7 +59,7 @@ namespace Esoft.ViewModelsFolder
             set
             {
                 _apartmentList = value;
-                OnPropertyChanged("ApartmentList");
+                OnPropertyChanged(nameof(ApartmentList));
             }
         }
 
@@ -70,7 +70,7 @@ namespace Esoft.ViewModelsFolder
             set
             {
                 _complexList = value;
-                OnPropertyChanged("ComplexList");
+                OnPropertyChanged(nameof(ComplexList));
             }
         }
 
@@ -81,7 +81,7 @@ namespace Esoft.ViewModelsFolder
             set
             {
                 _streetList = value;
-                OnPropertyChanged("StreetList");
+                OnPropertyChanged(nameof(StreetList));
             }
         }
         
@@ -100,7 +100,7 @@ namespace Esoft.ViewModelsFolder
                                || item.Street.ToUpper().Contains(SearchText.ToUpper()))
                         select item);
                 if (FilteredHouseList.Any()) SelectedRow = FilteredHouseList[0];
-                OnPropertyChanged("SearchText");
+                OnPropertyChanged(nameof(SearchText));
             }
         }
 
@@ -111,7 +111,7 @@ namespace Esoft.ViewModelsFolder
             set
             {
                 selectedRow = value;
-                OnPropertyChanged("SelectedRow");
+                OnPropertyChanged(nameof(SelectedRow));
             }
         }
 
@@ -147,7 +147,7 @@ namespace Esoft.ViewModelsFolder
                     if (FilteredHouseList.Any()) SelectedRow = FilteredHouseList[0];
                 }
                    
-                OnPropertyChanged("SelectedComplex");
+                OnPropertyChanged(nameof(SelectedComplex));
             }
         }
         private string _selectedStreet;
@@ -168,7 +168,7 @@ namespace Esoft.ViewModelsFolder
                     if (FilteredHouseList.Any()) SelectedRow = FilteredHouseList[0];
                 }
                 
-                OnPropertyChanged("SelectedStreet");                
+                OnPropertyChanged(nameof(SelectedStreet));                
 
             }
         }

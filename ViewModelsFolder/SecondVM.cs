@@ -37,7 +37,7 @@ namespace Esoft.ViewModelsFolder
             set
             {
                 _filteredComplexList = value;
-                OnPropertyChanged("FilteredComplexList");
+                OnPropertyChanged(nameof(FilteredComplexList));
             }
         }
 
@@ -50,7 +50,7 @@ namespace Esoft.ViewModelsFolder
             set
             {
                 _complexList = value;
-                OnPropertyChanged("ComplexList");
+                OnPropertyChanged(nameof(ComplexList));
             }
         }
 
@@ -62,7 +62,7 @@ namespace Esoft.ViewModelsFolder
             set
             {
                 _houseList = value;
-                OnPropertyChanged("HouseList");
+                OnPropertyChanged(nameof(HouseList));
             }
         }
 
@@ -75,7 +75,7 @@ namespace Esoft.ViewModelsFolder
             set
             {
                 _cityList = value;
-                OnPropertyChanged("CityList");
+                OnPropertyChanged(nameof(CityList));
             }
         }
 
@@ -87,7 +87,7 @@ namespace Esoft.ViewModelsFolder
             set
             {
                 _statusList = value;
-                OnPropertyChanged("StatusList");
+                OnPropertyChanged(nameof(StatusList));
             }
         }
 
@@ -112,7 +112,7 @@ namespace Esoft.ViewModelsFolder
                     if (FilteredComplexList.Any()) SelectedRow = FilteredComplexList[0];
                 }
 
-                OnPropertyChanged("SelectedStatus");
+                OnPropertyChanged(nameof(SelectedStatus));
             }
         }
 
@@ -135,7 +135,7 @@ namespace Esoft.ViewModelsFolder
                     if (FilteredComplexList.Any()) SelectedRow = FilteredComplexList[0];
                 }
 
-                OnPropertyChanged("SelectedCity");
+                OnPropertyChanged(nameof(SelectedCity));
             }
         }
 
@@ -155,7 +155,7 @@ namespace Esoft.ViewModelsFolder
                               || item.StatusConstructionHousingComplexName.ToUpper().Contains(SearchText.ToUpper())
                         select item);
                 if (FilteredComplexList.Any()) SelectedRow = FilteredComplexList[0];
-                OnPropertyChanged("SearchText");
+                OnPropertyChanged(nameof(SearchText));
             }
         }
 
@@ -167,7 +167,7 @@ namespace Esoft.ViewModelsFolder
             set
             {
                 selectedRow = value;
-                OnPropertyChanged("SelectedRow");
+                OnPropertyChanged(nameof(SelectedRow));
             }
         }
 

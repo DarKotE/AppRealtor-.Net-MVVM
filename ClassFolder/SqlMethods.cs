@@ -22,10 +22,13 @@ namespace Esoft.ClassFolder
                     sqlQuery += " FROM [dbo].[Complex]";
                     sqlQuery += " WHERE [Complex].IsDeleted = 0";
 
-                    var sqlCommand = new SqlCommand(sqlQuery,
-                        sqlConnection);
-                    sqlConnection.Open();
-                    var reader = sqlCommand.ExecuteReader();
+                    SqlDataReader reader;
+                    using (var sqlCommand = new SqlCommand(sqlQuery, sqlConnection))
+                    {
+                        sqlConnection.Open();
+                        reader = sqlCommand.ExecuteReader();
+                    }
+
                     if (reader.HasRows)
                     {
                         var items = new List<Complex>();
@@ -81,10 +84,13 @@ namespace Esoft.ClassFolder
                     sqlQuery += " inner join [dbo].[Complex] on [Complex].IdComplex = [House].IdComplex";
                     sqlQuery += " WHERE [House].IsDeleted = 0";
 
-                    var sqlCommand = new SqlCommand(sqlQuery,
-                        sqlConnection);
-                    sqlConnection.Open();
-                    var reader = sqlCommand.ExecuteReader();
+                    SqlDataReader reader;
+                    using (var sqlCommand = new SqlCommand(sqlQuery, sqlConnection))
+                    {
+                        sqlConnection.Open();
+                        reader = sqlCommand.ExecuteReader();
+                    }
+
                     if (reader.HasRows)
                     {
                         var items = new List<HouseInComplex>();
@@ -141,10 +147,13 @@ namespace Esoft.ClassFolder
                     sqlQuery += " FROM [dbo].[Complex]";
                     sqlQuery += " WHERE [Complex].IsDeleted = 0";
 
-                    var sqlCommand = new SqlCommand(sqlQuery,
-                        sqlConnection);
-                    sqlConnection.Open();
-                    var reader = sqlCommand.ExecuteReader();
+                    SqlDataReader reader;
+                    using (var sqlCommand = new SqlCommand(sqlQuery, sqlConnection))
+                    {
+                        sqlConnection.Open();
+                        reader = sqlCommand.ExecuteReader();
+                    }
+
                     if (reader.HasRows)
                     {
                         var items = new List<ComplexWithHouses>();
@@ -199,10 +208,13 @@ namespace Esoft.ClassFolder
                         "SELECT [IdHouse], [Street], [Number_House], [Cost_House_Construction], " +
                         "[Additional_Cost_Apartament_House], [IdComplex], [IsDeleted] ";
                     sqlQuery += " FROM [dbo].[House]";
-                    var sqlCommand = new SqlCommand(sqlQuery,
-                        sqlConnection);
-                    sqlConnection.Open();
-                    var reader = sqlCommand.ExecuteReader();
+                    SqlDataReader reader;
+                    using (var sqlCommand = new SqlCommand(sqlQuery, sqlConnection))
+                    {
+                        sqlConnection.Open();
+                        reader = sqlCommand.ExecuteReader();
+                    }
+
                     if (reader.HasRows)
                     {
                         var items = new List<House>();
@@ -257,10 +269,13 @@ namespace Esoft.ClassFolder
                         "[Porch], [Floor], [Status_Sale], "
                         + "[Added_value], [Expenses_Building_An_Apartment]";
                     sqlQuery += " FROM [dbo].[Apartments]";
-                    var sqlCommand = new SqlCommand(sqlQuery,
-                        sqlConnection);
-                    sqlConnection.Open();
-                    var reader = sqlCommand.ExecuteReader();
+                    SqlDataReader reader;
+                    using (var sqlCommand = new SqlCommand(sqlQuery, sqlConnection))
+                    {
+                        sqlConnection.Open();
+                        reader = sqlCommand.ExecuteReader();
+                    }
+
                     if (reader.HasRows)
                     {
                         var items = new List<Apartment>();
@@ -321,11 +336,15 @@ namespace Esoft.ClassFolder
                     sqlQuery += " inner join[dbo].[Complex] on[Complex].IdComplex = House.IdComplex";
                     sqlQuery += " WHERE Apartments.Status_Sale = 'sold' and [Complex].IdComplex = @IdComplex";
 
-                    var sqlCommand = new SqlCommand(sqlQuery,
-                        sqlConnection);
-                    sqlCommand.Parameters.AddWithValue("IdComplex", complexToDelete.IdComplex);
-                    sqlConnection.Open();
-                    var reader = sqlCommand.ExecuteReader();
+                    SqlDataReader reader;
+                    using (var sqlCommand = new SqlCommand(sqlQuery, sqlConnection))
+                    {
+                        if (complexToDelete != null)
+                            sqlCommand.Parameters.AddWithValue("IdComplex", complexToDelete.IdComplex);
+                        sqlConnection.Open();
+                        reader = sqlCommand.ExecuteReader();
+                    }
+
                     if (reader.HasRows)
                     {
                         isPossible = false;
@@ -361,14 +380,23 @@ namespace Esoft.ClassFolder
                                    " City, Status_Construction_Housing_Complex, Added_Value, Building_Costs, IsDeleted)" +
                                    " VALUES (@Name_Housing_Complex, @City, " +
                                    "@Status_Construction_Housing_Complex, @Added_Value, @Building_Costs, 0)";
-                    var sqlCommand = new SqlCommand(sqlQuery, sqlConnection);
-                    sqlCommand.Parameters.AddWithValue("Name_Housing_Complex", newComplex.NameHousingComplex);
-                    sqlCommand.Parameters.AddWithValue("Status_Construction_Housing_Complex", newComplex.StatusConstructionHousingComplex);
-                    sqlCommand.Parameters.AddWithValue("Added_Value", newComplex.AddedValue);
-                    sqlCommand.Parameters.AddWithValue("Building_Costs", newComplex.BuildingCost);
-                    sqlCommand.Parameters.AddWithValue("City", newComplex.City);
-                    sqlConnection.Open();
-                    var noOfRowsAffected = sqlCommand.ExecuteNonQuery();
+                    int noOfRowsAffected;
+                    using (var sqlCommand = new SqlCommand(sqlQuery, sqlConnection))
+                    {
+                        if (newComplex != null)
+                        {
+                            sqlCommand.Parameters.AddWithValue("Name_Housing_Complex", newComplex.NameHousingComplex);
+                            sqlCommand.Parameters.AddWithValue("Status_Construction_Housing_Complex",
+                                newComplex.StatusConstructionHousingComplex);
+                            sqlCommand.Parameters.AddWithValue("Added_Value", newComplex.AddedValue);
+                            sqlCommand.Parameters.AddWithValue("Building_Costs", newComplex.BuildingCost);
+                            sqlCommand.Parameters.AddWithValue("City", newComplex.City);
+                        }
+
+                        sqlConnection.Open();
+                        noOfRowsAffected = sqlCommand.ExecuteNonQuery();
+                    }
+
                     isInserted = noOfRowsAffected > 0;
 
                 }
@@ -398,10 +426,14 @@ namespace Esoft.ClassFolder
                                    " [Added_Value], [Building_Costs]";
                     sqlQuery += " FROM [dbo].[Complex]";
                     sqlQuery += " WHERE [Complex].IdComplex = @IdComplex AND [Complex].IsDeleted=0";
-                    var sqlCommand = new SqlCommand(sqlQuery, sqlConnection);
-                    sqlConnection.Open();
-                    sqlCommand.Parameters.AddWithValue("IdComplex", newComplex.IdComplex);
-                    var reader = sqlCommand.ExecuteReader();
+                    SqlDataReader reader;
+                    using (var sqlCommand = new SqlCommand(sqlQuery, sqlConnection))
+                    {
+                        sqlConnection.Open();
+                        if (newComplex != null) sqlCommand.Parameters.AddWithValue("IdComplex", newComplex.IdComplex);
+                        reader = sqlCommand.ExecuteReader();
+                    }
+
                     var items = new List<Complex>();
                     while (reader.Read())
                     {
@@ -451,16 +483,25 @@ namespace Esoft.ClassFolder
                                             " Building_Costs=@Building_Costs," +
                                             " IsDeleted=0" +
                                             " WHERE IdComplex=@IdComplex";
-                    var sqlCommand = new SqlCommand(sqlQuery, sqlConnection);
-                    sqlCommand.Parameters.AddWithValue("Name_Housing_Complex", newComplex.NameHousingComplex);
-                    sqlCommand.Parameters.AddWithValue("City", newComplex.City);
-                    sqlCommand.Parameters.AddWithValue("Status_Construction_Housing_Complex", newComplex.StatusConstructionHousingComplex);
-                    sqlCommand.Parameters.AddWithValue("Added_Value", newComplex.AddedValue);
-                    sqlCommand.Parameters.AddWithValue("Building_Costs", newComplex.BuildingCost);
-                    sqlCommand.Parameters.AddWithValue("NumberPhoneTeacher", newComplex.NameHousingComplex);
-                    sqlCommand.Parameters.AddWithValue("IdComplex", newComplex.IdComplex);
-                    sqlConnection.Open();
-                    var noOfRowsAffected = sqlCommand.ExecuteNonQuery();
+                    int noOfRowsAffected;
+                    using (var sqlCommand = new SqlCommand(sqlQuery, sqlConnection))
+                    {
+                        if (newComplex != null)
+                        {
+                            sqlCommand.Parameters.AddWithValue("Name_Housing_Complex", newComplex.NameHousingComplex);
+                            sqlCommand.Parameters.AddWithValue("City", newComplex.City);
+                            sqlCommand.Parameters.AddWithValue("Status_Construction_Housing_Complex",
+                                newComplex.StatusConstructionHousingComplex);
+                            sqlCommand.Parameters.AddWithValue("Added_Value", newComplex.AddedValue);
+                            sqlCommand.Parameters.AddWithValue("Building_Costs", newComplex.BuildingCost);
+                            sqlCommand.Parameters.AddWithValue("NumberPhoneTeacher", newComplex.NameHousingComplex);
+                            sqlCommand.Parameters.AddWithValue("IdComplex", newComplex.IdComplex);
+                        }
+
+                        sqlConnection.Open();
+                        noOfRowsAffected = sqlCommand.ExecuteNonQuery();
+                    }
+
                     isUpdated = noOfRowsAffected > 0;
 
                 }
@@ -487,10 +528,14 @@ namespace Esoft.ClassFolder
                 {
                     const string sqlQuery = "UPDATE dbo.[Complex] set IsDeleted=1 "
                                             + "WHERE IdComplex=@IdComplex";
-                    var sqlCommand = new SqlCommand(sqlQuery, sqlConnection);
-                    sqlCommand.Parameters.AddWithValue("IdComplex", newComplex.IdComplex);
-                    sqlConnection.Open();
-                    var noOfRowsAffected = sqlCommand.ExecuteNonQuery();
+                    int noOfRowsAffected;
+                    using (var sqlCommand = new SqlCommand(sqlQuery, sqlConnection))
+                    {
+                        if (newComplex != null) sqlCommand.Parameters.AddWithValue("IdComplex", newComplex.IdComplex);
+                        sqlConnection.Open();
+                        noOfRowsAffected = sqlCommand.ExecuteNonQuery();
+                    }
+
                     isDeleted = noOfRowsAffected > 0;
 
                 }
@@ -539,14 +584,23 @@ namespace Esoft.ClassFolder
                                    " [Number_House], [Cost_House_Construction], [Additional_Cost_Apartament_House], [IdComplex], [IsDeleted])" +
                                    " VALUES (@Street, @Number_House, " +
                                    "@Cost_House_Construction, @Additional_Cost_Apartament_House, @IdComplex, 0)";
-                    var sqlCommand = new SqlCommand(sqlQuery, sqlConnection);
-                    sqlCommand.Parameters.AddWithValue("Street", newHouse.Street);
-                    sqlCommand.Parameters.AddWithValue("Number_House", newHouse.NumberHouse);
-                    sqlCommand.Parameters.AddWithValue("Cost_House_Construction", newHouse.CostHouseConstruction);
-                    sqlCommand.Parameters.AddWithValue("Additional_Cost_Apartament_House", newHouse.AdditionalCostHouseConstruction);
-                    sqlCommand.Parameters.AddWithValue("IdComplex", newHouse.IdComplex);
-                    sqlConnection.Open();
-                    var noOfRowsAffected = sqlCommand.ExecuteNonQuery();
+                    int noOfRowsAffected;
+                    using (var sqlCommand = new SqlCommand(sqlQuery, sqlConnection))
+                    {
+                        if (newHouse != null)
+                        {
+                            sqlCommand.Parameters.AddWithValue("Street", newHouse.Street);
+                            sqlCommand.Parameters.AddWithValue("Number_House", newHouse.NumberHouse);
+                            sqlCommand.Parameters.AddWithValue("Cost_House_Construction", newHouse.CostHouseConstruction);
+                            sqlCommand.Parameters.AddWithValue("Additional_Cost_Apartament_House",
+                                newHouse.AdditionalCostHouseConstruction);
+                            sqlCommand.Parameters.AddWithValue("IdComplex", newHouse.IdComplex);
+                        }
+
+                        sqlConnection.Open();
+                        noOfRowsAffected = sqlCommand.ExecuteNonQuery();
+                    }
+
                     isInserted = noOfRowsAffected > 0;
 
                 }
@@ -576,10 +630,14 @@ namespace Esoft.ClassFolder
                                    " [Additional_Cost_Apartament_House], [IdComplex]";
                     sqlQuery += " FROM [dbo].[House]";
                     sqlQuery += " WHERE [House].IdHouse = @IdHouse AND [House].IsDeleted=0";
-                    var sqlCommand = new SqlCommand(sqlQuery, sqlConnection);
-                    sqlConnection.Open();
-                    sqlCommand.Parameters.AddWithValue("IdHouse", selectHouse.IdHouse);
-                    var reader = sqlCommand.ExecuteReader();
+                    SqlDataReader reader;
+                    using (var sqlCommand = new SqlCommand(sqlQuery, sqlConnection))
+                    {
+                        sqlConnection.Open();
+                        if (selectHouse != null) sqlCommand.Parameters.AddWithValue("IdHouse", selectHouse.IdHouse);
+                        reader = sqlCommand.ExecuteReader();
+                    }
+
                     var items = new List<House>();
                     while (reader.Read())
                     {
@@ -629,16 +687,25 @@ namespace Esoft.ClassFolder
                                             " IdComplex=@IdComplex," +
                                             " IsDeleted=0" +
                                             " WHERE IdHouse=@IdHouse";
-                    var sqlCommand = new SqlCommand(sqlQuery, sqlConnection);
-                    sqlCommand.Parameters.AddWithValue("Street", updateHouse.Street);
-                    sqlCommand.Parameters.AddWithValue("Number_House", updateHouse.NumberHouse);
-                    sqlCommand.Parameters.AddWithValue("Cost_House_Construction", updateHouse.CostHouseConstruction);
-                    sqlCommand.Parameters.AddWithValue("Additional_Cost_Apartament_House", updateHouse.AdditionalCostHouseConstruction);
-                    sqlCommand.Parameters.AddWithValue("IdComplex", updateHouse.IdComplex);
-                    sqlCommand.Parameters.AddWithValue("IdHouse", updateHouse.IdHouse);
-                    
-                    sqlConnection.Open();
-                    var noOfRowsAffected = sqlCommand.ExecuteNonQuery();
+                    int noOfRowsAffected;
+                    using (var sqlCommand = new SqlCommand(sqlQuery, sqlConnection))
+                    {
+                        if (updateHouse != null)
+                        {
+                            sqlCommand.Parameters.AddWithValue("Street", updateHouse.Street);
+                            sqlCommand.Parameters.AddWithValue("Number_House", updateHouse.NumberHouse);
+                            sqlCommand.Parameters.AddWithValue("Cost_House_Construction",
+                                updateHouse.CostHouseConstruction);
+                            sqlCommand.Parameters.AddWithValue("Additional_Cost_Apartament_House",
+                                updateHouse.AdditionalCostHouseConstruction);
+                            sqlCommand.Parameters.AddWithValue("IdComplex", updateHouse.IdComplex);
+                            sqlCommand.Parameters.AddWithValue("IdHouse", updateHouse.IdHouse);
+                        }
+
+                        sqlConnection.Open();
+                        noOfRowsAffected = sqlCommand.ExecuteNonQuery();
+                    }
+
                     isUpdated = noOfRowsAffected > 0;
 
                 }
@@ -665,10 +732,14 @@ namespace Esoft.ClassFolder
                 {
                     const string sqlQuery = "UPDATE dbo.[House] set IsDeleted=1 "
                                             + "WHERE IdHouse=@IdHouse";
-                    var sqlCommand = new SqlCommand(sqlQuery, sqlConnection);
-                    sqlCommand.Parameters.AddWithValue("IdHouse", deleteHouse.IdHouse);
-                    sqlConnection.Open();
-                    var noOfRowsAffected = sqlCommand.ExecuteNonQuery();
+                    int noOfRowsAffected;
+                    using (var sqlCommand = new SqlCommand(sqlQuery, sqlConnection))
+                    {
+                        if (deleteHouse != null) sqlCommand.Parameters.AddWithValue("IdHouse", deleteHouse.IdHouse);
+                        sqlConnection.Open();
+                        noOfRowsAffected = sqlCommand.ExecuteNonQuery();
+                    }
+
                     isDeleted = noOfRowsAffected > 0;
 
                 }

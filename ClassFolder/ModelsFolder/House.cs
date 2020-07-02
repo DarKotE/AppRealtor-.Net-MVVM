@@ -12,7 +12,7 @@ namespace Esoft.ClassFolder.ModelsFolder
             set
             {
                 _idHouse = value;
-                OnPropertyChanged("IdHouse");
+                OnPropertyChanged(nameof(IdHouse));
             }
         }
 
@@ -24,7 +24,7 @@ namespace Esoft.ClassFolder.ModelsFolder
             set
             {
                 _street = value;
-                OnPropertyChanged("Street");
+                OnPropertyChanged(nameof(Street));
             }
         }
 
@@ -36,7 +36,7 @@ namespace Esoft.ClassFolder.ModelsFolder
             set
             {
                 _numberHouse = value;
-                OnPropertyChanged("NumberHouse");
+                OnPropertyChanged(nameof(NumberHouse));
             }
         }
 
@@ -48,7 +48,7 @@ namespace Esoft.ClassFolder.ModelsFolder
             set
             {
                 _costHouseConstruction = value;
-                OnPropertyChanged("CostHouseConstruction");
+                OnPropertyChanged(nameof(CostHouseConstruction));
             }
         }
 
@@ -60,7 +60,7 @@ namespace Esoft.ClassFolder.ModelsFolder
             set
             {
                 _additionalCostHouseConstruction = value;
-                OnPropertyChanged("AdditionalCostHouseConstruction");
+                OnPropertyChanged(nameof(AdditionalCostHouseConstruction));
             }
         }
 
@@ -72,7 +72,7 @@ namespace Esoft.ClassFolder.ModelsFolder
             set
             {
                 _idComplex = value;
-                OnPropertyChanged("IdComplex");
+                OnPropertyChanged(nameof(IdComplex));
             }
         }
         private bool _isDeleted;
@@ -83,7 +83,7 @@ namespace Esoft.ClassFolder.ModelsFolder
             set
             {
                 _isDeleted = value;
-                OnPropertyChanged("IsDeleted");
+                OnPropertyChanged(nameof(IsDeleted));
             }
         }
 
@@ -97,7 +97,7 @@ namespace Esoft.ClassFolder.ModelsFolder
             set
             {
                 _soldApartmentCount = value;
-                OnPropertyChanged("SoldApartmentCount");
+                OnPropertyChanged(nameof(SoldApartmentCount));
             }
         }
         private int _readyApartmentCount;
@@ -107,7 +107,7 @@ namespace Esoft.ClassFolder.ModelsFolder
             set
             {
                 _readyApartmentCount = value;
-                OnPropertyChanged("ReadyApartmentCount");
+                OnPropertyChanged(nameof(ReadyApartmentCount));
             }
         }
 

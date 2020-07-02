@@ -15,20 +15,20 @@ namespace Esoft.ClassFolder.ModelsFolder
                 _statusConstructionHousingComplexName = value;
                 switch (_statusConstructionHousingComplexName)
                 {
-                    case "1":
+                    case Const.StatusConstructionValue.Plan:
                         _statusConstructionHousingComplexName = "План";
                         break;
 
-                    case "2":
+                    case Const.StatusConstructionValue.Build:
                         _statusConstructionHousingComplexName = "Строительство";
                         break;
                     
-                    case "3":
+                    case Const.StatusConstructionValue.Sell:
                         _statusConstructionHousingComplexName = "Реализация";
                         break;
 
                 }
-                OnPropertyChanged("StatusConstructionHousingComplexName");
+                OnPropertyChanged(nameof(StatusConstructionHousingComplexName));
             }
         }
 
@@ -41,11 +41,11 @@ namespace Esoft.ClassFolder.ModelsFolder
             set
             {
                 _houseCount = value;
-                OnPropertyChanged("HouseCount");
+                OnPropertyChanged(nameof(HouseCount));
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public new event PropertyChangedEventHandler PropertyChanged;
 
         private void OnPropertyChanged(string propertyName)
         {

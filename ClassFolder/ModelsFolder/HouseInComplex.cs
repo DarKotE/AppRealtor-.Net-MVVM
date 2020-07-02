@@ -9,14 +9,14 @@ namespace Esoft.ClassFolder.ModelsFolder
         public string NameHousingComplex
         {
             get { return _nameHousingComplex; }
-            set { _nameHousingComplex = value; OnPropertyChanged("NameHousingComplex"); }
+            set { _nameHousingComplex = value; OnPropertyChanged(nameof(NameHousingComplex)); }
         }
 
         private string _city;
         public string City
         {
             get { return _city; }
-            set { _city = value; OnPropertyChanged("City"); }
+            set { _city = value; OnPropertyChanged(nameof(City)); }
         }
 
         private string _statusConstructionHousingComplex;
@@ -26,45 +26,21 @@ namespace Esoft.ClassFolder.ModelsFolder
             set { _statusConstructionHousingComplex = value;
                 switch (_statusConstructionHousingComplex)
                 {
-                    case "1":
+                    case Const.StatusConstructionValue.Plan:
                         _statusConstructionHousingComplex = "План";
                         break;
-                    case "2":
+                    case Const.StatusConstructionValue.Build:
                         _statusConstructionHousingComplex = "Строительство";
                         break;
-                    case "3":
+                    case Const.StatusConstructionValue.Sell:
                         _statusConstructionHousingComplex = "Реализация";
                         break;
 
                 }
-                OnPropertyChanged("StatusConstructionHousingComplex"); }
+                OnPropertyChanged(nameof(StatusConstructionHousingComplex)); }
         }
 
-
-        //properties don't exist in database
-        private int _soldApartmentCount;
-        public int SoldApartmentCount
-        {
-            get { return _soldApartmentCount; }
-            set
-            {
-                _soldApartmentCount = value;
-                OnPropertyChanged("SoldApartmentCount");
-            }
-        }
-        private int _readyApartmentCount;
-        public int ReadyApartmentCount
-        {
-            get { return _readyApartmentCount; }
-            set
-            {
-                _readyApartmentCount = value;
-                OnPropertyChanged("ReadyApartmentCount");
-            }
-        }
-
-
-        public event PropertyChangedEventHandler PropertyChanged;
+        public new event PropertyChangedEventHandler PropertyChanged;
 
         private void OnPropertyChanged(string propertyName)
         {

@@ -12,7 +12,7 @@ namespace Esoft.ViewsFolder
     /// </summary>
     public partial class HouseAddWindow : Window
     {
-        public Delegate UpdateActor;
+        internal Delegate UpdateActor;
         public HouseAddWindow()
         {
             InitializeComponent();

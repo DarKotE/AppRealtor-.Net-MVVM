@@ -8,7 +8,7 @@ namespace Esoft.ClassFolder.ModelsFolder
         public int IdComplex
         {
             get { return _idComplex; }
-            set { _idComplex = value; OnPropertyChanged("IdComplex"); }
+            set { _idComplex = value; OnPropertyChanged(nameof(IdComplex)); }
         }
 
 
@@ -16,14 +16,14 @@ namespace Esoft.ClassFolder.ModelsFolder
         public string NameHousingComplex
         {
             get { return _nameHousingComplex; }
-            set { _nameHousingComplex = value; OnPropertyChanged("NameHousingComplex"); }
+            set { _nameHousingComplex = value; OnPropertyChanged(nameof(NameHousingComplex)); }
         }
 
         private string _city;
         public string City
         {
             get { return _city; }
-            set { _city = value; OnPropertyChanged("City"); }
+            set { _city = value; OnPropertyChanged(nameof(City)); }
         }
 
         private string _statusConstructionHousingComplex;
@@ -34,14 +34,14 @@ namespace Esoft.ClassFolder.ModelsFolder
                 return _statusConstructionHousingComplex;
             }
             set { _statusConstructionHousingComplex = value;
-                OnPropertyChanged("StatusConstructionHousingComplex"); }
+                OnPropertyChanged(nameof(StatusConstructionHousingComplex)); }
         }
 
         private long _addedValue;
         public long AddedValue
         {
             get { return _addedValue; }
-            set { _addedValue = value; OnPropertyChanged("AddedValue"); }
+            set { _addedValue = value; OnPropertyChanged(nameof(AddedValue)); }
         }
 
         private long _buildingCost;
@@ -52,7 +52,7 @@ namespace Esoft.ClassFolder.ModelsFolder
             set
             {
                 _buildingCost = value;
-                OnPropertyChanged("BuildingCost");
+                OnPropertyChanged(nameof(BuildingCost));
             }
         }
 
@@ -64,7 +64,7 @@ namespace Esoft.ClassFolder.ModelsFolder
             set
             {
                 _isDeleted = value;
-                OnPropertyChanged("IsDeleted");
+                OnPropertyChanged(nameof(IsDeleted));
             }
         }
 

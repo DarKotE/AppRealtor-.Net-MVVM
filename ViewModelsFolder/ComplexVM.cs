@@ -62,7 +62,7 @@ namespace Esoft.ViewModelsFolder
                         if (CurrentComplex != null) CurrentComplex.StatusConstructionHousingComplex = "3";
                         break;
                 }
-                OnPropertyChanged("SelectedStatus");
+                OnPropertyChanged(nameof(SelectedStatus));
 
             }
         }
@@ -73,7 +73,7 @@ namespace Esoft.ViewModelsFolder
             set
             {
                 _statusList = value;
-                OnPropertyChanged("StatusList");
+                OnPropertyChanged(nameof(StatusList));
 
             }
         }
@@ -82,20 +82,15 @@ namespace Esoft.ViewModelsFolder
         public void Save(object param)
         {
             message = Validator.Validate(CurrentComplex);
-            if (message.Equals(String.Empty) && (DataController.Update(CurrentComplex)))
+            if (String.IsNullOrWhiteSpace(message) && (DataController.Update(CurrentComplex)))
             {
                 MessageBox.Show("Обновлено");
             }
             else
             {
-                if (!message.Equals(String.Empty))
-                {
-                    MessageBox.Show(message);
-                }
-                else
-                {
-                    MessageBox.Show("При обновлении произошла ошибка");
-                }
+                MessageBox.Show(!String.IsNullOrWhiteSpace(message) ? 
+                    message :
+                    "При обновлении произошла ошибка");
             }
 
         }
@@ -103,13 +98,13 @@ namespace Esoft.ViewModelsFolder
         public void Add(object param)
         {
             message = Validator.Validate(CurrentComplex);
-            if (message.Equals(String.Empty) && (DataController.Create(CurrentComplex)))
+            if ((String.IsNullOrWhiteSpace(message)) && (DataController.Create(CurrentComplex)))
             {
                 MessageBox.Show("Добавлено");
             }
             else
             {
-                if (!message.Equals(String.Empty))
+                if (!String.IsNullOrWhiteSpace(message))
                 {
                     MessageBox.Show(message);
                 }

@@ -13,7 +13,7 @@ namespace Esoft.ClassFolder.ModelsFolder
             set
             {
                 _id = value;
-                OnPropertyChanged("Id");
+                OnPropertyChanged(nameof(Id));
             }
         }
 
@@ -25,7 +25,7 @@ namespace Esoft.ClassFolder.ModelsFolder
             set
             {
                 _idLsd = value;
-                OnPropertyChanged("IdLsd");
+                OnPropertyChanged(nameof(IdLsd));
             }
         }
 
@@ -38,7 +38,7 @@ namespace Esoft.ClassFolder.ModelsFolder
             set
             {
                 _numberApartment = value;
-                OnPropertyChanged("NumberApartment");
+                OnPropertyChanged(nameof(NumberApartment));
             }
         }
 
@@ -50,7 +50,7 @@ namespace Esoft.ClassFolder.ModelsFolder
             set
             {
                 _area = value;
-                OnPropertyChanged("Area");
+                OnPropertyChanged(nameof(Area));
             }
         }
 
@@ -62,7 +62,7 @@ namespace Esoft.ClassFolder.ModelsFolder
             set
             {
                 _numberOfRooms = value;
-                OnPropertyChanged("NumberOfRooms");
+                OnPropertyChanged(nameof(NumberOfRooms));
             }
         }
 
@@ -74,7 +74,7 @@ namespace Esoft.ClassFolder.ModelsFolder
             set
             {
                 _porch = value;
-                OnPropertyChanged("Porch");
+                OnPropertyChanged(nameof(Porch));
             }
         }
 
@@ -86,7 +86,7 @@ namespace Esoft.ClassFolder.ModelsFolder
             set
             {
                 _floor = value;
-                OnPropertyChanged("Floor");
+                OnPropertyChanged(nameof(Floor));
             }
         }
 
@@ -98,7 +98,7 @@ namespace Esoft.ClassFolder.ModelsFolder
             set
             {
                 _statusSale = value;
-                OnPropertyChanged("StatusSale");
+                OnPropertyChanged(nameof(StatusSale));
             }
         }
 
@@ -110,7 +110,7 @@ namespace Esoft.ClassFolder.ModelsFolder
             set
             {
                 _addedValue = value;
-                OnPropertyChanged("AddedValue");
+                OnPropertyChanged(nameof(AddedValue));
             }
         }
 
@@ -122,7 +122,7 @@ namespace Esoft.ClassFolder.ModelsFolder
             set
             {
                 _expensesBuildingAnApartment = value;
-                OnPropertyChanged("ExpensesBuildingAnApartment");
+                OnPropertyChanged(nameof(ExpensesBuildingAnApartament));
             }
         }
 
@@ -134,7 +134,7 @@ namespace Esoft.ClassFolder.ModelsFolder
             set
             {
                 _isDeleted = value;
-                OnPropertyChanged("IsDeleted");
+                OnPropertyChanged(nameof(IsDeleted));
             }
         }
 

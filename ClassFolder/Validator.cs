@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+
 using Esoft.ClassFolder.ModelsFolder;
+
 
 namespace Esoft.ClassFolder
 {
@@ -11,34 +13,63 @@ namespace Esoft.ClassFolder
         public DataController DataController { get; set; }
         public string Validate(Complex complex)
         {
-            var err = String.Empty;
+            if (complex == null)
+            {
+                return "Ошибка передачи данных";
+            }
             if (String.IsNullOrEmpty(complex.NameHousingComplex))
             {
-                return err="Введите имя жилищного комплекса";
+                return "Введите имя жилищного комплекса";
             }
-            else if (complex.AddedValue < 0)
+            if (complex.AddedValue < 0)
             {
-                return err = "Добавочная стоимость должна быть неотрицательной";
+                return "Добавочная стоимость должна быть неотрицательной";
             }
-            else if (String.IsNullOrEmpty(complex.StatusConstructionHousingComplex))
+            if (String.IsNullOrEmpty(complex.StatusConstructionHousingComplex))
             {
-                return err = "Укажите статус ЖК";
+                return "Укажите статус ЖК";
             }
-            else if (complex.BuildingCost < 0)
+            if (complex.BuildingCost < 0)
             {
-                return err = "Затраты на строительство должны быть неотрицательными";
+                return "Затраты на строительство должны быть неотрицательными";
             }
-            else if (String.IsNullOrEmpty(complex.City))
+            if (String.IsNullOrEmpty(complex.City))
             {
-                return err = "Укажите город";
+                return "Укажите город";
             }
-            else if(complex.StatusConstructionHousingComplex.Equals("1"))
+            if (complex.AddedValue < 0)
+            {
+                return "Добавочная стоимость должна быть неотрицательной";
+            }
+            if (String.IsNullOrEmpty(complex.StatusConstructionHousingComplex))
+            {
+                return "Укажите статус ЖК";
+            }
+            if (complex.BuildingCost < 0)
+            {
+                return "Затраты на строительство должны быть неотрицательными";
+            }
+            if (String.IsNullOrEmpty(complex.City))
+            {
+                return "Укажите город";
+            }
+            if(complex.StatusConstructionHousingComplex.Equals(Const.StatusConstructionValue.Plan))
             {
                 DataController = new DataController();
                 if(!DataController.CanPlan(complex))
-                    return err = "Невозможно установить выбранный статус т.к. в данном комплексе есть проданные квартиры";
+                    return "Невозможно установить выбранный статус т.к. в данном комплексе есть проданные квартиры";
             }
-            return err;
+            if (!complex.StatusConstructionHousingComplex.Equals(Const.StatusConstructionValue.Plan))
+            {
+                return String.Empty; //passed
+            }
+            DataController = new DataController();
+            if (!DataController.CanPlan(complex))
+            {
+                return "Невозможно установить выбранный статус т.к. в данном комплексе есть проданные квартиры";
+            }
+                
+            return String.Empty; //passed
         }
 
         public string Validate(House house)

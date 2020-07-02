@@ -12,7 +12,7 @@ namespace Esoft.ViewsFolder
     /// </summary>
     public partial class ComplexAddWindow : Window
     {
-        public Delegate UpdateActor;
+        internal Delegate UpdateActor;
         public ComplexAddWindow()
         {
             InitializeComponent();

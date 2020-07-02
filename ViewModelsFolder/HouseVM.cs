@@ -50,7 +50,7 @@ namespace Esoft.ViewModelsFolder
             {
                 _selectedComplex = value;
                 CurrentHouse.IdComplex = _selectedComplex.IdComplex;
-                OnPropertyChanged("SelectedComplex");
+                OnPropertyChanged(nameof(SelectedComplex));
 
             }
         }
@@ -61,7 +61,7 @@ namespace Esoft.ViewModelsFolder
             set
             {
                 _complexList = value;
-                OnPropertyChanged("ComplexList");
+                OnPropertyChanged(nameof(ComplexList));
 
             }
         }
@@ -70,13 +70,13 @@ namespace Esoft.ViewModelsFolder
         public void Save(object param)
         {
             message = Validator.Validate(CurrentHouse);
-            if (message.Equals(String.Empty) && (DataController.Update(CurrentHouse)))
+            if ((String.IsNullOrWhiteSpace(message)) && (DataController.Update(CurrentHouse)))
             {
                 MessageBox.Show("Обновлено");
             }
             else
             {
-                if (!message.Equals(String.Empty))
+                if (!String.IsNullOrWhiteSpace(message))
                 {
                     MessageBox.Show(message);
                 }
@@ -91,13 +91,13 @@ namespace Esoft.ViewModelsFolder
         public void Add(object param)
         {
             message = Validator.Validate(CurrentHouse);
-            if (message.Equals(String.Empty) && (DataController.Create(CurrentHouse)))
+            if (String.IsNullOrWhiteSpace(message) && (DataController.Create(CurrentHouse)))
             {
                 MessageBox.Show("Добавлено");
             }
             else
             {
-                if (!message.Equals(String.Empty))
+                if (!String.IsNullOrWhiteSpace(message))
                 {
                     MessageBox.Show(message);
                 }
