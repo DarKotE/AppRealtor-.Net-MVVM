@@ -51,11 +51,8 @@ namespace Esoft.Classes.DataSqlGateways
 
                             items.Add(u);
                         }
-
                         tempHouseList = items;
                     }
-
-
                 }
                 catch (Exception ex)
                 {
@@ -93,7 +90,6 @@ namespace Esoft.Classes.DataSqlGateways
                         sqlConnection.Open();
                         reader = sqlCommand.ExecuteReader();
                     }
-
                     if (reader.HasRows)
                     {
                         var items = new List<House>();
@@ -112,11 +108,8 @@ namespace Esoft.Classes.DataSqlGateways
 
                             items.Add(u);
                         }
-
                         tempHouseList = items;
                     }
-
-
                 }
                 catch (Exception ex)
                 {
@@ -128,7 +121,6 @@ namespace Esoft.Classes.DataSqlGateways
                 finally
                 {
                     sqlConnection.Close();
-
                 }
             }
 
@@ -225,8 +217,6 @@ namespace Esoft.Classes.DataSqlGateways
                             CostHouseConstruction = (long) reader["Cost_House_Construction"],
                             AdditionalCostHouseConstruction = (long) reader["Additional_Cost_Apartament_House"],
                             IdComplex = (int) reader["IdComplex"]
-
-
                         };
                         items.Add(u);
                     }
@@ -245,7 +235,6 @@ namespace Esoft.Classes.DataSqlGateways
                 finally
                 {
                     sqlConnection.Close();
-
                 }
             }
 
@@ -316,7 +305,6 @@ namespace Esoft.Classes.DataSqlGateways
             var isDeleted = false;
             using (var sqlConnection = new SqlConnection(CSqlConfig.DefaultCnnVal()))
             {
-
                 try
                 {
                     const string sqlQuery = 
@@ -333,9 +321,7 @@ namespace Esoft.Classes.DataSqlGateways
                         sqlConnection.Open();
                         noOfRowsAffected = sqlCommand.ExecuteNonQuery();
                     }
-
                     isDeleted = noOfRowsAffected > 0;
-
                 }
                 catch (Exception ex)
                 {
@@ -349,7 +335,6 @@ namespace Esoft.Classes.DataSqlGateways
                     sqlConnection.Close();
                 }
             }
-
             return isDeleted;
         }
 

@@ -24,13 +24,11 @@ namespace Esoft.Classes.DataSqlGateways
                         WHERE [Complex].IsDeleted = 0";
 
                     SqlDataReader reader;
-                    using (var sqlCommand = new SqlCommand(sqlQuery,
-                        sqlConnection))
+                    using (var sqlCommand = new SqlCommand(sqlQuery, sqlConnection))
                     {
                         sqlConnection.Open();
                         reader = sqlCommand.ExecuteReader();
                     }
-
                     if (reader.HasRows)
                     {
                         var items = new List<Complex>();
@@ -45,10 +43,8 @@ namespace Esoft.Classes.DataSqlGateways
                                 AddedValue = reader.GetInt64(4),
                                 BuildingCost = reader.GetInt64(5)
                             };
-
                             items.Add(u);
                         }
-
                         tempComplexList = items;
                     }
 
@@ -169,8 +165,6 @@ namespace Esoft.Classes.DataSqlGateways
                     {
                         isPossible = false;
                     }
-
-
                 }
                 catch (Exception ex)
                 {
@@ -219,13 +213,10 @@ namespace Esoft.Classes.DataSqlGateways
                             sqlCommand.Parameters.AddWithValue("City",
                                 newComplex.City);
                         }
-
                         sqlConnection.Open();
                         noOfRowsAffected = sqlCommand.ExecuteNonQuery();
                     }
-
                     isInserted = noOfRowsAffected > 0;
-
                 }
                 catch (Exception ex)
                 {
@@ -279,15 +270,11 @@ namespace Esoft.Classes.DataSqlGateways
                             StatusConstructionHousingComplex = (string) reader["Status_Construction_Housing_Complex"],
                             AddedValue = (long) reader["Added_Value"],
                             BuildingCost = (long) reader["Building_Costs"]
-
-
                         };
                         items.Add(u);
                     }
-
                     if (items.Count > 0)
                         tempComplex = items[0];
-
                 }
                 catch (Exception ex)
                 {
@@ -343,13 +330,10 @@ namespace Esoft.Classes.DataSqlGateways
                             sqlCommand.Parameters.AddWithValue("IdComplex",
                                 newComplex.IdComplex);
                         }
-
                         sqlConnection.Open();
                         noOfRowsAffected = sqlCommand.ExecuteNonQuery();
                     }
-
                     isUpdated = noOfRowsAffected > 0;
-
                 }
                 catch (Exception ex)
                 {
@@ -372,7 +356,6 @@ namespace Esoft.Classes.DataSqlGateways
             var isDeleted = false;
             using (var sqlConnection = new SqlConnection(CSqlConfig.DefaultCnnVal()))
             {
-
                 try
                 {
                     const string sqlQuery =
@@ -389,9 +372,7 @@ namespace Esoft.Classes.DataSqlGateways
                         sqlConnection.Open();
                         noOfRowsAffected = sqlCommand.ExecuteNonQuery();
                     }
-
                     isDeleted = noOfRowsAffected > 0;
-
                 }
                 catch (Exception ex)
                 {
@@ -405,9 +386,7 @@ namespace Esoft.Classes.DataSqlGateways
                     sqlConnection.Close();
                 }
             }
-
             return isDeleted;
         }
-
     }
-    }
+}
