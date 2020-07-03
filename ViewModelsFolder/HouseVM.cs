@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using Esoft.ClassFolder;
-using Esoft.ClassFolder.ModelsFolder;
+using Esoft.Classes;
+using Esoft.Classes.DataAdapters;
+using Esoft.Classes.Models.Complex;
+using Esoft.Classes.Models.House;
 using Esoft.CommandsFolder;
 
 namespace Esoft.ViewModelsFolder
@@ -14,24 +13,24 @@ namespace Esoft.ViewModelsFolder
     public class HouseVM : INotifyPropertyChanged
     {
 
-        private string message;
-        public DataController DataController { get; }
-
         
+        public HouseAdapter HouseAdapter { get; }
+        public ComplexAdapter ComplexAdapter { get; }
+
+
 
         public HouseVM()
         {
             Validator = new Validator();
             SaveCommand = new RelayCommand(Save);
             AddCommand = new RelayCommand(Add);
-            DataController = new DataController();
+            HouseAdapter = new HouseAdapter();
+            ComplexAdapter = new ComplexAdapter();
             CurrentHouse = new House();
-            HouseList = DataController.GetAllHouseInComplex();
-            ComplexList = DataController.GetAllComplex();
+            HouseList = HouseAdapter.GetAllHouseInComplex();
+            ComplexList = ComplexAdapter.GetAllComplex();
             CurrentHouse.IdHouse = App.Id;
-            CurrentHouse = DataController.Read(CurrentHouse);
-           
-
+            CurrentHouse = HouseAdapter.Read(CurrentHouse);
 
         }
 
@@ -49,7 +48,7 @@ namespace Esoft.ViewModelsFolder
             set
             {
                 _selectedComplex = value;
-                CurrentHouse.IdComplex = _selectedComplex.IdComplex;
+                if (CurrentHouse != null) CurrentHouse.IdComplex = _selectedComplex.IdComplex;
                 OnPropertyChanged(nameof(SelectedComplex));
 
             }
@@ -66,19 +65,19 @@ namespace Esoft.ViewModelsFolder
             }
         }
 
-
+        private string _message;
         public void Save(object param)
         {
-            message = Validator.Validate(CurrentHouse);
-            if ((String.IsNullOrWhiteSpace(message)) && (DataController.Update(CurrentHouse)))
+            _message = Validator.Validate(CurrentHouse);
+            if ((String.IsNullOrWhiteSpace(_message)) && (HouseAdapter.Update(CurrentHouse)))
             {
                 MessageBox.Show("Обновлено");
             }
             else
             {
-                if (!String.IsNullOrWhiteSpace(message))
+                if (!String.IsNullOrWhiteSpace(_message))
                 {
-                    MessageBox.Show(message);
+                    MessageBox.Show(_message);
                 }
                 else
                 {
@@ -90,16 +89,16 @@ namespace Esoft.ViewModelsFolder
 
         public void Add(object param)
         {
-            message = Validator.Validate(CurrentHouse);
-            if (String.IsNullOrWhiteSpace(message) && (DataController.Create(CurrentHouse)))
+            _message = Validator.Validate(CurrentHouse);
+            if (String.IsNullOrWhiteSpace(_message) && (HouseAdapter.Create(CurrentHouse)))
             {
                 MessageBox.Show("Добавлено");
             }
             else
             {
-                if (!String.IsNullOrWhiteSpace(message))
+                if (!String.IsNullOrWhiteSpace(_message))
                 {
-                    MessageBox.Show(message);
+                    MessageBox.Show(_message);
                 }
                 else
                 {
@@ -108,14 +107,10 @@ namespace Esoft.ViewModelsFolder
             }
 
         }
-
-
-
+        
         public House CurrentHouse { get; set; }
 
-
         public event PropertyChangedEventHandler PropertyChanged;
-
         private void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

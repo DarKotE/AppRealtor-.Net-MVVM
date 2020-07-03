@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
-using Esoft.ClassFolder;
-using Esoft.ClassFolder.ModelsFolder;
+using Esoft.Classes.DataAdapters;
+using Esoft.Classes.Models.Complex;
+using Esoft.Classes.Models.House;
 using Esoft.CommandsFolder;
 
 namespace Esoft.ViewModelsFolder
@@ -12,22 +12,20 @@ namespace Esoft.ViewModelsFolder
 {
     public class SecondVM : INotifyPropertyChanged
     {
-        private string message;
-        private string searchText;
-
-
         public SecondVM()
         {
             EditCommand = new RelayCommand(Edit);
             AddCommand = new RelayCommand(Add);
             DeleteCommand = new RelayCommand(Delete);
-            DataController = new DataController();
+            HouseAdapter = new HouseAdapter();
+            ComplexAdapter = new ComplexAdapter();
             LoadData();
         }
 
         public RelayCommand EditCommand { get; set; }
 
-        public DataController DataController { get; }
+        public HouseAdapter HouseAdapter { get; }
+        public ComplexAdapter ComplexAdapter { get; }
 
         private ObservableCollection<ComplexWithHouses> _filteredComplexList;
 
@@ -139,13 +137,13 @@ namespace Esoft.ViewModelsFolder
             }
         }
 
-
+        private string _searchText;
         public string SearchText
         {
-            get => searchText;
+            get => _searchText;
             set
             {
-                searchText = value;
+                _searchText = value;
                 FilteredComplexList =
                     new ObservableCollection<ComplexWithHouses>(
                         from item
@@ -159,27 +157,28 @@ namespace Esoft.ViewModelsFolder
             }
         }
 
-        private Complex selectedRow;
+        private Complex _selectedRow;
 
         public Complex SelectedRow
         {
-            get => selectedRow;
+            get => _selectedRow;
             set
             {
-                selectedRow = value;
+                _selectedRow = value;
                 OnPropertyChanged(nameof(SelectedRow));
             }
         }
 
 
         public RelayCommand SaveCommand { get; }
-
+        
+        private string _message;
         public string Message
         {
-            get => message;
+            get => _message;
             set
             {
-                message = value;
+                _message = value;
                 OnPropertyChanged(Message);
             }
         }
@@ -199,8 +198,8 @@ namespace Esoft.ViewModelsFolder
 
         private void LoadData()
         {
-            ComplexList = new ObservableCollection<ComplexWithHouses>(DataController.GetAllComplexWithHouses());
-            HouseList = new ObservableCollection<House>(DataController.GetAllHouse());
+            ComplexList = new ObservableCollection<ComplexWithHouses>(ComplexAdapter.GetAllComplexWithHouses());
+            HouseList = new ObservableCollection<House>(HouseAdapter.GetAllHouse());
 
             foreach (var complex in ComplexList)
                 complex.HouseCount = HouseList.Count(x => x.IdComplex.Equals(complex.IdComplex));
@@ -235,7 +234,7 @@ namespace Esoft.ViewModelsFolder
                 MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
-                var isDeleted = DataController.Delete(SelectedRow);
+                var isDeleted = ComplexAdapter.Delete(SelectedRow);
                 Message = isDeleted
                     ? "Удалено"
                     : "При удалении произошла ошибка";

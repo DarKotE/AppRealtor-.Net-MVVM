@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Esoft.ClassFolder.ModelsFolder
+namespace Esoft.Classes.Models.Complex
 {
     public class Complex : INotifyPropertyChanged
     {

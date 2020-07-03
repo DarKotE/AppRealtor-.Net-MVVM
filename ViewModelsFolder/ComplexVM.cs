@@ -1,44 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using Esoft.ClassFolder;
-using Esoft.ClassFolder.ModelsFolder;
+using Esoft.Classes;
+using Esoft.Classes.DataAdapters;
+using Esoft.Classes.Models.Complex;
 using Esoft.CommandsFolder;
 
 namespace Esoft.ViewModelsFolder
 {
     public class ComplexVM : INotifyPropertyChanged
     {
-
-        private string message;
-        public DataController DataController { get; }
-
         
+        public HouseAdapter HouseAdapter { get; }
+        public ComplexAdapter ComplexAdapter { get; }
 
         public ComplexVM()
         {
+
             Validator = new Validator();
             SaveCommand = new RelayCommand(Save);
             AddCommand = new RelayCommand(Add);
-            DataController = new DataController();
+            HouseAdapter = new HouseAdapter();
+            ComplexAdapter = new ComplexAdapter();
             CurrentComplex = new Complex();
             StatusList = new List<string>();
             StatusList.Add("План");
             StatusList.Add("Строительство");
             StatusList.Add("Реализация");
             CurrentComplex.IdComplex = App.Id;
-            CurrentComplex = DataController.Read(CurrentComplex);
-           
-
-
+            CurrentComplex = ComplexAdapter.Read(CurrentComplex);
         }
-
-
-
+        
         public Validator Validator { get; }
         public RelayCommand SaveCommand { get; set; }
         public RelayCommand AddCommand { get; set; }
@@ -46,30 +39,38 @@ namespace Esoft.ViewModelsFolder
         private string _selectedStatus;
         public string SelectedStatus
         {
-            get => _selectedStatus;
+            get =>
+                _selectedStatus;
             set
             {
                 _selectedStatus = value;
                 switch (_selectedStatus)
                 {
                     case "План":
-                        if (CurrentComplex != null) CurrentComplex.StatusConstructionHousingComplex = "1";
+                        if (CurrentComplex != null)
+                            CurrentComplex.StatusConstructionHousingComplex = Const.StatusConstructionValue.Plan;
                         break;
                     case "Строительство":
-                        if (CurrentComplex != null) CurrentComplex.StatusConstructionHousingComplex = "2";
+                        if (CurrentComplex != null)
+                            CurrentComplex.StatusConstructionHousingComplex = Const.StatusConstructionValue.Build;
                         break;
                     case "Реализация":
-                        if (CurrentComplex != null) CurrentComplex.StatusConstructionHousingComplex = "3";
+                        if (CurrentComplex != null)
+                            CurrentComplex.StatusConstructionHousingComplex = Const.StatusConstructionValue.Sell;
                         break;
                 }
+
                 OnPropertyChanged(nameof(SelectedStatus));
 
             }
         }
+
         private List<string> _statusList;
+
         public List<string> StatusList
         {
-            get => _statusList;
+            get =>
+                _statusList;
             set
             {
                 _statusList = value;
@@ -79,34 +80,35 @@ namespace Esoft.ViewModelsFolder
         }
 
 
+        private string _message;
         public void Save(object param)
         {
-            message = Validator.Validate(CurrentComplex);
-            if (String.IsNullOrWhiteSpace(message) && (DataController.Update(CurrentComplex)))
+            _message = Validator.Validate(CurrentComplex);
+            if (String.IsNullOrWhiteSpace(_message) && (ComplexAdapter.Update(CurrentComplex)))
             {
                 MessageBox.Show("Обновлено");
             }
             else
             {
-                MessageBox.Show(!String.IsNullOrWhiteSpace(message) ? 
-                    message :
-                    "При обновлении произошла ошибка");
+                MessageBox.Show(!String.IsNullOrWhiteSpace(_message)
+                    ? _message
+                    : "При обновлении произошла ошибка");
             }
 
         }
 
         public void Add(object param)
         {
-            message = Validator.Validate(CurrentComplex);
-            if ((String.IsNullOrWhiteSpace(message)) && (DataController.Create(CurrentComplex)))
+            _message = Validator.Validate(CurrentComplex);
+            if ((String.IsNullOrWhiteSpace(_message)) && (ComplexAdapter.Create(CurrentComplex)))
             {
                 MessageBox.Show("Добавлено");
             }
             else
             {
-                if (!String.IsNullOrWhiteSpace(message))
+                if (!String.IsNullOrWhiteSpace(_message))
                 {
-                    MessageBox.Show(message);
+                    MessageBox.Show(_message);
                 }
                 else
                 {
@@ -125,10 +127,9 @@ namespace Esoft.ViewModelsFolder
 
         private void OnPropertyChanged(string propertyName)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this,
+                new PropertyChangedEventArgs(propertyName));
         }
-
-
 
     }
 }

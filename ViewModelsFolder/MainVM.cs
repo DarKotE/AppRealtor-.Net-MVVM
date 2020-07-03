@@ -3,32 +3,34 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
-using Esoft.ClassFolder;
-using Esoft.ClassFolder.ModelsFolder;
+using Esoft.Classes;
+using Esoft.Classes.DataAdapters;
+using Esoft.Classes.Models.Apartment;
+using Esoft.Classes.Models.House;
 using Esoft.CommandsFolder;
 
 namespace Esoft.ViewModelsFolder
 
 {
-    public class MainVM : INotifyPropertyChanged
+    public class MainVM : INotifyPropertyChanged 
     {
-
-        private string message;
-        private string searchText;
-
 
         public MainVM()
         {
             AddCommand = new RelayCommand(Add);
             EditCommand = new RelayCommand(Edit);
             DeleteCommand = new RelayCommand(Delete);
-            DataController = new DataController();
+            HouseAdapter = new HouseAdapter();
+            ComplexAdapter = new ComplexAdapter();
+            ApartmentAdapter = new ApartmentAdapter();
             LoadData();
         }
 
         public RelayCommand EditCommand { get; set; }
 
-        public DataController DataController { get; }
+        public HouseAdapter HouseAdapter { get; }
+        public ComplexAdapter ComplexAdapter { get; }
+        public ApartmentAdapter ApartmentAdapter { get; }
 
         private ObservableCollection<HouseInComplex> _filteredHouseList;
         public ObservableCollection<HouseInComplex> FilteredHouseList
@@ -85,13 +87,13 @@ namespace Esoft.ViewModelsFolder
             }
         }
         
-
+        private string _searchText;
         public string SearchText
         {
-            get => searchText;
+            get => _searchText;
             set
             {
-                searchText = value;
+                _searchText = value;
                 FilteredHouseList =
                     new ObservableCollection<HouseInComplex>(
                         from item
@@ -104,13 +106,13 @@ namespace Esoft.ViewModelsFolder
             }
         }
 
-        private House selectedRow;
+        private House _selectedRow;
         public House SelectedRow
         {
-            get => selectedRow;
+            get => _selectedRow;
             set
             {
-                selectedRow = value;
+                _selectedRow = value;
                 OnPropertyChanged(nameof(SelectedRow));
             }
         }
@@ -118,12 +120,13 @@ namespace Esoft.ViewModelsFolder
 
         public RelayCommand SaveCommand { get; }
 
+        private string _message;
         public string Message
         {
-            get => message;
+            get => _message;
             set
             {
-                message = value;
+                _message = value;
                 OnPropertyChanged(Message);
             }
         }
@@ -186,14 +189,27 @@ namespace Esoft.ViewModelsFolder
 
         private void LoadData()
         {
-            HouseList = new ObservableCollection<HouseInComplex>(DataController.GetAllHouseInComplex());
-            ApartmentList = new ObservableCollection<Apartment>(DataController.GetAllApartment());
+            HouseList = new ObservableCollection<HouseInComplex>(HouseAdapter.GetAllHouseInComplex());
+            ApartmentList = new ObservableCollection<Apartment>(ApartmentAdapter.GetAllApartment());
             foreach (var house in HouseList)
             {
-                house.ReadyApartmentCount =
-                    ApartmentList.Count(x => x.IdLsd.Equals(house.IdHouse) && x.StatusSale.Equals("ready"));
-                house.SoldApartmentCount =
-                    ApartmentList.Count(x => x.IdLsd.Equals(house.IdHouse) && x.StatusSale.Equals("sold"));
+                int count = 0;
+                foreach (var x in ApartmentList)
+                {
+                    if (x.IdLsd.Equals(house.IdHouse) && x.StatusSale.Equals(Const.StatusApartmentValue.Ready)) 
+                        count++;
+                }
+
+                house.ReadyApartmentCount = count;
+
+                int count1 = 0;
+                foreach (var x in ApartmentList)
+                {
+                    if (x.IdLsd.Equals(house.IdHouse) && x.StatusSale.Equals(Const.StatusApartmentValue.Sold))
+                        count1++;
+                }
+
+                house.SoldApartmentCount = count1;
             }
 
             ComplexList = new ObservableCollection<string>(HouseList.Select(c => c.NameHousingComplex)
@@ -232,7 +248,7 @@ namespace Esoft.ViewModelsFolder
                 MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
-                var isDeleted = DataController.Delete(SelectedRow);
+                var isDeleted = HouseAdapter.Delete(SelectedRow);
                 Message = isDeleted
                     ? "Удалено"
                     : "При удалении произошла ошибка";

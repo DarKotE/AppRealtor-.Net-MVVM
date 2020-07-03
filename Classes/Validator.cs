@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
+using Esoft.Classes.DataAdapters;
+using Esoft.Classes.Models.Complex;
+using Esoft.Classes.Models.House;
 
-using Esoft.ClassFolder.ModelsFolder;
-
-
-namespace Esoft.ClassFolder
+namespace Esoft.Classes
 {
     public class Validator
     {
-        public DataController DataController { get; set; }
+        public HouseAdapter HouseAdapter { get; set; }
+        public ComplexAdapter ComplexAdapter { get; set; }
         public string Validate(Complex complex)
         {
             if (complex == null)
@@ -55,16 +53,16 @@ namespace Esoft.ClassFolder
             }
             if(complex.StatusConstructionHousingComplex.Equals(Const.StatusConstructionValue.Plan))
             {
-                DataController = new DataController();
-                if(!DataController.CanPlan(complex))
+                HouseAdapter = new HouseAdapter();
+                if(!ComplexAdapter.CanPlan(complex))
                     return "Невозможно установить выбранный статус т.к. в данном комплексе есть проданные квартиры";
             }
             if (!complex.StatusConstructionHousingComplex.Equals(Const.StatusConstructionValue.Plan))
             {
-                return String.Empty; //passed
+                return String.Empty; //passedComplexAdapter
             }
-            DataController = new DataController();
-            if (!DataController.CanPlan(complex))
+            HouseAdapter = new HouseAdapter();
+            if (!ComplexAdapter.CanPlan(complex))
             {
                 return "Невозможно установить выбранный статус т.к. в данном комплексе есть проданные квартиры";
             }
@@ -74,28 +72,32 @@ namespace Esoft.ClassFolder
 
         public string Validate(House house)
         {
-            var err = String.Empty;
-            if (String.IsNullOrEmpty(house.Street))
+            
+            if (house == null)
             {
-                return err = "Введите улицу";
+                return "Ошибка передачи данных";
             }
-            else if (String.IsNullOrEmpty(house.NumberHouse))
+            if (String.IsNullOrWhiteSpace(house.Street))
             {
-                return err = "Введите номер дома";
+                return "Введите улицу";
             }
-            else if (house.IdComplex==0)
+            if (String.IsNullOrWhiteSpace(house.NumberHouse))
             {
-                return err = "Выберите ЖК";
+                return "Введите номер дома";
             }
-            else if (house.CostHouseConstruction < 0)
+            if (house.IdComplex==default)
             {
-                return err = "Затраты на строительство должны быть неотрицательными";
+                return "Выберите ЖК";
             }
-            else if (house.AdditionalCostHouseConstruction < 0)
+            if (house.CostHouseConstruction < 0)
             {
-                return err = "Rоэффициент добавочной стоимости должен быть неотрицательным";
+                return "Затраты на строительство должны быть неотрицательными";
             }
-            return err;
+            if (house.AdditionalCostHouseConstruction < 0)
+            {
+                return "Rоэффициент добавочной стоимости должен быть неотрицательным";
+            }
+            return String.Empty;
         }
 
 

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Esoft.ClassFolder.ModelsFolder
+namespace Esoft.Classes.Models.House
 {
     //properties for easy binding to view via viewmodel
     public class HouseInComplex :House, INotifyPropertyChanged

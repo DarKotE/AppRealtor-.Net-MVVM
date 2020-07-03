@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Esoft.ClassFolder
+﻿namespace Esoft.Classes
 {
     internal static class Const
     {
@@ -14,5 +8,11 @@ namespace Esoft.ClassFolder
             public const string Build = "2";
             public const string Sell = "3";
         }
+        public static class StatusApartmentValue
+        {
+            public const string Sold = "sold";
+            public const string Ready = "ready";
+        }
+
     }
 }
