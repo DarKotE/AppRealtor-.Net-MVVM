@@ -2,10 +2,9 @@
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
+using Esoft.ViewModels;
 
-using Esoft.ViewModelsFolder;
-
-namespace Esoft.ViewsFolder
+namespace Esoft.Views
 {
     /// <summary>
     /// Interaction logic for .xaml
@@ -101,7 +100,7 @@ namespace Esoft.ViewsFolder
 
         private void tbApartmentWindow_OnClick(object sender, RoutedEventArgs e)
         {
-            ViewsFolder.SecondWindow appartmentWindow = new ViewsFolder.SecondWindow();
+            SecondWindow appartmentWindow = new SecondWindow();
             appartmentWindow.ShowDialog();
         }
 

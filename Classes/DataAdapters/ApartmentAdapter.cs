@@ -21,22 +21,22 @@ namespace Esoft.Classes.DataAdapters
 
         #region CRUD operations for Apartment
 
-        public bool Create(Apartment newApartment)
+        public bool AddApartment(Apartment newApartment)
         {
             return DataAccess != null && DataAccess.InsertApartment(newApartment);
         }
 
-        public bool Read(Apartment selectApartment)
+        public bool GetApartment(Apartment selectApartment)
         {
             return DataAccess != null && DataAccess.SelectApartment(selectApartment);
         }
 
-        public bool Update(Apartment updateApartment)
+        public bool SetApartment(Apartment updateApartment)
         {
             return DataAccess != null && DataAccess.UpdateApartment(updateApartment);
         }
 
-        public bool Delete(Apartment deleteApartment)
+        public bool DeleteApartment(Apartment deleteApartment)
         {
             return DataAccess != null && DataAccess.DeleteApartment(deleteApartment);
         }

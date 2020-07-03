@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
-using Esoft.Classes;
+using Esoft.Classes.Commands;
 using Esoft.Classes.DataAdapters;
 using Esoft.Classes.Models.Complex;
 using Esoft.Classes.Models.House;
-using Esoft.CommandsFolder;
+using Esoft.Classes.Validators;
 
-namespace Esoft.ViewModelsFolder
+namespace Esoft.ViewModels
 {
     public class HouseVM : INotifyPropertyChanged
     {
@@ -30,7 +30,7 @@ namespace Esoft.ViewModelsFolder
             HouseList = HouseAdapter.GetAllHouseInComplex();
             ComplexList = ComplexAdapter.GetAllComplex();
             CurrentHouse.IdHouse = App.Id;
-            CurrentHouse = HouseAdapter.Read(CurrentHouse);
+            CurrentHouse = HouseAdapter.GetHouse(CurrentHouse);
 
         }
 
@@ -69,7 +69,7 @@ namespace Esoft.ViewModelsFolder
         public void Save(object param)
         {
             _message = Validator.Validate(CurrentHouse);
-            if ((String.IsNullOrWhiteSpace(_message)) && (HouseAdapter.Update(CurrentHouse)))
+            if ((String.IsNullOrWhiteSpace(_message)) && (HouseAdapter.SetHouse(CurrentHouse)))
             {
                 MessageBox.Show("Обновлено");
             }
@@ -90,7 +90,7 @@ namespace Esoft.ViewModelsFolder
         public void Add(object param)
         {
             _message = Validator.Validate(CurrentHouse);
-            if (String.IsNullOrWhiteSpace(_message) && (HouseAdapter.Create(CurrentHouse)))
+            if (String.IsNullOrWhiteSpace(_message) && (HouseAdapter.AddHouse(CurrentHouse)))
             {
                 MessageBox.Show("Добавлено");
             }

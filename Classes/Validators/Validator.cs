@@ -3,7 +3,7 @@ using Esoft.Classes.DataAdapters;
 using Esoft.Classes.Models.Complex;
 using Esoft.Classes.Models.House;
 
-namespace Esoft.Classes
+namespace Esoft.Classes.Validators
 {
     public class Validator
     {
@@ -54,7 +54,7 @@ namespace Esoft.Classes
             if(complex.StatusConstructionHousingComplex.Equals(Const.StatusConstructionValue.Plan))
             {
                 HouseAdapter = new HouseAdapter();
-                if(!ComplexAdapter.CanPlan(complex))
+                if(!ComplexAdapter.IsPlanAvailable(complex))
                     return "Невозможно установить выбранный статус т.к. в данном комплексе есть проданные квартиры";
             }
             if (!complex.StatusConstructionHousingComplex.Equals(Const.StatusConstructionValue.Plan))
@@ -62,7 +62,7 @@ namespace Esoft.Classes
                 return String.Empty; //passedComplexAdapter
             }
             HouseAdapter = new HouseAdapter();
-            if (!ComplexAdapter.CanPlan(complex))
+            if (!ComplexAdapter.IsPlanAvailable(complex))
             {
                 return "Невозможно установить выбранный статус т.к. в данном комплексе есть проданные квартиры";
             }

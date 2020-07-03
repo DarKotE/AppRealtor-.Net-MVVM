@@ -29,23 +29,23 @@ namespace Esoft.Classes.DataAdapters
 
         #region CRUD operations for House
 
-        public bool Create(House newHouse)
+        public bool AddHouse(House newHouse)
         {
             return DataAccess != null && DataAccess.InsertHouse(newHouse);
         }
 
-        public House Read(House selectHouse)
+        public House GetHouse(House selectHouse)
         {
             if (DataAccess != null) return DataAccess.SelectHouse(selectHouse);
             return new House();
         }
 
-        public bool Update(House updateHouse)
+        public bool SetHouse(House updateHouse)
         {
             return DataAccess != null && DataAccess.UpdateHouse(updateHouse);
         }
 
-        public bool Delete(House deleteHouse)
+        public bool DeleteHouse(House deleteHouse)
         {
             return DataAccess != null && DataAccess.DeleteHouse(deleteHouse);
         }

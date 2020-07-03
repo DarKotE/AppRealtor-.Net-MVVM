@@ -98,51 +98,51 @@
     <Compile Include="Classes\Models\House\House.cs" />
     <Compile Include="Classes\DataSqlGateways\SqlConfig\SqlConfig.cs" />
     <Compile Include="Classes\DataSqlGateways\ComplexSqlGateway.cs" />
-    <Compile Include="Classes\Validator.cs" />
-    <Compile Include="CommandsFolder\RelayCommand.cs" />
-    <Compile Include="ViewModelsFolder\HouseVM.cs" />
-    <Compile Include="ViewModelsFolder\ComplexVM.cs" />
-    <Compile Include="ViewModelsFolder\SecondVM.cs" />
-    <Compile Include="ViewModelsFolder\MainVM.cs" />
-    <Compile Include="ViewsFolder\HouseAddWindow.xaml.cs">
+    <Compile Include="Classes\Validators\Validator.cs" />
+    <Compile Include="Classes\Commands\RelayCommand.cs" />
+    <Compile Include="ViewModels\HouseVM.cs" />
+    <Compile Include="ViewModels\ComplexVM.cs" />
+    <Compile Include="ViewModels\SecondVM.cs" />
+    <Compile Include="ViewModels\MainVM.cs" />
+    <Compile Include="Views\HouseAddWindow.xaml.cs">
       <DependentUpon>HouseAddWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewsFolder\HouseEditWindow.xaml.cs">
+    <Compile Include="Views\HouseEditWindow.xaml.cs">
       <DependentUpon>HouseEditWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewsFolder\ComplexEditWindow.xaml.cs">
+    <Compile Include="Views\ComplexEditWindow.xaml.cs">
       <DependentUpon>ComplexEditWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewsFolder\ComplexAddWindow.xaml.cs">
+    <Compile Include="Views\ComplexAddWindow.xaml.cs">
       <DependentUpon>ComplexAddWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewsFolder\SecondWindow.xaml.cs">
+    <Compile Include="Views\SecondWindow.xaml.cs">
       <DependentUpon>SecondWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewsFolder\MainWindow.xaml.cs">
+    <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="ResourcesFolder\ResourceDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewsFolder\HouseAddWindow.xaml">
+    <Page Include="Views\HouseAddWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ViewsFolder\HouseEditWindow.xaml">
+    <Page Include="Views\HouseEditWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ViewsFolder\ComplexEditWindow.xaml">
+    <Page Include="Views\ComplexEditWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ViewsFolder\ComplexAddWindow.xaml">
+    <Page Include="Views\ComplexAddWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ViewsFolder\SecondWindow.xaml">
+    <Page Include="Views\SecondWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -150,7 +150,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="ViewsFolder\MainWindow.xaml">
+    <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

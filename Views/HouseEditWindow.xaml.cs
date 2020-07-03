@@ -1,19 +1,18 @@
 ﻿using System;
-using System.Windows;
 using System.Text.RegularExpressions;
+using System.Windows;
 using System.Windows.Input;
-using Esoft.ViewModelsFolder;
+using Esoft.ViewModels;
 
-
-namespace Esoft.ViewsFolder
+namespace Esoft.Views
 {
     /// <summary>
-    /// Interaction logic for HouseAddWindow.xaml
+    /// Interaction logic for HouseEditWindow.xaml
     /// </summary>
-    public partial class HouseAddWindow : Window
+    public partial class HouseEditWindow : Window
     {
         internal Delegate UpdateActor;
-        public HouseAddWindow()
+        public HouseEditWindow()
         {
             InitializeComponent();
             

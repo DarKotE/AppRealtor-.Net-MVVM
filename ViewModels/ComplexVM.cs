@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
 using Esoft.Classes;
+using Esoft.Classes.Commands;
 using Esoft.Classes.DataAdapters;
 using Esoft.Classes.Models.Complex;
-using Esoft.CommandsFolder;
+using Esoft.Classes.Validators;
 
-namespace Esoft.ViewModelsFolder
+namespace Esoft.ViewModels
 {
     public class ComplexVM : INotifyPropertyChanged
     {
@@ -29,7 +30,7 @@ namespace Esoft.ViewModelsFolder
             StatusList.Add("Строительство");
             StatusList.Add("Реализация");
             CurrentComplex.IdComplex = App.Id;
-            CurrentComplex = ComplexAdapter.Read(CurrentComplex);
+            CurrentComplex = ComplexAdapter.GetComplex(CurrentComplex);
         }
         
         public Validator Validator { get; }
@@ -84,7 +85,7 @@ namespace Esoft.ViewModelsFolder
         public void Save(object param)
         {
             _message = Validator.Validate(CurrentComplex);
-            if (String.IsNullOrWhiteSpace(_message) && (ComplexAdapter.Update(CurrentComplex)))
+            if (String.IsNullOrWhiteSpace(_message) && (ComplexAdapter.SetComplex(CurrentComplex)))
             {
                 MessageBox.Show("Обновлено");
             }
@@ -100,7 +101,7 @@ namespace Esoft.ViewModelsFolder
         public void Add(object param)
         {
             _message = Validator.Validate(CurrentComplex);
-            if ((String.IsNullOrWhiteSpace(_message)) && (ComplexAdapter.Create(CurrentComplex)))
+            if ((String.IsNullOrWhiteSpace(_message)) && (ComplexAdapter.AddComplex(CurrentComplex)))
             {
                 MessageBox.Show("Добавлено");
             }

@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Windows;
 using System.Text.RegularExpressions;
+using System.Windows;
 using System.Windows.Input;
-using Esoft.ViewModelsFolder;
+using Esoft.ViewModels;
 
-
-namespace Esoft.ViewsFolder
+namespace Esoft.Views
 {
     /// <summary>
     /// Interaction logic for ComplexAddWindow.xaml

@@ -4,12 +4,12 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using Esoft.Classes;
+using Esoft.Classes.Commands;
 using Esoft.Classes.DataAdapters;
 using Esoft.Classes.Models.Apartment;
 using Esoft.Classes.Models.House;
-using Esoft.CommandsFolder;
 
-namespace Esoft.ViewModelsFolder
+namespace Esoft.ViewModels
 
 {
     public class MainVM : INotifyPropertyChanged 
@@ -248,7 +248,7 @@ namespace Esoft.ViewModelsFolder
                 MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
-                var isDeleted = HouseAdapter.Delete(SelectedRow);
+                var isDeleted = HouseAdapter.DeleteHouse(SelectedRow);
                 Message = isDeleted
                     ? "Удалено"
                     : "При удалении произошла ошибка";
