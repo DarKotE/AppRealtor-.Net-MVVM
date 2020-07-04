@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
 using Esoft.ViewModels;
@@ -9,36 +8,20 @@ namespace Esoft.Views
     /// <summary>
     /// Interaction logic for .xaml
     /// </summary>
-    public partial class SecondWindow : Window
+    public partial class SecondWindow 
     {
 
         public delegate void Refresh();
         public event Refresh RefreshEvent;
-
         
-
-        private async void LiveSortWorkaround()
-        {
-            await Task.Delay(100);
-            dgHouseList.Items.SortDescriptions.Add(
-                new SortDescription("City",
-                ListSortDirection.Ascending));
-            dgHouseList.Items.SortDescriptions.Add(
-                new SortDescription("StatusConstructionHousingComplexName",
-                ListSortDirection.Ascending));
-        }
 
         private void RefreshView()
         {
             var secondVM = new SecondVM();
-            this.DataContext = null;
-            this.DataContext = secondVM;
-            dgHouseList.Items.IsLiveSorting = true;
-            LiveSortWorkaround();
-
+            DataContext = null;
+            DataContext = secondVM;
         }
 
-       
 
         public SecondWindow()
         {
@@ -46,8 +29,7 @@ namespace Esoft.Views
             RefreshView();
         }
 
-
-
+        
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             tbSearch.Focus();
@@ -62,61 +44,41 @@ namespace Esoft.Views
                 MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
-                this.Close();
-                
+                Application.Current.Shutdown();
+                System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
             }
         }
 
-
-        private async void Add_OnClick(object sender, RoutedEventArgs e)
-        {
-            await Task.Delay(100);
-            RefreshEvent += new Refresh(RefreshView);
-            ComplexAddWindow winAdd = new ComplexAddWindow();
-            winAdd.UpdateActor = RefreshEvent;
-            winAdd.Show();
-        }
-
+        
         private void tbSearch_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
-            LiveSortWorkaround();
+            
             cbStatus.Text = String.Empty;
             cbCity.Text = String.Empty;
         }
-
-        private void cbStatus_DropDownClosed(object sender, EventArgs e)
-        {
-            LiveSortWorkaround();
-            cbCity.Text = String.Empty;
-        }
-
-        private void cbCity_DropDownClosed(object sender, EventArgs e)
-        {
-            LiveSortWorkaround();
-            cbStatus.Text = String.Empty;
-        }
-
-
-
+        
         private void tbApartmentWindow_OnClick(object sender, RoutedEventArgs e)
         {
             SecondWindow appartmentWindow = new SecondWindow();
             appartmentWindow.ShowDialog();
         }
 
+        private async void Add_OnClick(object sender, RoutedEventArgs e)
+        {
+            await Task.Delay(100);
+            RefreshEvent += new Refresh(RefreshView);
+            var winAdd = new ComplexAddWindow { UpdateActor = RefreshEvent };
+            winAdd.Show();
+        }
+
         private async void tbEdit_OnClick(object sender, RoutedEventArgs e)
         {
             await Task.Delay(100);
             RefreshEvent += new Refresh(RefreshView);
-            ComplexEditWindow winEdit = new ComplexEditWindow();
-            winEdit.UpdateActor = RefreshEvent;
+            var winEdit = new ComplexEditWindow {UpdateActor = RefreshEvent};
             winEdit.Show();
         }
-
-        private void tbDelete_OnClick(object sender, RoutedEventArgs e)
-        {
-
-        }
+        
     }
 }
 

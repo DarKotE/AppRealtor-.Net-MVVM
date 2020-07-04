@@ -6,16 +6,16 @@ namespace Esoft.Classes.DataAdapters
 {
     public class ApartmentAdapter
     {
-        public ApartmentSqlGateway DataAccess { get; }
+        public ApartmentSqlGateway ApartmentAccess { get; }
         
         public ApartmentAdapter()
         {
-            DataAccess = new ApartmentSqlGateway();
+            ApartmentAccess = new ApartmentSqlGateway();
         }
         
         public List<Apartment> GetAllApartment()
         {
-            var apartmentList = DataAccess.SelectAllApartment();
+            var apartmentList = ApartmentAccess.SelectAllApartment();
             return apartmentList ?? new List<Apartment>();
         }
 
@@ -23,22 +23,22 @@ namespace Esoft.Classes.DataAdapters
 
         public bool AddApartment(Apartment newApartment)
         {
-            return DataAccess != null && DataAccess.InsertApartment(newApartment);
+            return ApartmentAccess != null && ApartmentAccess.InsertApartment(newApartment);
         }
 
         public bool GetApartment(Apartment selectApartment)
         {
-            return DataAccess != null && DataAccess.SelectApartment(selectApartment);
+            return ApartmentAccess != null && ApartmentAccess.SelectApartment(selectApartment);
         }
 
         public bool SetApartment(Apartment updateApartment)
         {
-            return DataAccess != null && DataAccess.UpdateApartment(updateApartment);
+            return ApartmentAccess != null && ApartmentAccess.UpdateApartment(updateApartment);
         }
 
         public bool DeleteApartment(Apartment deleteApartment)
         {
-            return DataAccess != null && DataAccess.DeleteApartment(deleteApartment);
+            return ApartmentAccess != null && ApartmentAccess.DeleteApartment(deleteApartment);
         }
         #endregion
 

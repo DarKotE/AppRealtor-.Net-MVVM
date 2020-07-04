@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 using Esoft.Classes.Commands;
 using Esoft.Classes.DataAdapters;
@@ -10,36 +10,49 @@ using Esoft.Classes.Validators;
 
 namespace Esoft.ViewModels
 {
-    public class HouseVM : INotifyPropertyChanged
+    public class HouseVM 
     {
+        private readonly HouseAdapter _houseAdapter;
+        private readonly ComplexAdapter _complexAdapter;
 
-        
-        public HouseAdapter HouseAdapter { get; }
-        public ComplexAdapter ComplexAdapter { get; }
-
-
+        private string _message;
 
         public HouseVM()
         {
             Validator = new Validator();
+
             SaveCommand = new RelayCommand(Save);
             AddCommand = new RelayCommand(Add);
-            HouseAdapter = new HouseAdapter();
-            ComplexAdapter = new ComplexAdapter();
-            CurrentHouse = new House();
-            HouseList = HouseAdapter.GetAllHouseInComplex();
-            ComplexList = ComplexAdapter.GetAllComplex();
-            CurrentHouse.IdHouse = App.Id;
-            CurrentHouse = HouseAdapter.GetHouse(CurrentHouse);
 
+            _houseAdapter = new HouseAdapter();
+            _complexAdapter = new ComplexAdapter();
+
+            CurrentHouse = new House();
+            CurrentComplex = new Complex();
+
+            CurrentHouse.IdHouse = App.Id;
+
+            CurrentHouse = _houseAdapter.GetHouse(CurrentHouse);
+            HouseList = _houseAdapter.GetAllHouseInComplex();
+            ComplexList = _complexAdapter.GetAllComplex();
+
+            CurrentComplex = ComplexList.FirstOrDefault(item => item.IdComplex == CurrentHouse.IdComplex);
+            
         }
 
+        public Complex CurrentComplex { get; set; }
+
+
         public List<HouseInComplex> HouseList { get; set; }
+        public List<Complex> ComplexList { get; set; }
 
 
         public Validator Validator { get; }
+
+
         public RelayCommand SaveCommand { get; set; }
         public RelayCommand AddCommand { get; set; }
+
 
         private Complex _selectedComplex;
         public Complex SelectedComplex
@@ -48,28 +61,18 @@ namespace Esoft.ViewModels
             set
             {
                 _selectedComplex = value;
-                if (CurrentHouse != null) CurrentHouse.IdComplex = _selectedComplex.IdComplex;
-                OnPropertyChanged(nameof(SelectedComplex));
-
-            }
-        }
-        private List<Complex> _complexList;
-        public List<Complex> ComplexList
-        {
-            get => _complexList;
-            set
-            {
-                _complexList = value;
-                OnPropertyChanged(nameof(ComplexList));
-
+                if (CurrentHouse == null) return;
+                if (_selectedComplex != null)
+                    CurrentHouse.IdComplex = _selectedComplex.IdComplex;
             }
         }
 
-        private string _message;
+     
+
         public void Save(object param)
         {
-            _message = Validator.Validate(CurrentHouse);
-            if ((String.IsNullOrWhiteSpace(_message)) && (HouseAdapter.SetHouse(CurrentHouse)))
+            _message = Validator.ValidateHouse(CurrentHouse);
+            if ((String.IsNullOrWhiteSpace(_message)) && (_houseAdapter.SetHouse(CurrentHouse)))
             {
                 MessageBox.Show("Обновлено");
             }
@@ -89,8 +92,8 @@ namespace Esoft.ViewModels
 
         public void Add(object param)
         {
-            _message = Validator.Validate(CurrentHouse);
-            if (String.IsNullOrWhiteSpace(_message) && (HouseAdapter.AddHouse(CurrentHouse)))
+            _message = Validator.ValidateHouse(CurrentHouse);
+            if (String.IsNullOrWhiteSpace(_message) && (_houseAdapter.AddHouse(CurrentHouse)))
             {
                 MessageBox.Show("Добавлено");
             }
@@ -110,11 +113,8 @@ namespace Esoft.ViewModels
         
         public House CurrentHouse { get; set; }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+
+       
 
 
 

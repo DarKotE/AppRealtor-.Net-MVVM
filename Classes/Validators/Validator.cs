@@ -9,7 +9,7 @@ namespace Esoft.Classes.Validators
     {
         public HouseAdapter HouseAdapter { get; set; }
         public ComplexAdapter ComplexAdapter { get; set; }
-        public string Validate(Complex complex)
+        public string ValidateComplex(Complex complex)
         {
             if (complex == null)
             {
@@ -53,13 +53,13 @@ namespace Esoft.Classes.Validators
             }
             if(complex.StatusConstructionHousingComplex.Equals(Const.StatusConstructionValue.Plan))
             {
-                HouseAdapter = new HouseAdapter();
+                ComplexAdapter = new ComplexAdapter();
                 if(!ComplexAdapter.IsPlanAvailable(complex))
                     return "Невозможно установить выбранный статус т.к. в данном комплексе есть проданные квартиры";
             }
             if (!complex.StatusConstructionHousingComplex.Equals(Const.StatusConstructionValue.Plan))
             {
-                return String.Empty; //passedComplexAdapter
+                return String.Empty; //validated
             }
             HouseAdapter = new HouseAdapter();
             if (!ComplexAdapter.IsPlanAvailable(complex))
@@ -67,10 +67,10 @@ namespace Esoft.Classes.Validators
                 return "Невозможно установить выбранный статус т.к. в данном комплексе есть проданные квартиры";
             }
                 
-            return String.Empty; //passed
+            return String.Empty; //validated
         }
 
-        public string Validate(House house)
+        public string ValidateHouse(House house)
         {
             
             if (house == null)
@@ -97,7 +97,7 @@ namespace Esoft.Classes.Validators
             {
                 return "Rоэффициент добавочной стоимости должен быть неотрицательным";
             }
-            return String.Empty;
+            return String.Empty; //validated
         }
 
 

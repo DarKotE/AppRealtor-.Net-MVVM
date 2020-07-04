@@ -133,9 +133,9 @@ namespace Esoft.Classes.DataSqlGateways
         }
 
 
-        public bool CanDeleteComplex(Complex complexToDelete)
+        public bool IsDeleteComplexPossible(Complex complexToDelete)
         {
-            var isPossible = true;
+            var isPossible = false;
 
             using (var sqlConnection = new SqlConnection(CSqlConfig.DefaultCnnVal()))
             {
@@ -143,7 +143,7 @@ namespace Esoft.Classes.DataSqlGateways
                 {
                     const string sqlQuery =
                         @"SELECT [Id]
-                        @FROM [dbo].[Apartments]
+                        FROM [dbo].[Apartments]
                         inner join[dbo].[House] 
                         on [House].IdHouse = Apartments.Id_LCD
                         inner join [dbo].[Complex] 
@@ -161,9 +161,9 @@ namespace Esoft.Classes.DataSqlGateways
                         reader = sqlCommand.ExecuteReader();
                     }
 
-                    if (reader.HasRows)
+                    if (!reader.HasRows)
                     {
-                        isPossible = false;
+                        isPossible = true;
                     }
                 }
                 catch (Exception ex)

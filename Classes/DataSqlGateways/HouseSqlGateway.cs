@@ -16,7 +16,7 @@ namespace Esoft.Classes.DataSqlGateways
             {
                 try
                 {
-                    const string sqlQuery = 
+                    const string sqlQuery =
                         @"SELECT [IdHouse], [Street], [Number_House], [Cost_House_Construction], 
                         [Additional_Cost_Apartament_House], [Name_Housing_Complex], [City], 
                         [Status_Construction_Housing_Complex]
@@ -69,7 +69,7 @@ namespace Esoft.Classes.DataSqlGateways
             }
             return tempHouseList;
         }
-
+        
 
         public List<House> SelectAllHouse()
         {
@@ -78,11 +78,12 @@ namespace Esoft.Classes.DataSqlGateways
             {
                 try
                 {
-                    const string sqlQuery = 
+                    const string sqlQuery =
                         @"SELECT [IdHouse], [Street], [Number_House], 
                         [Cost_House_Construction], [Additional_Cost_Apartament_House],
                         [IdComplex], [IsDeleted] 
-                        FROM [dbo].[House]";
+                        FROM [dbo].[House]
+                        WHERE [House].IsDeleted = 0";
                     SqlDataReader reader;
                     using (var sqlCommand = new SqlCommand(sqlQuery,
                         sqlConnection))
@@ -127,6 +128,7 @@ namespace Esoft.Classes.DataSqlGateways
             return tempHouseList;
 
         }
+
 
         public bool InsertHouse(House newHouse)
         {
@@ -318,6 +320,42 @@ namespace Esoft.Classes.DataSqlGateways
                         if (deleteHouse != null)
                             sqlCommand.Parameters.AddWithValue("IdHouse",
                                 deleteHouse.IdHouse);
+                        sqlConnection.Open();
+                        noOfRowsAffected = sqlCommand.ExecuteNonQuery();
+                    }
+                    isDeleted = noOfRowsAffected > 0;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message,
+                        "Ошибка",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error);
+                }
+                finally
+                {
+                    sqlConnection.Close();
+                }
+            }
+            return isDeleted;
+        }
+
+        public bool DeleteHouseByComplexId(int idComplex)
+        {
+            var isDeleted = false;
+            using (var sqlConnection = new SqlConnection(CSqlConfig.DefaultCnnVal()))
+            {
+                try
+                {
+                    const string sqlQuery =
+                        @"UPDATE dbo.[House]
+                        SET IsDeleted=1 
+                        WHERE IdComplex=@IdComplex";
+                    int noOfRowsAffected;
+                    using (var sqlCommand = new SqlCommand(sqlQuery, sqlConnection))
+                    {
+                        sqlCommand.Parameters.AddWithValue("IdComplex",
+                            idComplex);
                         sqlConnection.Open();
                         noOfRowsAffected = sqlCommand.ExecuteNonQuery();
                     }

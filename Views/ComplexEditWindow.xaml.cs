@@ -9,7 +9,7 @@ namespace Esoft.Views
     /// <summary>
     /// Interaction logic for ComplexEditWindow.xaml
     /// </summary>
-    public partial class ComplexEditWindow : Window
+    public partial class ComplexEditWindow 
     {
         internal Delegate UpdateActor;
         public ComplexEditWindow()

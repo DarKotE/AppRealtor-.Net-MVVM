@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 using Esoft.Classes;
 using Esoft.Classes.Commands;
@@ -10,32 +10,44 @@ using Esoft.Classes.Validators;
 
 namespace Esoft.ViewModels
 {
-    public class ComplexVM : INotifyPropertyChanged
+    public class ComplexVM 
     {
-        
-        public HouseAdapter HouseAdapter { get; }
-        public ComplexAdapter ComplexAdapter { get; }
+        private string _message;
+        private readonly ComplexAdapter _complexAdapter; 
 
         public ComplexVM()
         {
+            _complexAdapter = new ComplexAdapter();
 
             Validator = new Validator();
+
             SaveCommand = new RelayCommand(Save);
             AddCommand = new RelayCommand(Add);
-            HouseAdapter = new HouseAdapter();
-            ComplexAdapter = new ComplexAdapter();
-            CurrentComplex = new Complex();
-            StatusList = new List<string>();
-            StatusList.Add("План");
-            StatusList.Add("Строительство");
-            StatusList.Add("Реализация");
+
+            
+            CurrentComplex = new ComplexWithHouses();
+            StatusList = new List<string> {"План", "Строительство", "Реализация"};
+
+
             CurrentComplex.IdComplex = App.Id;
-            CurrentComplex = ComplexAdapter.GetComplex(CurrentComplex);
+            CurrentComplex = _complexAdapter.GetComplexWithHouses(CurrentComplex);
+
+            CurrentStatus = StatusList.FirstOrDefault(item => item == CurrentComplex.StatusConstructionHousingComplexName);
+
         }
-        
+
+        public string CurrentStatus { get; set; }
+
         public Validator Validator { get; }
+
+
+        public ComplexWithHouses CurrentComplex { get; set; }
+
+        public List<string> StatusList { get; set; }
+
         public RelayCommand SaveCommand { get; set; }
         public RelayCommand AddCommand { get; set; }
+
 
         private string _selectedStatus;
         public string SelectedStatus
@@ -60,32 +72,13 @@ namespace Esoft.ViewModels
                             CurrentComplex.StatusConstructionHousingComplex = Const.StatusConstructionValue.Sell;
                         break;
                 }
-
-                OnPropertyChanged(nameof(SelectedStatus));
-
             }
         }
-
-        private List<string> _statusList;
-
-        public List<string> StatusList
-        {
-            get =>
-                _statusList;
-            set
-            {
-                _statusList = value;
-                OnPropertyChanged(nameof(StatusList));
-
-            }
-        }
-
-
-        private string _message;
+        
         public void Save(object param)
         {
-            _message = Validator.Validate(CurrentComplex);
-            if (String.IsNullOrWhiteSpace(_message) && (ComplexAdapter.SetComplex(CurrentComplex)))
+            _message = Validator.ValidateComplex(CurrentComplex);
+            if (String.IsNullOrWhiteSpace(_message) && (_complexAdapter.SetComplex(CurrentComplex)))
             {
                 MessageBox.Show("Обновлено");
             }
@@ -100,8 +93,8 @@ namespace Esoft.ViewModels
 
         public void Add(object param)
         {
-            _message = Validator.Validate(CurrentComplex);
-            if ((String.IsNullOrWhiteSpace(_message)) && (ComplexAdapter.AddComplex(CurrentComplex)))
+            _message = Validator.ValidateComplex(CurrentComplex);
+            if ((String.IsNullOrWhiteSpace(_message)) && (_complexAdapter.AddComplex(CurrentComplex)))
             {
                 MessageBox.Show("Добавлено");
             }
@@ -118,19 +111,6 @@ namespace Esoft.ViewModels
             }
 
         }
-
-
-
-        public Complex CurrentComplex { get; set; }
-
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this,
-                new PropertyChangedEventArgs(propertyName));
-        }
-
+        
     }
 }

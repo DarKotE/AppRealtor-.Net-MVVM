@@ -73,10 +73,10 @@
         <ComboBox x:Name="cbApartment" 
                   ItemsSource="{Binding ComplexList}"  
                   
-                  SelectedItem="{Binding SelectedComplex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="130.8,30,249,27.6" IsReadOnly="True" Grid.Column="2" Grid.RowSpan="2" DropDownClosed="cbApartment_DropDownClosed" />
+                  SelectedItem="{Binding SelectedComplex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="130.8,30,249,27.6" IsReadOnly="True" Grid.Column="2" Grid.RowSpan="2" />
         <ComboBox x:Name="cbStreet" 
                  ItemsSource="{Binding StreetList}"
-                 SelectedItem="{Binding SelectedStreet, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}" Margin="353.8,29,16,28.6" RenderTransformOrigin="-0.776,-1.077" Grid.Column="2" Grid.RowSpan="2" DropDownClosed="cbStreet_DropDownClosed"/>
+                 SelectedItem="{Binding SelectedStreet, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}" Margin="353.8,29,16,28.6" RenderTransformOrigin="-0.776,-1.077" Grid.Column="2" Grid.RowSpan="2" />
         <Button x:Name="Exit" Content="Выход" Style="{DynamicResource BtnStyle}" Grid.Row="10"  Click="Exit_Click"  Grid.Column="3" Margin="10,30.2,10,34.2" Grid.RowSpan="2" />
         <Button x:Name="Add" Content="Создать дом" Style="{DynamicResource BtnBigStyle}" Command="{Binding Path=AddCommand}"
                 Grid.Column="3"  Margin="10,17.6,9,14.4" Click="Add_OnClick" Height="Auto" Grid.Row="7"/>
@@ -87,7 +87,7 @@
             Grid.Column="3"  Margin="9,60.6,10,0" Click="tbEdit_OnClick" Height="38" VerticalAlignment="Top" Grid.Row="7" Grid.RowSpan="2"/>
         <Button x:Name="tbDelete" Content="Удалить" Style="{DynamicResource BtnBigStyle}" 
                 Command="{Binding Path=DeleteCommand}"
-            Grid.Column="3"  Margin="9,46.2,10,0" Grid.RowSpan="2" Click="tbDelete_OnClick" Height="38" VerticalAlignment="Top" Grid.Row="9"/>
+            Grid.Column="3"  Margin="9,46.2,10,0" Grid.RowSpan="2" Height="38" VerticalAlignment="Top" Grid.Row="9"/>
         <Button x:Name="tbApartmentWindow" Content="Список ЖК" Style="{DynamicResource BtnBigStyle}" 
             Grid.Column="3"  Margin="10,30,9,0" Click="tbApartmentWindow_OnClick" Height="38" VerticalAlignment="Top" Grid.RowSpan="2"/>
     </Grid>

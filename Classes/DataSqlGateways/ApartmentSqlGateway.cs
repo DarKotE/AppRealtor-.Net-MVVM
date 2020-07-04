@@ -16,11 +16,12 @@ namespace Esoft.Classes.DataSqlGateways
             {
                 try
                 {
-                    const string sqlQuery = 
+                    const string sqlQuery =
                         @"SELECT [Id],[Id_LCD], [Number_Apartament], [Area], [Number_Of_Rooms], 
                         [Porch], [Floor], [Status_Sale], 
                         [Added_value], [Expenses_Building_An_Apartment]
-                        FROM [dbo].[Apartments]";
+                        FROM [dbo].[Apartments]
+                        WHERE [Apartments].IsDeleted = 0";
                     SqlDataReader reader;
                     using (var sqlCommand = new SqlCommand(sqlQuery,
                         sqlConnection))

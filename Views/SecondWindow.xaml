@@ -66,11 +66,11 @@
         <ComboBox x:Name="cbStatus" 
                   ItemsSource="{Binding StatusList}"  
                   
-                  SelectedItem="{Binding SelectedStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="130.8,30,249,27.6" IsReadOnly="True" Grid.Column="2" Grid.RowSpan="2" DropDownClosed="cbStatus_DropDownClosed" Grid.ColumnSpan="2" />
+                  SelectedItem="{Binding SelectedStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="130.8,30,249,27.6" IsReadOnly="True" Grid.Column="2" Grid.RowSpan="2" Grid.ColumnSpan="2" />
         <ComboBox x:Name="cbCity" 
                  ItemsSource="{Binding CityList}"
-                 SelectedItem="{Binding SelectedCity, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}" Margin="188.733,29,16,28.6" RenderTransformOrigin="-0.776,-1.077" Grid.Column="3" Grid.RowSpan="2" DropDownClosed="cbCity_DropDownClosed"/>
-        <Button x:Name="Exit" Content="Выход" Style="{DynamicResource BtnStyle}" Grid.Row="10"  Click="Exit_Click"  Grid.Column="4" Margin="10,30.2,10,34.2" Grid.RowSpan="2" />
+                 SelectedItem="{Binding SelectedCity, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}" Margin="188.733,29,16,28.6" RenderTransformOrigin="-0.776,-1.077" Grid.Column="3" Grid.RowSpan="2" />
+        <Button x:Name="Exit" Content="Назад" Style="{DynamicResource BtnStyle}" Grid.Row="10"  Click="Exit_Click"  Grid.Column="4" Margin="10,30.2,10,34.2" Grid.RowSpan="2" />
         <Button x:Name="Add" Content="Создать ЖК" Style="{DynamicResource BtnBigStyle}" Command="{Binding Path=AddCommand}"
                 Grid.Column="4"  Margin="10,17.6,9,0" Click="Add_OnClick" Height="38" VerticalAlignment="Top" Grid.Row="7"/>
         <Label x:Name="lblStatus" Content="Статус" Style="{DynamicResource LabelStyle}"  Margin="85.8,30,34,26.6" Padding="0" Height="Auto" Grid.Column="2" Grid.RowSpan="2" RenderTransformOrigin="1.074,0.433"/>
@@ -80,7 +80,7 @@
             Grid.Column="4"  Margin="9,60.6,10,0" Click="tbEdit_OnClick" Height="38" VerticalAlignment="Top" Grid.Row="7" Grid.RowSpan="2"/>
         <Button x:Name="tbDelete" Content="Удалить" Style="{DynamicResource BtnBigStyle}" 
                 Command="{Binding Path=DeleteCommand}"
-            Grid.Column="4"  Margin="9,46.2,10,0" Grid.RowSpan="2" Click="tbDelete_OnClick" Height="38" VerticalAlignment="Top" Grid.Row="9"/>
+            Grid.Column="4"  Margin="9,46.2,10,0" Grid.RowSpan="2" Height="38" VerticalAlignment="Top" Grid.Row="9"/>
     </Grid>
 
 </Window>

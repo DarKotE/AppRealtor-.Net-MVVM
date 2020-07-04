@@ -63,7 +63,8 @@
                  Style="{DynamicResource TbStyle}"/>
         <ComboBox x:Name="cbComplex"  
                   ItemsSource="{Binding ComplexList}" DisplayMemberPath="NameHousingComplex"
-                  SelectedItem="{Binding SelectedComplex, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Margin="9.8,16.8,10.4,16.4" Grid.Row="5"/>
+                  Text="{Binding Path=CurrentComplex.NameHousingComplex, Mode=OneWay}" 
+                  SelectedItem="{Binding SelectedComplex, Mode=OneWayToSource,  UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Margin="9.8,16.8,10.4,16.4" Grid.Row="5"/>
         <TextBox x:Name="tbAddCost" Grid.Column="2" Grid.Row="6" PreviewTextInput="NumberValidationTextBox"
                  Text="{Binding Path=CurrentHouse.AdditionalCostHouseConstruction}"
                  Style="{DynamicResource TbStyle}"/>

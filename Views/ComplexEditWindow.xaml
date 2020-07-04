@@ -63,7 +63,8 @@
                  Style="{DynamicResource TbStyle}"/>
         <ComboBox x:Name="cbStatus" 
                   ItemsSource="{Binding StatusList}"
-                  SelectedItem="{Binding SelectedStatus, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Margin="9.8,16.8,10.4,16.4" Grid.Row="5"/>
+                  Text="{Binding Path=CurrentStatus, Mode=OneWay}" 
+                  SelectedItem="{Binding SelectedStatus, Mode=OneWayToSource,  UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Margin="9.8,16.8,10.4,16.4" Grid.Row="5"/>
         <TextBox x:Name="tbCost" Grid.Column="2" Grid.Row="6" PreviewTextInput="NumberValidationTextBox"
                  Text="{Binding Path=CurrentComplex.BuildingCost}"
                  Style="{DynamicResource TbStyle}"/>

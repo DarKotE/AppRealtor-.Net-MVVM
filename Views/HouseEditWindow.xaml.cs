@@ -9,7 +9,7 @@ namespace Esoft.Views
     /// <summary>
     /// Interaction logic for HouseEditWindow.xaml
     /// </summary>
-    public partial class HouseEditWindow : Window
+    public partial class HouseEditWindow 
     {
         internal Delegate UpdateActor;
         public HouseEditWindow()
