@@ -59,8 +59,8 @@ namespace Esoft.Views
         
         private void tbApartmentWindow_OnClick(object sender, RoutedEventArgs e)
         {
-            SecondWindow appartmentWindow = new SecondWindow();
-            appartmentWindow.ShowDialog();
+            var apartmentWindow = new SecondWindow();
+            apartmentWindow.ShowDialog();
         }
 
         private async void Add_OnClick(object sender, RoutedEventArgs e)
