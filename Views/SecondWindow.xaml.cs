@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Windows;
-using Esoft.ViewModels;
+using Esoft.Classes.ViewModels;
 
 namespace Esoft.Views
 {

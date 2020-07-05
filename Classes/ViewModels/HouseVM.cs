@@ -8,7 +8,7 @@ using Esoft.Classes.Models.Complex;
 using Esoft.Classes.Models.House;
 using Esoft.Classes.Validators;
 
-namespace Esoft.ViewModels
+namespace Esoft.Classes.ViewModels
 {
     public class HouseVM 
     {

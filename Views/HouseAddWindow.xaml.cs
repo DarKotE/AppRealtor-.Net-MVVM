@@ -2,7 +2,7 @@
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
-using Esoft.ViewModels;
+using Esoft.Classes.ViewModels;
 
 namespace Esoft.Views
 {

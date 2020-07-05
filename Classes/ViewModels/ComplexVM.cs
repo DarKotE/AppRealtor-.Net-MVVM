@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
-using Esoft.Classes;
 using Esoft.Classes.Commands;
 using Esoft.Classes.DataAdapters;
 using Esoft.Classes.Models.Complex;
 using Esoft.Classes.Validators;
 
-namespace Esoft.ViewModels
+namespace Esoft.Classes.ViewModels
 {
     public class ComplexVM 
     {

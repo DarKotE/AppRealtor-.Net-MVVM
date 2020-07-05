@@ -95,10 +95,10 @@
     <Compile Include="Classes\DataSqlGateways\ComplexSqlGateway.cs" />
     <Compile Include="Classes\Validators\Validator.cs" />
     <Compile Include="Classes\Commands\RelayCommand.cs" />
-    <Compile Include="ViewModels\HouseVM.cs" />
-    <Compile Include="ViewModels\ComplexVM.cs" />
-    <Compile Include="ViewModels\SecondVM.cs" />
-    <Compile Include="ViewModels\MainVM.cs" />
+    <Compile Include="Classes\ViewModels\HouseVM.cs" />
+    <Compile Include="Classes\ViewModels\ComplexVM.cs" />
+    <Compile Include="Classes\ViewModels\SecondVM.cs" />
+    <Compile Include="Classes\ViewModels\MainVM.cs" />
     <Compile Include="Views\HouseAddWindow.xaml.cs">
       <DependentUpon>HouseAddWindow.xaml</DependentUpon>
     </Compile>
