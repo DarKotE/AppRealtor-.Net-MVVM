@@ -80,25 +80,25 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Classes\Const.cs" />
-    <Compile Include="Classes\DataAdapters\ApartmentAdapter.cs" />
-    <Compile Include="Classes\DataAdapters\ComplexAdapter.cs" />
-    <Compile Include="Classes\DataAdapters\HouseAdapter.cs" />
-    <Compile Include="Classes\Models\Apartment\Apartment.cs" />
-    <Compile Include="Classes\Models\Complex\ComplexWithHouses.cs" />
-    <Compile Include="Classes\Models\Complex\Complex.cs" />
-    <Compile Include="Classes\Models\House\HouseInComplex.cs" />
-    <Compile Include="Classes\DataSqlGateways\HouseSqlGateway.cs" />
-    <Compile Include="Classes\DataSqlGateways\ApartmentSqlGateway.cs" />
-    <Compile Include="Classes\Models\House\House.cs" />
-    <Compile Include="Classes\DataSqlGateways\SqlConfig\SqlConfig.cs" />
-    <Compile Include="Classes\DataSqlGateways\ComplexSqlGateway.cs" />
-    <Compile Include="Classes\Validators\Validator.cs" />
-    <Compile Include="Classes\Commands\RelayCommand.cs" />
-    <Compile Include="Classes\ViewModels\HouseVM.cs" />
-    <Compile Include="Classes\ViewModels\ComplexVM.cs" />
-    <Compile Include="Classes\ViewModels\SecondVM.cs" />
-    <Compile Include="Classes\ViewModels\MainVM.cs" />
+    <Compile Include="Src\Util\Constants\Const.cs" />
+    <Compile Include="Src\DataAccess\DataAdapters\ApartmentAdapter.cs" />
+    <Compile Include="Src\DataAccess\DataAdapters\ComplexAdapter.cs" />
+    <Compile Include="Src\DataAccess\DataAdapters\HouseAdapter.cs" />
+    <Compile Include="Src\Models\Apartment\Apartment.cs" />
+    <Compile Include="Src\Models\Complex\ComplexWithHouses.cs" />
+    <Compile Include="Src\Models\Complex\Complex.cs" />
+    <Compile Include="Src\Models\House\HouseInComplex.cs" />
+    <Compile Include="Src\DataAccess\DataSqlGateways\HouseSqlGateway.cs" />
+    <Compile Include="Src\DataAccess\DataSqlGateways\ApartmentSqlGateway.cs" />
+    <Compile Include="Src\Models\House\House.cs" />
+    <Compile Include="Src\DataAccess\DataSqlGateways\SqlConfig\SqlConfig.cs" />
+    <Compile Include="Src\DataAccess\DataSqlGateways\ComplexSqlGateway.cs" />
+    <Compile Include="Src\Util\Validators\Validator.cs" />
+    <Compile Include="Src\Util\Commands\RelayCommand.cs" />
+    <Compile Include="Src\ViewModels\HouseVM.cs" />
+    <Compile Include="Src\ViewModels\ComplexVM.cs" />
+    <Compile Include="Src\ViewModels\SecondVM.cs" />
+    <Compile Include="Src\ViewModels\MainVM.cs" />
     <Compile Include="Views\HouseAddWindow.xaml.cs">
       <DependentUpon>HouseAddWindow.xaml</DependentUpon>
     </Compile>
@@ -117,7 +117,7 @@
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="ResourcesFolder\ResourceDictionary.xaml">
+    <Page Include="Resources\ResourceDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -173,8 +173,8 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Resource Include="ResourcesFolder\TCM.TTF" />
-    <Resource Include="ResourcesFolder\TCB.TTF" />
+    <Resource Include="Resources\TCM.TTF" />
+    <Resource Include="Resources\TCB.TTF" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -192,10 +192,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ResourcesFolder\EsoftIcon.png" />
+    <Resource Include="Resources\EsoftIcon.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ResourcesFolder\EIcon.png" />
+    <Resource Include="Resources\EIcon.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
