@@ -4,39 +4,61 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using Esoft.DataAccess.DataAdapters;
+using Esoft.Models.Apartment;
 using Esoft.Models.Complex;
 using Esoft.Util.Commands;
+using Esoft.Util.Paginators;
 
 namespace Esoft.ViewModels
 {
-    public class SecondVM : INotifyPropertyChanged
+    public class ThirdVM : INotifyPropertyChanged
     {
         
         private readonly ComplexAdapter _complexAdapter;
+        private readonly ApartmentAdapter _apartmentAdapter;
 
-        public SecondVM()
+        private PagingCollectionView _cview;
+
+        public PagingCollectionView Cview
+        {
+            get { return _cview; }
+            set
+            {
+                _cview = value;
+                OnPropertyChanged(nameof(FilteredComplexList)); ;
+            }
+            
+        }
+
+        public ThirdVM()
         {
             _complexAdapter = new ComplexAdapter();
-
+            _apartmentAdapter = new ApartmentAdapter();
+            
             EditCommand = new RelayCommand(Edit);
             AddCommand = new RelayCommand(Add);
             DeleteCommand = new RelayCommand(Delete);
-            
+            NextPageCommand = new RelayCommand(NextPage);
+            PrevPageCommand = new RelayCommand(PrevPage);
+
+            LoadData();
+            Cview = new PagingCollectionView(FilteredApartmentList,20);
             LoadData();
         }
-
+        
         private void LoadData()
         {
-            ComplexList = new ObservableCollection<ComplexWithHouses>(_complexAdapter.GetAllComplexWithHousesSorted());
-            StatusList = new ObservableCollection<string>(
-                    ComplexList.Select(c => c.StatusConstructionHousingComplexName)
-                    .Distinct()
-                    .ToList());
-            CityList = new ObservableCollection<string>(
-                ComplexList.Select(c => c.City)
-                .Distinct()
-                .ToList());
-            SelectedRow = new Complex();
+            ApartmentList = new ObservableCollection<ApartmentWithComplexes>(_apartmentAdapter.GetAllApartmentWithComplexes());
+            //ComplexList = new ObservableCollection<ComplexWithHouses>(_complexAdapter.GetAllComplexWithHousesSorted());
+            //StatusList = new ObservableCollection<string>(
+            //        ComplexList.Select(c => c.StatusConstructionHousingComplexName)
+            //        .Distinct()
+            //        .ToList());
+            //CityList = new ObservableCollection<string>(
+            //    ComplexList.Select(c => c.City)
+            //    .Distinct()
+            //    .ToList());
+            SelectedRow = new ApartmentWithComplexes();
             SearchText = string.Empty;
         }
         
@@ -44,7 +66,7 @@ namespace Esoft.ViewModels
         public ObservableCollection<string> CityList { get; set; }
 
         public ObservableCollection<string> StatusList { get; set; }
-
+        public ObservableCollection<ApartmentWithComplexes> ApartmentList { get; set; }
         public ObservableCollection<ComplexWithHouses> ComplexList { get; set; }
 
 
@@ -58,8 +80,18 @@ namespace Esoft.ViewModels
                 OnPropertyChanged(nameof(FilteredComplexList));
             }
         }
+        private ObservableCollection<ApartmentWithComplexes> _filteredApartmentList;
+        public ObservableCollection<ApartmentWithComplexes> FilteredApartmentList
+        {
+            get => _filteredApartmentList;
+            set
+            {
+                _filteredApartmentList = value;
+                OnPropertyChanged(nameof(FilteredApartmentList));
+            }
+        }
 
-        public Complex SelectedRow { get; set; }
+        public ApartmentWithComplexes SelectedRow { get; set; }
 
         private string _selectedStatus;
         public string SelectedStatus
@@ -76,7 +108,7 @@ namespace Esoft.ViewModels
                             item.StatusConstructionHousingComplexName.ToUpper().Contains(_selectedStatus.ToUpper())
                             && (String.IsNullOrEmpty(SelectedCity) 
                                 || item.City.ToUpper().Contains(SelectedCity.ToUpper()))));
-                    if (FilteredComplexList.Any()) SelectedRow = FilteredComplexList[0];
+                    //if (FilteredComplexList.Any()) SelectedRow = FilteredComplexList[0];
                 }
 
                 OnPropertyChanged(nameof(SelectedStatus));
@@ -97,7 +129,7 @@ namespace Esoft.ViewModels
                             item.City.ToUpper().Contains(_selectedCity.ToUpper())
                             && (String.IsNullOrEmpty(SelectedStatus) 
                                 || item.StatusConstructionHousingComplexName.ToUpper().Contains(SelectedStatus.ToUpper()))));
-                    if (FilteredComplexList.Any()) SelectedRow = FilteredComplexList[0];
+                    //if (FilteredComplexList.Any()) SelectedRow = FilteredComplexList[0];
                 }
 
                 OnPropertyChanged(nameof(SelectedCity));
@@ -111,15 +143,16 @@ namespace Esoft.ViewModels
             set
             {
                 _searchText = value;
-                FilteredComplexList =
-                    new ObservableCollection<ComplexWithHouses>(
+                FilteredApartmentList =
+                    new ObservableCollection<ApartmentWithComplexes>(
                         from item
-                            in ComplexList
+                            in ApartmentList
                         where item.NameHousingComplex.ToUpper().Contains(SearchText.ToUpper())
-                              || item.City.ToUpper().Contains(SearchText.ToUpper())
-                              || item.StatusConstructionHousingComplexName.ToUpper().Contains(SearchText.ToUpper())
+                              || item.FullAddress.ToUpper().Contains(SearchText.ToUpper())
+
+
                         select item);
-                if (FilteredComplexList.Any()) SelectedRow = FilteredComplexList[0];
+                if (FilteredApartmentList.Any()) SelectedRow = FilteredApartmentList[0];
                 OnPropertyChanged(nameof(SearchText));
             }
         }
@@ -130,8 +163,9 @@ namespace Esoft.ViewModels
         public RelayCommand EditCommand { get; set; }
         public RelayCommand DeleteCommand { get; }
         public RelayCommand AddCommand { get; }
-        
-        
+        public RelayCommand PrevPageCommand { get; }
+        public RelayCommand NextPageCommand { get; }
+
         public void Add(object param)
         {
             App.Id = 0;
@@ -140,7 +174,15 @@ namespace Esoft.ViewModels
 
         public void Edit(object param)
         {
-            App.Id = SelectedRow.IdComplex;
+            App.Id = SelectedRow.Id;
+        }
+        public void NextPage(object param)
+        {
+            Cview.MoveToNextPage();
+        }
+        public void PrevPage(object param)
+        {
+            Cview.MoveToPreviousPage();
         }
 
         public void Delete(object param)
@@ -151,12 +193,12 @@ namespace Esoft.ViewModels
                 MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
-                var isDeleted = _complexAdapter.DeleteComplex(SelectedRow);
-                Message = isDeleted
-                    ? "Удалено"
-                    : "При удалении произошла ошибка";
-                MessageBox.Show(Message);
-                LoadData();
+                //var isDeleted = _complexAdapter.DeleteComplex(SelectedRow);
+                //Message = isDeleted
+                //    ? "Удалено"
+                //    : "При удалении произошла ошибка";
+                //MessageBox.Show(Message);
+                //LoadData();
             }
         }
 

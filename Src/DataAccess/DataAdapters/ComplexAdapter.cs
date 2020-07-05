@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using Esoft.Src.DataAccess.DataSqlGateways;
-using Esoft.Src.Models.Complex;
-using Esoft.Src.Models.House;
+using Esoft.DataAccess.DataSqlGateways;
+using Esoft.Models.Complex;
+using Esoft.Models.House;
 
-namespace Esoft.Src.DataAccess.DataAdapters
+namespace Esoft.DataAccess.DataAdapters
 {
     public class ComplexAdapter
     {
@@ -82,7 +82,6 @@ namespace Esoft.Src.DataAccess.DataAdapters
                     IdComplex = temp.IdComplex,
                     IsDeleted = temp.IsDeleted,
                     StatusConstructionHousingComplex = temp.StatusConstructionHousingComplex,
-                    StatusConstructionHousingComplexName = temp.StatusConstructionHousingComplex,
                     NameHousingComplex = temp.NameHousingComplex
                 };
                 

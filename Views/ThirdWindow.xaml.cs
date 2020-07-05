@@ -8,7 +8,7 @@ namespace Esoft.Views
     /// <summary>
     /// Interaction logic for .xaml
     /// </summary>
-    public partial class SecondWindow 
+    public partial class ThirdWindow 
     {
 
         public delegate void Refresh();
@@ -17,13 +17,13 @@ namespace Esoft.Views
 
         private void RefreshView()
         {
-            var secondVM = new SecondVM();
+            var secondVM = new ThirdVM();
             DataContext = null;
             DataContext = secondVM;
         }
 
 
-        public SecondWindow()
+        public ThirdWindow()
         {
             InitializeComponent();
             RefreshView();

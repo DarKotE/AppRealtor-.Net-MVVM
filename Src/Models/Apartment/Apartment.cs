@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Esoft.Src.Models.Apartment
+namespace Esoft.Models.Apartment
 {
 
     public class Apartment : INotifyPropertyChanged

@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
-using Esoft.Src.DataAccess.DataAdapters;
-using Esoft.Src.Models.Complex;
-using Esoft.Src.Models.House;
-using Esoft.Src.Util.Commands;
-using Esoft.Src.Util.Validators;
+using Esoft.DataAccess.DataAdapters;
+using Esoft.Models.Complex;
+using Esoft.Models.House;
+using Esoft.Util.Commands;
+using Esoft.Util.Validators;
 
-namespace Esoft.Src.ViewModels
+namespace Esoft.ViewModels
 {
     public class HouseVM 
     {

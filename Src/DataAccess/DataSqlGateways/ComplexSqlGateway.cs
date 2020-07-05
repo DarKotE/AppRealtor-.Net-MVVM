@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Windows;
-using Esoft.Src.DataAccess.DataSqlGateways.SqlConfig;
-using Esoft.Src.Models.Complex;
+using Esoft.DataAccess.DataSqlGateways.SqlConfig;
+using Esoft.Models.Complex;
 
-namespace Esoft.Src.DataAccess.DataSqlGateways
+namespace Esoft.DataAccess.DataSqlGateways
 {
     public class ComplexSqlGateway
     {
@@ -101,7 +101,6 @@ namespace Esoft.Src.DataAccess.DataSqlGateways
                                 NameHousingComplex = reader.GetString(1),
                                 City = reader.GetString(2),
                                 StatusConstructionHousingComplex = reader.GetString(3),
-                                StatusConstructionHousingComplexName = reader.GetString(3),
                                 AddedValue = reader.GetInt64(4),
                                 BuildingCost = reader.GetInt64(5)
                             };

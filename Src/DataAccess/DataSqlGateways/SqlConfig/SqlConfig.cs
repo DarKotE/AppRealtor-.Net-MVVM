@@ -1,6 +1,6 @@
 ﻿using System.Configuration;
 
-namespace Esoft.Src.DataAccess.DataSqlGateways.SqlConfig
+namespace Esoft.DataAccess.DataSqlGateways.SqlConfig
 {
     public static class CSqlConfig
     {

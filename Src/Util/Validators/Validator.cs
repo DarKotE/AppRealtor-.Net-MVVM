@@ -1,10 +1,10 @@
 ﻿using System;
-using Esoft.Src.DataAccess.DataAdapters;
-using Esoft.Src.Models.Complex;
-using Esoft.Src.Models.House;
-using Esoft.Src.Util.Constants;
+using Esoft.DataAccess.DataAdapters;
+using Esoft.Models.Complex;
+using Esoft.Models.House;
+using Esoft.Util.Constants;
 
-namespace Esoft.Src.Util.Validators
+namespace Esoft.Util.Validators
 {
     public class Validator
     {

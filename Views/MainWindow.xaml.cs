@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Windows;
-using Esoft.Src.ViewModels;
+using Esoft.ViewModels;
 
 namespace Esoft.Views
 {
@@ -55,12 +55,6 @@ namespace Esoft.Views
         }
         
 
-        private void tbApartmentWindow_OnClick(object sender, RoutedEventArgs e)
-        {
-            var apartmentWindow = new SecondWindow();
-            apartmentWindow.ShowDialog();
-        }
-
         private void Add_OnClick(object sender, RoutedEventArgs e)
         {
             App.Id = default;
@@ -77,6 +71,19 @@ namespace Esoft.Views
             winAdd.Show();
 
         }
+
+        private void tbComplexWindow_OnClick(object sender, RoutedEventArgs e)
+        {
+            var сomplexWindow = new SecondWindow();
+            сomplexWindow.ShowDialog();
+        }
+
+        private void tbApartmentWindow_OnClick(object sender, RoutedEventArgs e)
+        {
+            var apartmentWindow = new ThirdWindow();
+            apartmentWindow.ShowDialog();
+        }
+
     }
 }
 

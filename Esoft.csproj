@@ -80,6 +80,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Src\Models\Apartment\ApartmentWithComplexes.cs" />
     <Compile Include="Src\Util\Constants\Const.cs" />
     <Compile Include="Src\DataAccess\DataAdapters\ApartmentAdapter.cs" />
     <Compile Include="Src\DataAccess\DataAdapters\ComplexAdapter.cs" />
@@ -93,10 +94,12 @@
     <Compile Include="Src\Models\House\House.cs" />
     <Compile Include="Src\DataAccess\DataSqlGateways\SqlConfig\SqlConfig.cs" />
     <Compile Include="Src\DataAccess\DataSqlGateways\ComplexSqlGateway.cs" />
+    <Compile Include="Src\Util\Paginators\PagingCollectionView.cs" />
     <Compile Include="Src\Util\Validators\Validator.cs" />
     <Compile Include="Src\Util\Commands\RelayCommand.cs" />
     <Compile Include="Src\ViewModels\HouseVM.cs" />
     <Compile Include="Src\ViewModels\ComplexVM.cs" />
+    <Compile Include="Src\ViewModels\ThirdVM.cs" />
     <Compile Include="Src\ViewModels\SecondVM.cs" />
     <Compile Include="Src\ViewModels\MainVM.cs" />
     <Compile Include="Views\HouseAddWindow.xaml.cs">
@@ -110,6 +113,9 @@
     </Compile>
     <Compile Include="Views\ComplexAddWindow.xaml.cs">
       <DependentUpon>ComplexAddWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ThirdWindow.xaml.cs">
+      <DependentUpon>ThirdWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SecondWindow.xaml.cs">
       <DependentUpon>SecondWindow.xaml</DependentUpon>
@@ -134,6 +140,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\ComplexAddWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ThirdWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

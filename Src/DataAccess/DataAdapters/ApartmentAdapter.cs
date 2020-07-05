@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using Esoft.Src.DataAccess.DataSqlGateways;
-using Esoft.Src.Models.Apartment;
+using Esoft.DataAccess.DataSqlGateways;
+using Esoft.Models.Apartment;
 
-namespace Esoft.Src.DataAccess.DataAdapters
+namespace Esoft.DataAccess.DataAdapters
 {
     public class ApartmentAdapter
     {
@@ -18,6 +18,12 @@ namespace Esoft.Src.DataAccess.DataAdapters
             var apartmentList = ApartmentAccess.SelectAllApartment();
             return apartmentList ?? new List<Apartment>();
         }
+        public List<ApartmentWithComplexes> GetAllApartmentWithComplexes()
+        {
+            var apartmentList = ApartmentAccess.SelectAllApartmentWithComplexes();
+            return apartmentList ?? new List<ApartmentWithComplexes>();
+        }
+
 
         #region CRUD operations for Apartment
 

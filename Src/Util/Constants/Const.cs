@@ -1,4 +1,4 @@
-﻿namespace Esoft.Src.Util.Constants
+﻿namespace Esoft.Util.Constants
 {
     internal static class Const
     {
@@ -13,6 +13,7 @@
             public const string Sold = "sold";
             public const string Ready = "ready";
         }
+
 
     }
 }

@@ -3,11 +3,11 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
-using Esoft.Src.DataAccess.DataAdapters;
-using Esoft.Src.Models.House;
-using Esoft.Src.Util.Commands;
+using Esoft.DataAccess.DataAdapters;
+using Esoft.Models.House;
+using Esoft.Util.Commands;
 
-namespace Esoft.Src.ViewModels
+namespace Esoft.ViewModels
 
 {
     public class MainVM : INotifyPropertyChanged

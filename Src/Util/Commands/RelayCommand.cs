@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace Esoft.Src.Util.Commands
+namespace Esoft.Util.Commands
 {
     public class RelayCommand : ICommand
     {

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Esoft.Src.Models.House
+namespace Esoft.Models.House
 {
     public class House : INotifyPropertyChanged
     {

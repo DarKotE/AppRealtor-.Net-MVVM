@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
-using Esoft.Src.Util.Constants;
+using Esoft.Util.Constants;
 
-namespace Esoft.Src.Models.House
+namespace Esoft.Models.House
 {
     //properties for easy binding to view via viewmodel
     public class HouseInComplex :House, INotifyPropertyChanged

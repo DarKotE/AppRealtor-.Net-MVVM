@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
-using Esoft.Src.Util.Constants;
+using Esoft.Util.Constants;
 
-namespace Esoft.Src.Models.Complex
+namespace Esoft.Models.Complex
 {
     //for easy binding to view via viewmodel
     public class ComplexWithHouses : Complex, INotifyPropertyChanged
@@ -10,11 +10,9 @@ namespace Esoft.Src.Models.Complex
         private string _statusConstructionHousingComplexName;
         public string StatusConstructionHousingComplexName
         {
-            get { return _statusConstructionHousingComplexName; }
-            set
+            get
             {
-                _statusConstructionHousingComplexName = value;
-                switch (_statusConstructionHousingComplexName)
+                switch (StatusConstructionHousingComplex)
                 {
                     case Const.StatusConstructionValue.Plan:
                         _statusConstructionHousingComplexName = "План";
@@ -23,12 +21,18 @@ namespace Esoft.Src.Models.Complex
                     case Const.StatusConstructionValue.Build:
                         _statusConstructionHousingComplexName = "Строительство";
                         break;
-                    
+
                     case Const.StatusConstructionValue.Sell:
                         _statusConstructionHousingComplexName = "Реализация";
                         break;
 
                 }
+
+                return _statusConstructionHousingComplexName;
+            }
+            set
+            {
+                _statusConstructionHousingComplexName = value;
                 OnPropertyChanged(nameof(StatusConstructionHousingComplexName));
             }
         }

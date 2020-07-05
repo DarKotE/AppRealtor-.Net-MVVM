@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Windows;
-using Esoft.Src.DataAccess.DataSqlGateways.SqlConfig;
-using Esoft.Src.Models.House;
+using Esoft.DataAccess.DataSqlGateways.SqlConfig;
+using Esoft.Models.House;
 
-namespace Esoft.Src.DataAccess.DataSqlGateways
+namespace Esoft.DataAccess.DataSqlGateways
 {
     public class HouseSqlGateway
     {

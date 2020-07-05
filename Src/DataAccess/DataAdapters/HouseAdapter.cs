@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using Esoft.Src.DataAccess.DataSqlGateways;
-using Esoft.Src.Models.Apartment;
-using Esoft.Src.Models.House;
-using Esoft.Src.Util.Constants;
+using Esoft.DataAccess.DataSqlGateways;
+using Esoft.Models.Apartment;
+using Esoft.Models.House;
+using Esoft.Util.Constants;
 
-namespace Esoft.Src.DataAccess.DataAdapters
+namespace Esoft.DataAccess.DataAdapters
 {
     public class HouseAdapter
     {

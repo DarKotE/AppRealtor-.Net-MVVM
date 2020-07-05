@@ -88,7 +88,10 @@
         <Button x:Name="tbDelete" Content="Удалить" Style="{DynamicResource BtnBigStyle}" 
                 Command="{Binding Path=DeleteCommand}"
             Grid.Column="3"  Margin="9,46.2,10,0" Grid.RowSpan="2" Height="38" VerticalAlignment="Top" Grid.Row="9"/>
-        <Button x:Name="tbApartmentWindow" Content="Список ЖК" Style="{DynamicResource BtnBigStyle}" 
-            Grid.Column="3"  Margin="10,30,9,0" Click="tbApartmentWindow_OnClick" Height="38" VerticalAlignment="Top" Grid.RowSpan="2"/>
+        <Button x:Name="tbComplexWindow" Content="Список ЖК" Style="{DynamicResource BtnBigStyle}" 
+            Grid.Column="3"  Margin="10,30,9,0" Click="tbComplexWindow_OnClick" Height="38" VerticalAlignment="Top" Grid.RowSpan="2"/>
+        <Button x:Name="tbApartmentWindow" Content="Список квартир" Style="{DynamicResource BtnBigStyle}" 
+                Grid.Column="3"  Margin="10,0.4,9,0" Click="tbApartmentWindow_OnClick" Height="38" VerticalAlignment="Top" Grid.Row="2"/>
+
     </Grid>
 </Window>
