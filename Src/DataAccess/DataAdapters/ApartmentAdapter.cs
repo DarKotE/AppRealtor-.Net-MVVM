@@ -25,8 +25,6 @@ namespace Esoft.DataAccess.DataAdapters
         }
 
 
-        #region CRUD operations for Apartment
-
         public bool AddApartment(Apartment newApartment)
         {
             return ApartmentAccess != null && ApartmentAccess.InsertApartment(newApartment);
@@ -46,7 +44,5 @@ namespace Esoft.DataAccess.DataAdapters
         {
             return ApartmentAccess != null && ApartmentAccess.DeleteApartment(deleteApartment);
         }
-        #endregion
-
     }
 }

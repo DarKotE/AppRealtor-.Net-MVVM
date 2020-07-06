@@ -32,6 +32,7 @@ namespace Esoft.DataAccess.DataAdapters
             var houseList = HouseAccess.SelectAllHouseInComplex();
             return houseList ?? new List<HouseInComplex>();
         }
+
         public List<HouseInComplex> GetAllHouseInComplexSorted()
         {
             var houseListSorted = HouseAccess.SelectAllHouseInComplex()
@@ -66,8 +67,6 @@ namespace Esoft.DataAccess.DataAdapters
         }
 
 
-        #region CRUD operations for House
-
         public bool AddHouse(House newHouse)
         {
             return HouseAccess != null && HouseAccess.InsertHouse(newHouse);
@@ -92,7 +91,6 @@ namespace Esoft.DataAccess.DataAdapters
         {
             return HouseAccess != null && HouseAccess.DeleteHouseByComplexId(idComplex);
         }
-        #endregion
-
+        
     }
 }

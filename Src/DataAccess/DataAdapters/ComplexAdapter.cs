@@ -55,9 +55,6 @@ namespace Esoft.DataAccess.DataAdapters
         }
 
 
-        #region CRUD operations for Complex 
-
-
         public bool AddComplex(Complex newComplex)
         {
             return ComplexAccess != null && ComplexAccess.InsertComplex(newComplex);
@@ -105,7 +102,7 @@ namespace Esoft.DataAccess.DataAdapters
                    && ComplexAccess.DeleteComplex(deleteComplex);
         }
 
-        #endregion
+        
 
     }
 }
