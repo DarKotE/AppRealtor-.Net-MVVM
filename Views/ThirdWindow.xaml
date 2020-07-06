@@ -41,9 +41,9 @@
         <Label x:Name="lbTitle" Content="Список квартир" Style="{DynamicResource LabelTitle}" Grid.ColumnSpan="4" Margin="10,0,10,0.4" Height="Auto" />
         <TextBox x:Name="tbSearch" Style="{DynamicResource TbStyle}"
                  Text="{Binding Path=SearchText, Mode=TwoWay, Delay=5, UpdateSourceTrigger=PropertyChanged}" TextChanged="tbSearch_TextChanged" Margin="45.2,30,102.267,27.6" Height="Auto" Grid.RowSpan="2" Grid.ColumnSpan="2" Grid.Column="1" />
-        <DataGrid x:Name="dgApartmentList" Grid.Row="1" Grid.RowSpan="11" 
-                  AutoGenerateColumns="False" ItemsSource="{Binding Path=Cview}" SelectedItem="{Binding Path=SelectedRow, Mode=TwoWay}"
-                  IsReadOnly="True" FontSize="12"  Margin="16,35.6,16,32.2" Grid.ColumnSpan="4">
+        <DataGrid x:Name="dgApartmentList" Grid.Row="1" Grid.RowSpan="10" 
+                  AutoGenerateColumns="False" ItemsSource="{Binding Path=PagingApartmentListView}" SelectedItem="{Binding Path=SelectedRow, Mode=TwoWay}"
+                  IsReadOnly="True" FontSize="12"  Margin="16,35.6,16,16.6" Grid.ColumnSpan="4">
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="dgTcNameHousingComplex"
                                     Header="ЖК"
@@ -76,39 +76,42 @@
 
             </DataGrid.Columns>
         </DataGrid>
-        <ComboBox x:Name="cbStatus" 
-                  ItemsSource="{Binding StatusList}"  
-                  
-                  SelectedItem="{Binding SelectedStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,11.4,9,20.6" IsReadOnly="True" Grid.Column="4" Grid.Row="2" />
-        <ComboBox x:Name="cbCity" 
-                 ItemsSource="{Binding CityList}"
-                 SelectedItem="{Binding SelectedCity, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}" Margin="0,9.4,9,40.6" RenderTransformOrigin="-0.776,-1.077" Grid.Column="4" Grid.Row="3" />
+        <ComboBox x:Name="cbComplex" 
+                  ItemsSource="{Binding ComplexList, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding SelectedComplex, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" Margin="0,11.4,9,20.6" IsReadOnly="True" Grid.Column="4" Grid.Row="2" MaxDropDownHeight="200" />
+        <ComboBox x:Name="cbAddress" 
+                 ItemsSource="{Binding HouseAddressList, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                 SelectedItem="{Binding SelectedHouseAddress, Mode=OneWayToSource,  UpdateSourceTrigger=PropertyChanged}" Margin="0,0.4,9,50" RenderTransformOrigin="-0.776,-1.077" Grid.Column="4" Grid.Row="3" MaxDropDownHeight="200" />
         <Button x:Name="Exit" Content="Назад" Style="{DynamicResource BtnStyle}" Grid.Row="10"  Click="Exit_Click"  Grid.Column="4" Margin="10,30.2,10,34.2" Grid.RowSpan="2" />
-        <Button x:Name="Add" Content="Создать ЖК" Style="{DynamicResource BtnBigStyle}" Command="{Binding Path=AddCommand}"
+        <Button x:Name="Add" Content="Создать квартиру" Style="{DynamicResource BtnBigStyle}" Command="{Binding Path=AddCommand}"
                 Grid.Column="4"  Margin="10,17.6,9,0" Click="Add_OnClick" Height="38" VerticalAlignment="Top" Grid.Row="7"/>
-        <Label x:Name="lblStatus" Content="ЖК" Style="{DynamicResource LabelStyle}"  Margin="0,36.6,100,0" Padding="0" Height="22" Grid.Column="4" RenderTransformOrigin="1.074,0.433" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Top"/>
-        <Label x:Name="lblCity" Content="Адрес" Style="{DynamicResource LabelStyle}"  Margin="0,41.4,100,60.6" Padding="0" Height="Auto" Grid.Column="4" RenderTransformOrigin="-0.01,0.462" Grid.Row="2" Grid.RowSpan="2"/>
+        <Label x:Name="lblComplex" Content="ЖК" Style="{DynamicResource LabelStyle}"  Margin="0,36.6,100,0" Padding="0" Height="22" Grid.Column="4" RenderTransformOrigin="1.074,0.433" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Top"/>
+        <Label x:Name="lblAddress" Content="Адрес" Style="{DynamicResource LabelStyle}"  Margin="0,32.4,100,69.6" Padding="0" Height="Auto" Grid.Column="4" RenderTransformOrigin="-0.01,0.462" Grid.Row="2" Grid.RowSpan="2"/>
         <Button x:Name="tbEdit" Content="Редактировать" Style="{DynamicResource BtnBigStyle}" 
                 Command="{Binding Path=EditCommand}" 
             Grid.Column="4"  Margin="9,60.6,10,0" Click="tbEdit_OnClick" Height="38" VerticalAlignment="Top" Grid.Row="7" Grid.RowSpan="2"/>
         <Button x:Name="tbDelete" Content="Удалить" Style="{DynamicResource BtnBigStyle}" 
                 Command="{Binding Path=DeleteCommand}"
             Grid.Column="4"  Margin="9,46.2,10,0" Grid.RowSpan="2" Height="38" VerticalAlignment="Top" Grid.Row="9"/>
-        <ComboBox x:Name="cbCity_Copy" 
-            ItemsSource="{Binding CityList}"
-            SelectedItem="{Binding SelectedCity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,59.4,9,21" RenderTransformOrigin="-0.776,-1.077" Grid.Column="4" Grid.Row="3" Grid.RowSpan="2" />
-        <Label x:Name="lblCity_Copy" Content="Этаж" Style="{DynamicResource LabelStyle}"  Margin="0,38.4,100,11" Padding="0" Height="Auto" Grid.Column="4" RenderTransformOrigin="-0.01,0.462" Grid.Row="3"/>
-        <ComboBox x:Name="cbCity_Copy1" 
-            ItemsSource="{Binding CityList}"
-            SelectedItem="{Binding SelectedCity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,10,9,39.4" RenderTransformOrigin="-0.776,-1.077" Grid.Column="4" Grid.Row="5" />
-        <Label x:Name="lblCity_Copy1" Content="Подъезд" Style="{DynamicResource LabelStyle}"  Margin="0,19,88,59.8" Padding="0" Height="Auto" Grid.Column="4" RenderTransformOrigin="-0.01,0.462" Grid.Row="4" Grid.RowSpan="2"/>
-        <ComboBox x:Name="cbCity_Copy2" 
-            ItemsSource="{Binding CityList}"
-            SelectedItem="{Binding SelectedCity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,66,9,14.8" RenderTransformOrigin="-0.776,-1.077" Grid.Column="4" Grid.Row="5" Grid.RowSpan="2" />
-        <Label x:Name="lblCity_Copy2" Content="Статус" Style="{DynamicResource LabelStyle}"  Margin="0,46,100,4.4" Padding="0" Height="Auto" Grid.Column="4" RenderTransformOrigin="-0.01,0.462" Grid.Row="5"/>
+        <ComboBox x:Name="cbFloor" 
+            ItemsSource="{Binding FloorList, Mode=TwoWay}"
+            SelectedItem="{Binding SelectedFloor, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" Margin="0,41.4,9,7" RenderTransformOrigin="-0.776,-1.077" Grid.Column="4" Grid.Row="3" MaxDropDownHeight="200" />
+        <Label x:Name="lblFloor" Content="Этаж" Style="{DynamicResource LabelStyle}"  Margin="0,20.4,100,28.6" Padding="0" Height="Auto" Grid.Column="4" RenderTransformOrigin="-0.01,0.462" Grid.Row="3"/>
+        <ComboBox x:Name="cbPorch" 
+            ItemsSource="{Binding PorchList, Mode=TwoWay}"
+            SelectedItem="{Binding SelectedPorch, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" Margin="0,15,9,64.8" RenderTransformOrigin="-0.776,-1.077" Grid.Column="4" Grid.Row="4" Grid.RowSpan="2" />
+        <Label x:Name="lblPorch" Content="Подъезд" Style="{DynamicResource LabelStyle}"  Margin="0,63.4,88,15.4" Padding="0" Height="Auto" Grid.Column="4" RenderTransformOrigin="-0.01,0.462" Grid.Row="3" Grid.RowSpan="2"/>
+        <ComboBox x:Name="cbStatus" 
+            ItemsSource="{Binding StatusList, Mode=OneWay}"
+            SelectedItem="{Binding SelectedStatus, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" Margin="0,25.6,9,24.4" RenderTransformOrigin="-0.776,-1.077" Grid.Column="4" Grid.Row="5" />
+        <Label x:Name="lblStatus" Content="Статус" Style="{DynamicResource LabelStyle}"  Margin="0,5.6,100,44.4" Padding="0" Height="Auto" Grid.Column="4" RenderTransformOrigin="-0.01,0.462" Grid.Row="5"/>
 
-        <Button Content="Next" Command="{Binding Path=NextPageCommand}" Style="{DynamicResource BtnStyle}"  Margin="71.8,13.6,64,11.6" Grid.Column="2" Grid.Row="1"/>
-        <Button Content="Previous" Command="{Binding Path=PrevPageCommand}" Style="{DynamicResource BtnStyle}"  Margin="125.8,13.6,10,11.6" Grid.Column="2" Grid.Row="1"/>
+        <Button Content="Вперёд" Command="{Binding Path=NextPageCommand}" Style="{DynamicResource BtnStyle}"  Margin="80.8,0.4,12,33.6" Grid.Column="2" Grid.Row="11"/>
+        <Button Content="Назад" Command="{Binding Path=PrevPageCommand}" Style="{DynamicResource BtnStyle}"  Margin="82.2,0.4,149,33.6" Grid.Column="1" Grid.Row="11" Grid.ColumnSpan="2"/>
+        <Button Content="В конец" Command="{Binding Path=LastPageCommand}" Style="{DynamicResource BtnStyle}"  Margin="0,0.4,312,33.6" Grid.Column="3" Grid.Row="11"/>
+        <Button Content="В начало" Command="{Binding Path=FirstPageCommand}" Style="{DynamicResource BtnStyle}"  Margin="0.2,0.4,66.2,33.6" Grid.Row="11" Grid.Column="1"/>
+        <Label Content="{Binding Path=PagingApartmentListView.CurrentPage}" Style="{DynamicResource LabelTitle}" Grid.Column="2" Margin="15.8,29.8,84,32.6" Grid.Row="10" Height="Auto" Grid.RowSpan="2"/>
+        <Button x:Name="BtnCancel" Command="{Binding Path=CancelSelectionCommand}" Content="Сбросить" Style="{DynamicResource BtnStyle}" Grid.Row="5"  Grid.Column="4" Margin="24,60.6,24,18.2" Grid.RowSpan="2" Height="Auto" Click="BtnCancel_OnClick__Click" />
     </Grid>
 
 </Window>

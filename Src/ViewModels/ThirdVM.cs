@@ -5,34 +5,19 @@ using System.Linq;
 using System.Windows;
 using Esoft.DataAccess.DataAdapters;
 using Esoft.Models.Apartment;
-using Esoft.Models.Complex;
 using Esoft.Util.Commands;
 using Esoft.Util.Paginators;
+using Esoft.Util.Searchers;
 
 namespace Esoft.ViewModels
 {
     public class ThirdVM : INotifyPropertyChanged
     {
         
-        private readonly ComplexAdapter _complexAdapter;
         private readonly ApartmentAdapter _apartmentAdapter;
-
-        private PagingCollectionView _cview;
-
-        public PagingCollectionView Cview
-        {
-            get { return _cview; }
-            set
-            {
-                _cview = value;
-                OnPropertyChanged(nameof(FilteredComplexList)); ;
-            }
-            
-        }
 
         public ThirdVM()
         {
-            _complexAdapter = new ComplexAdapter();
             _apartmentAdapter = new ApartmentAdapter();
             
             EditCommand = new RelayCommand(Edit);
@@ -40,101 +25,152 @@ namespace Esoft.ViewModels
             DeleteCommand = new RelayCommand(Delete);
             NextPageCommand = new RelayCommand(NextPage);
             PrevPageCommand = new RelayCommand(PrevPage);
-
-            LoadData();
-            Cview = new PagingCollectionView(FilteredApartmentList,20);
+            LastPageCommand = new RelayCommand(LastPage);
+            FirstPageCommand = new RelayCommand(FirstPage);
+            CancelSelectionCommand = new RelayCommand(Cancel);
             LoadData();
         }
         
         private void LoadData()
         {
             ApartmentList = new ObservableCollection<ApartmentWithComplexes>(_apartmentAdapter.GetAllApartmentWithComplexes());
-            //ComplexList = new ObservableCollection<ComplexWithHouses>(_complexAdapter.GetAllComplexWithHousesSorted());
-            //StatusList = new ObservableCollection<string>(
-            //        ComplexList.Select(c => c.StatusConstructionHousingComplexName)
-            //        .Distinct()
-            //        .ToList());
-            //CityList = new ObservableCollection<string>(
-            //    ComplexList.Select(c => c.City)
-            //    .Distinct()
-            //    .ToList());
+            FillFilterLists();
             SelectedRow = new ApartmentWithComplexes();
             SearchText = string.Empty;
         }
-        
 
-        public ObservableCollection<string> CityList { get; set; }
-
-        public ObservableCollection<string> StatusList { get; set; }
-        public ObservableCollection<ApartmentWithComplexes> ApartmentList { get; set; }
-        public ObservableCollection<ComplexWithHouses> ComplexList { get; set; }
-
-
-        private ObservableCollection<ComplexWithHouses> _filteredComplexList;
-        public ObservableCollection<ComplexWithHouses> FilteredComplexList
+        private void FillFilterLists()
         {
-            get => _filteredComplexList;
-            set
-            {
-                _filteredComplexList = value;
-                OnPropertyChanged(nameof(FilteredComplexList));
-            }
-        }
-        private ObservableCollection<ApartmentWithComplexes> _filteredApartmentList;
-        public ObservableCollection<ApartmentWithComplexes> FilteredApartmentList
-        {
-            get => _filteredApartmentList;
-            set
-            {
-                _filteredApartmentList = value;
-                OnPropertyChanged(nameof(FilteredApartmentList));
-            }
+            StatusList = new ObservableCollection<string>(
+                ApartmentList.Select(c => c.StatusSaleName)
+                    .Distinct()
+                    .ToList());
+            HouseAddressList = new ObservableCollection<string>(
+                ApartmentList.Select(c => c.HouseAddress)
+                    .Distinct()
+                    .ToList());
+            FloorList = new ObservableCollection<int>(
+                ApartmentList.Select(c => c.Floor)
+                    .Distinct()
+                    .OrderBy(c => c)
+                    .ToList());
+            PorchList = new ObservableCollection<int>(
+                ApartmentList.Select(c => c.Porch)
+                    .Distinct()
+                    .OrderBy(c => c)
+                    .ToList());
+            ComplexList = new ObservableCollection<string>(
+                ApartmentList.Select(c => c.NameHousingComplex)
+                    .Distinct()
+                    .OrderBy(c => c)
+                    .ToList());
         }
 
         public ApartmentWithComplexes SelectedRow { get; set; }
 
+        public ObservableCollection<string> ComplexList { get; set; }
+        public ObservableCollection<string> StatusList { get; set; }
+        public ObservableCollection<string> HouseAddressList { get; set; }
+        public ObservableCollection<int> PorchList { get; set; }
+        public ObservableCollection<int> FloorList { get; set; }
+
+        private ObservableCollection<ApartmentWithComplexes> ApartmentList { get; set; }
+        public ObservableCollection<ApartmentWithComplexes> FilteredApartmentList { get; set; }
+
+
+        private PagingCollectionView _pagingApartmentListView;
+        public PagingCollectionView PagingApartmentListView
+        {
+            get { return _pagingApartmentListView; }
+            set
+            {
+                _pagingApartmentListView = value;
+                OnPropertyChanged(nameof(PagingApartmentListView)); 
+            }
+
+        }
+
+        private void FilterBySelection()
+        {
+            FilteredApartmentList =
+                new ObservableCollection<ApartmentWithComplexes>(
+                    ApartmentList.Where(item =>
+                        (String.IsNullOrEmpty(SelectedStatus)
+                         || item.StatusSaleName.ToUpper().Contains(SelectedStatus.ToUpper()))
+                        &&
+                        (String.IsNullOrEmpty(SelectedComplex)
+                         || item.NameHousingComplex.ToUpper().Contains(SelectedComplex.ToUpper()))
+                        &&
+                        (String.IsNullOrEmpty(SelectedHouseAddress)
+                         || item.HouseAddress.ToUpper().Contains(SelectedHouseAddress.ToUpper()))
+                        &&
+                        (SelectedFloor.Equals(default)
+                         || item.Floor.Equals(SelectedFloor))
+                        &&
+                        (SelectedPorch.Equals(default)
+                         || item.Porch.Equals(SelectedPorch))));
+            PagingApartmentListView = new PagingCollectionView(FilteredApartmentList, 20);
+            if (FilteredApartmentList.Any())
+                SelectedRow = FilteredApartmentList[0];
+
+        }
+
+
         private string _selectedStatus;
         public string SelectedStatus
         {
-            get => _selectedStatus;
+            get { return _selectedStatus; }
             set
             {
                 _selectedStatus = value;
-                if (!string.IsNullOrEmpty(_selectedStatus))
-                {
-                    FilteredComplexList =
-                        new ObservableCollection<ComplexWithHouses>(
-                            ComplexList.Where(item =>
-                            item.StatusConstructionHousingComplexName.ToUpper().Contains(_selectedStatus.ToUpper())
-                            && (String.IsNullOrEmpty(SelectedCity) 
-                                || item.City.ToUpper().Contains(SelectedCity.ToUpper()))));
-                    //if (FilteredComplexList.Any()) SelectedRow = FilteredComplexList[0];
-                }
-
-                OnPropertyChanged(nameof(SelectedStatus));
+                FilterBySelection();
             }
         }
 
-        private string _selectedCity;
-        public string SelectedCity
+        private string _selectedComplex;
+        public string SelectedComplex
         {
-            get => _selectedCity;
+            get { return _selectedComplex; }
             set
             {
-                _selectedCity = value;
-                if (!string.IsNullOrEmpty(_selectedCity))
-                {
-                    FilteredComplexList =
-                        new ObservableCollection<ComplexWithHouses>(ComplexList.Where(item =>
-                            item.City.ToUpper().Contains(_selectedCity.ToUpper())
-                            && (String.IsNullOrEmpty(SelectedStatus) 
-                                || item.StatusConstructionHousingComplexName.ToUpper().Contains(SelectedStatus.ToUpper()))));
-                    //if (FilteredComplexList.Any()) SelectedRow = FilteredComplexList[0];
-                }
-
-                OnPropertyChanged(nameof(SelectedCity));
+                _selectedComplex = value;
+                FilterBySelection();
             }
         }
+
+        private string _selectedHouseAddress;
+        public string SelectedHouseAddress
+        {
+            get { return _selectedHouseAddress; }
+            set
+            {
+                _selectedHouseAddress = value;
+                FilterBySelection();
+            }
+        }
+
+        private int? _selectedPorch;
+        public int? SelectedPorch
+        {
+            get { return _selectedPorch; }
+            set
+            {
+                _selectedPorch = value;
+                FilterBySelection();
+            }
+        }
+
+        private int? _selectedFloor = 0;
+        public int? SelectedFloor
+        {
+            get { return _selectedFloor; }
+            set
+            {
+                _selectedFloor = value;
+                FilterBySelection();
+            }
+        }
+
 
         private string _searchText;
         public string SearchText
@@ -143,16 +179,20 @@ namespace Esoft.ViewModels
             set
             {
                 _searchText = value;
+
                 FilteredApartmentList =
                     new ObservableCollection<ApartmentWithComplexes>(
                         from item
                             in ApartmentList
-                        where item.NameHousingComplex.ToUpper().Contains(SearchText.ToUpper())
-                              || item.FullAddress.ToUpper().Contains(SearchText.ToUpper())
-
-
+                        where (
+                            String.IsNullOrWhiteSpace(SearchText)
+                            ||
+                            (Levenshtein.Distance(item.NameHousingComplex.ToUpper(), SearchText.ToUpper().Trim()) < 4
+                            ||
+                            Levenshtein.Distance(item.FullAddress.ToUpper(), SearchText.ToUpper().Trim()) < 4))
                         select item);
                 if (FilteredApartmentList.Any()) SelectedRow = FilteredApartmentList[0];
+                PagingApartmentListView = new PagingCollectionView(FilteredApartmentList, 20);
                 OnPropertyChanged(nameof(SearchText));
             }
         }
@@ -160,29 +200,49 @@ namespace Esoft.ViewModels
 
         public string Message { get; set; }
 
+
+
         public RelayCommand EditCommand { get; set; }
         public RelayCommand DeleteCommand { get; }
         public RelayCommand AddCommand { get; }
         public RelayCommand PrevPageCommand { get; }
         public RelayCommand NextPageCommand { get; }
+        public RelayCommand LastPageCommand { get; }
+        public RelayCommand FirstPageCommand { get; }
+        public RelayCommand CancelSelectionCommand { get; }
+
 
         public void Add(object param)
         {
             App.Id = 0;
         }
 
-
         public void Edit(object param)
         {
             App.Id = SelectedRow.Id;
         }
+
+        public void Cancel(object param)
+        {
+            LoadData();
+        }
+
         public void NextPage(object param)
         {
-            Cview.MoveToNextPage();
+            PagingApartmentListView.MoveToNextPage();
         }
+
         public void PrevPage(object param)
         {
-            Cview.MoveToPreviousPage();
+            PagingApartmentListView.MoveToPreviousPage();
+        }
+        public void LastPage(object param)
+        {
+            PagingApartmentListView.MoveToLastPage();
+        }
+        public void FirstPage(object param)
+        {
+            PagingApartmentListView.MoveToFirstPage();
         }
 
         public void Delete(object param)

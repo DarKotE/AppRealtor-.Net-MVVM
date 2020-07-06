@@ -56,6 +56,23 @@ namespace Esoft.Models.Apartment
                 OnPropertyChanged(nameof(FullAddress));
             }
         }
+        private string _houseAddress;
+        public string HouseAddress
+        {
+            get
+            {
+                _houseAddress = "ул.";
+                _houseAddress += Street;
+                _houseAddress += " д.";
+                _houseAddress += NumberHouse;
+                return _houseAddress;
+            }
+            set
+            {
+                _houseAddress = value;
+                OnPropertyChanged(nameof(HouseAddress));
+            }
+        }
 
         private string _statusSaleName;
         public string StatusSaleName
@@ -85,7 +102,7 @@ namespace Esoft.Models.Apartment
 
 
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public new event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this,

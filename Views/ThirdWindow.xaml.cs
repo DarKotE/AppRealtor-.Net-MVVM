@@ -52,9 +52,12 @@ namespace Esoft.Views
         
         private void tbSearch_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
-            
-            cbStatus.Text = String.Empty;
-            cbCity.Text = String.Empty;
+
+            cbAddress.Text = default;
+            cbComplex.Text = default;
+            cbFloor.Text = default;
+            cbPorch.Text = default;
+            cbStatus.Text = default;
         }
         
         private void tbApartmentWindow_OnClick(object sender, RoutedEventArgs e)
@@ -78,7 +81,17 @@ namespace Esoft.Views
             var winEdit = new ComplexEditWindow {UpdateActor = RefreshEvent};
             winEdit.Show();
         }
-        
+
+
+
+        private void BtnCancel_OnClick__Click(object sender, RoutedEventArgs e)
+        {
+            cbAddress.Text = default;
+            cbComplex.Text = default;
+            cbFloor.Text = default;
+            cbPorch.Text = default;
+            cbStatus.Text = default;
+        }
     }
 }
 

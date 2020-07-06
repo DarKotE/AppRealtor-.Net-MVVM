@@ -93,5 +93,22 @@ namespace Esoft.Util.Paginators
             }
             this.Refresh();
         }
+
+        public void MoveToFirstPage()
+        {
+            if (this.PageCount>0)
+            {
+                this.CurrentPage = 1;
+            }
+            this.Refresh();
+        }
+        public void MoveToLastPage()
+        {
+            if (this.PageCount > 1)
+            {
+                this.CurrentPage = PageCount;
+            }
+            this.Refresh();
+        }
     }
 }

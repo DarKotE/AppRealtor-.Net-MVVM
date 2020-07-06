@@ -95,6 +95,7 @@
     <Compile Include="Src\DataAccess\DataSqlGateways\SqlConfig\SqlConfig.cs" />
     <Compile Include="Src\DataAccess\DataSqlGateways\ComplexSqlGateway.cs" />
     <Compile Include="Src\Util\Paginators\PagingCollectionView.cs" />
+    <Compile Include="Src\Util\Searchers\Levenshtein.cs" />
     <Compile Include="Src\Util\Validators\Validator.cs" />
     <Compile Include="Src\Util\Commands\RelayCommand.cs" />
     <Compile Include="Src\ViewModels\HouseVM.cs" />
@@ -207,6 +208,5 @@
   <ItemGroup>
     <Resource Include="Resources\EIcon.png" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -90,16 +90,7 @@ namespace Esoft.ViewModels
             set
             {
                 _selectedComplex = value;
-                if (string.IsNullOrEmpty(_selectedComplex)) 
-                    return;
-
-                FilteredHouseList =
-                    new ObservableCollection<HouseInComplex>(
-                        HouseList.Where(item =>
-                        item.NameHousingComplex.ToUpper().Contains(_selectedComplex.ToUpper()) 
-                        && (String.IsNullOrEmpty(SelectedStreet) 
-                            || item.Street.ToUpper().Contains(SelectedStreet.ToUpper()))));
-                if (FilteredHouseList.Any()) SelectedRow = FilteredHouseList[0];
+                FilterBySelection();
             }
         }
 
@@ -111,17 +102,22 @@ namespace Esoft.ViewModels
             set
             {
                 _selectedStreet = value;
-                if (string.IsNullOrEmpty(_selectedStreet)) 
-                    return;
-
-                FilteredHouseList =
-                    new ObservableCollection<HouseInComplex>(
-                        HouseList.Where(item =>
-                        (item.Street.ToUpper().Contains(_selectedStreet.ToUpper()))
-                        && (String.IsNullOrEmpty(SelectedComplex) 
-                            || (item.NameHousingComplex.ToUpper().Contains(SelectedComplex.ToUpper())))));
-                if (FilteredHouseList.Any()) SelectedRow = FilteredHouseList[0];
+                FilterBySelection();
             }
+        }
+
+        private void FilterBySelection()
+        {
+            FilteredHouseList =
+                new ObservableCollection<HouseInComplex>(
+                    HouseList.Where(item =>
+                        (String.IsNullOrEmpty(SelectedStreet)
+                         || (item.Street.ToUpper().Contains(SelectedStreet.ToUpper())))
+                         && 
+                        (String.IsNullOrEmpty(SelectedComplex) 
+                          || (item.NameHousingComplex.ToUpper().Contains(SelectedComplex.ToUpper())))));
+            if (FilteredHouseList.Any()) SelectedRow = FilteredHouseList[0];
+
         }
 
 
