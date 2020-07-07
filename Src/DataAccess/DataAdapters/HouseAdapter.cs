@@ -22,20 +22,20 @@ namespace Esoft.DataAccess.DataAdapters
 
         public List<House> GetAllHouse()
         {
-            var houseList = HouseAccess.SelectAllHouse();
+            List<House> houseList = HouseAccess.SelectAllHouse();
             return houseList ?? new List<House>();
         }
 
 
         public List<HouseInComplex> GetAllHouseInComplex()
         {
-            var houseList = HouseAccess.SelectAllHouseInComplex();
+            List<HouseInComplex> houseList = HouseAccess.SelectAllHouseInComplex();
             return houseList ?? new List<HouseInComplex>();
         }
 
         public List<HouseInComplex> GetAllHouseInComplexSorted()
         {
-            var houseListSorted = HouseAccess.SelectAllHouseInComplex()
+            List<HouseInComplex> houseListSorted = HouseAccess.SelectAllHouseInComplex()
                 .OrderBy(s => s.NameHousingComplex)
                 .ThenBy(s => s.Street)
                 .ThenBy(s => s.NumberHouse)
@@ -44,13 +44,12 @@ namespace Esoft.DataAccess.DataAdapters
             
             var apartmentList = new ObservableCollection<Apartment>(ApartmentDataAccess.SelectAllApartment());
 
-            foreach (var house in houseListSorted)
+            foreach (HouseInComplex house in houseListSorted)
             {
                 int count = 0;
                 foreach (var x in apartmentList)
                 {
-                    if (x.IdLsd.Equals(house.IdHouse) && x.StatusSale.Equals(Const.StatusApartmentValue.Ready))
-                        count++;
+                    if (x.IdLsd.Equals(house.IdHouse) && x.StatusSale.Equals(Const.StatusApartmentValue.Ready)) count++;
                 }
 
                 house.ReadyApartmentCount = count;

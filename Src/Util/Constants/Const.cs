@@ -14,6 +14,11 @@
             public const string Ready = "ready";
         }
 
+        public static class ApartmentsVm
+        {
+            public const int DefaultItemsPerPage = 20;
+            public const int DefaultLevenshteinDistance = 4;
+        }
 
     }
 }

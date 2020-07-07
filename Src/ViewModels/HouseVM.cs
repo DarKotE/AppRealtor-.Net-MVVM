@@ -30,13 +30,14 @@ namespace Esoft.ViewModels
             CurrentHouse = new House();
             CurrentComplex = new Complex();
 
-            CurrentHouse.IdHouse = App.Id;
+            CurrentHouse.IdHouse = App.CurrentItemId;
 
             CurrentHouse = _houseAdapter.GetHouse(CurrentHouse);
             HouseList = _houseAdapter.GetAllHouseInComplex();
             ComplexList = _complexAdapter.GetAllComplex();
 
-            CurrentComplex = ComplexList.FirstOrDefault(item => item.IdComplex == CurrentHouse.IdComplex);
+            CurrentComplex = ComplexList.FirstOrDefault(
+                item => item.IdComplex == CurrentHouse.IdComplex);
             
         }
 

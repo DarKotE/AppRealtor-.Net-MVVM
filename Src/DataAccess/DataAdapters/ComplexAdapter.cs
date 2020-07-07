@@ -21,26 +21,30 @@ namespace Esoft.DataAccess.DataAdapters
 
         public List<Complex> GetAllComplex()
         {
-            var complexList = ComplexAccess.SelectAllComplex();
+            List<Complex> complexList = ComplexAccess.SelectAllComplex();
             return complexList ?? new List<Complex>();
         }
 
         public List<ComplexWithHouses> GetAllComplexWithHouses()
         {
-            var complexList = ComplexAccess.SelectAllComplexWithHouses();
+            List<ComplexWithHouses> complexList = ComplexAccess.SelectAllComplexWithHouses();
             return complexList ?? new List<ComplexWithHouses>();
         }
         public List<ComplexWithHouses> GetAllComplexWithHousesSorted()
         {
-            var complexListSorted = ComplexAccess.SelectAllComplexWithHouses()
+            List<ComplexWithHouses> complexListSorted = ComplexAccess.SelectAllComplexWithHouses()
                 .OrderBy(s => s.City)
                 .ThenBy(s => s.StatusConstructionHousingComplexName)
                 .ToList();
 
-            var HouseList = new ObservableCollection<House>(HouseAccess.SelectAllHouse());
+            var houseList = new ObservableCollection<House>(HouseAccess.SelectAllHouse());
 
             foreach (var complex in complexListSorted)
-                complex.HouseCount = HouseList.Count(x => x.IdComplex.Equals(complex.IdComplex));
+            {
+                int count = houseList.Count(x => x.IdComplex.Equals(complex.IdComplex));
+
+                complex.HouseCount = count;
+            }
 
             return complexListSorted ?? new List<ComplexWithHouses>();
         }
@@ -70,7 +74,7 @@ namespace Esoft.DataAccess.DataAdapters
         {
             if (ComplexAccess != null)
             {
-                var temp = ComplexAccess.SelectComplex(selectComplex);
+                Complex temp = ComplexAccess.SelectComplex(selectComplex);
                 var downCastedComplex = new ComplexWithHouses
                 {
                     AddedValue = temp.AddedValue,

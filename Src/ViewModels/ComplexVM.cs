@@ -29,10 +29,12 @@ namespace Esoft.ViewModels
             StatusList = new List<string> {"План", "Строительство", "Реализация"};
 
 
-            CurrentComplex.IdComplex = App.Id;
+            CurrentComplex.IdComplex = App.CurrentItemId;
             CurrentComplex = _complexAdapter.GetComplexWithHouses(CurrentComplex);
 
-            CurrentStatus = StatusList.FirstOrDefault(item => item == CurrentComplex.StatusConstructionHousingComplexName);
+            CurrentStatus =
+                StatusList.FirstOrDefault(
+                    item => item == CurrentComplex.StatusConstructionHousingComplexName);
 
         }
 

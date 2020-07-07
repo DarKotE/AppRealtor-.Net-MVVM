@@ -2,17 +2,16 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Windows;
-using Esoft.DataAccess.DataSqlGateways.SqlConfig;
 using Esoft.Models.Complex;
 
 namespace Esoft.DataAccess.DataSqlGateways
 {
-    public class ComplexSqlGateway
+    public class ComplexSqlGateway:SqlConfig
     {
         public List<Complex> SelectAllComplex()
         {
             var tempComplexList = new List<Complex>();
-            using (var sqlConnection = new SqlConnection(CSqlConfig.DefaultCnnVal()))
+            using (var sqlConnection = new SqlConnection(ConnectionStringValue()))
             {
                 try
                 {
@@ -71,7 +70,7 @@ namespace Esoft.DataAccess.DataSqlGateways
         public List<ComplexWithHouses> SelectAllComplexWithHouses()
         {
             var tempComplexList = new List<ComplexWithHouses>();
-            using (var sqlConnection = new SqlConnection(CSqlConfig.DefaultCnnVal()))
+            using (var sqlConnection = new SqlConnection(ConnectionStringValue()))
             {
                 try
                 {
@@ -136,7 +135,7 @@ namespace Esoft.DataAccess.DataSqlGateways
         {
             var isPossible = false;
 
-            using (var sqlConnection = new SqlConnection(CSqlConfig.DefaultCnnVal()))
+            using (var sqlConnection = new SqlConnection(ConnectionStringValue()))
             {
                 try
                 {
@@ -185,7 +184,7 @@ namespace Esoft.DataAccess.DataSqlGateways
         public bool InsertComplex(Complex newComplex)
         {
             var isInserted = false;
-            using (var sqlConnection = new SqlConnection(CSqlConfig.DefaultCnnVal()))
+            using (var sqlConnection = new SqlConnection(ConnectionStringValue()))
             {
                 try
                 {
@@ -236,7 +235,7 @@ namespace Esoft.DataAccess.DataSqlGateways
         public Complex SelectComplex(Complex newComplex)
         {
             var tempComplex = new Complex();
-            using (var sqlConnection = new SqlConnection(CSqlConfig.DefaultCnnVal()))
+            using (var sqlConnection = new SqlConnection(ConnectionStringValue()))
             {
                 try
                 {
@@ -295,7 +294,7 @@ namespace Esoft.DataAccess.DataSqlGateways
         public bool UpdateComplex(Complex newComplex)
         {
             var isUpdated = false;
-            using (var sqlConnection = new SqlConnection(CSqlConfig.DefaultCnnVal()))
+            using (var sqlConnection = new SqlConnection(ConnectionStringValue()))
             {
                 try
                 {
@@ -353,7 +352,7 @@ namespace Esoft.DataAccess.DataSqlGateways
         public bool DeleteComplex(Complex newComplex)
         {
             var isDeleted = false;
-            using (var sqlConnection = new SqlConnection(CSqlConfig.DefaultCnnVal()))
+            using (var sqlConnection = new SqlConnection(ConnectionStringValue()))
             {
                 try
                 {

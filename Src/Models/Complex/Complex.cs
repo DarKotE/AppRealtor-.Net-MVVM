@@ -73,7 +73,7 @@ namespace Esoft.Models.Complex
         private void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this,
-                new PropertyChangedEventArgs(propertyName));
+               new PropertyChangedEventArgs(propertyName));
 
         }
     }

@@ -2,17 +2,16 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Windows;
-using Esoft.DataAccess.DataSqlGateways.SqlConfig;
 using Esoft.Models.House;
 
 namespace Esoft.DataAccess.DataSqlGateways
 {
-    public class HouseSqlGateway
+    public class HouseSqlGateway:SqlConfig
     {
         public List<HouseInComplex> SelectAllHouseInComplex()
         {
             var tempHouseList = new List<HouseInComplex>();
-            using (var sqlConnection = new SqlConnection(CSqlConfig.DefaultCnnVal()))
+            using (var sqlConnection = new SqlConnection(ConnectionStringValue()))
             {
                 try
                 {
@@ -74,7 +73,7 @@ namespace Esoft.DataAccess.DataSqlGateways
         public List<House> SelectAllHouse()
         {
             var tempHouseList = new List<House>();
-            using (var sqlConnection = new SqlConnection(CSqlConfig.DefaultCnnVal()))
+            using (var sqlConnection = new SqlConnection(ConnectionStringValue()))
             {
                 try
                 {
@@ -133,7 +132,7 @@ namespace Esoft.DataAccess.DataSqlGateways
         public bool InsertHouse(House newHouse)
         {
             var isInserted = false;
-            using (var sqlConnection = new SqlConnection(CSqlConfig.DefaultCnnVal()))
+            using (var sqlConnection = new SqlConnection(ConnectionStringValue()))
             {
                 try
                 {
@@ -187,7 +186,7 @@ namespace Esoft.DataAccess.DataSqlGateways
         public House SelectHouse(House selectHouse)
         {
             var tempHouse = new House();
-            using (var sqlConnection = new SqlConnection(CSqlConfig.DefaultCnnVal()))
+            using (var sqlConnection = new SqlConnection(ConnectionStringValue()))
             {
                 try
                 {
@@ -246,7 +245,7 @@ namespace Esoft.DataAccess.DataSqlGateways
         public bool UpdateHouse(House updateHouse)
         {
             var isUpdated = false;
-            using (var sqlConnection = new SqlConnection(CSqlConfig.DefaultCnnVal()))
+            using (var sqlConnection = new SqlConnection(ConnectionStringValue()))
             {
                 try
                 {
@@ -305,7 +304,7 @@ namespace Esoft.DataAccess.DataSqlGateways
         public bool DeleteHouse(House deleteHouse)
         {
             var isDeleted = false;
-            using (var sqlConnection = new SqlConnection(CSqlConfig.DefaultCnnVal()))
+            using (var sqlConnection = new SqlConnection(ConnectionStringValue()))
             {
                 try
                 {
@@ -343,7 +342,7 @@ namespace Esoft.DataAccess.DataSqlGateways
         public bool DeleteHouseByComplexId(int idComplex)
         {
             var isDeleted = false;
-            using (var sqlConnection = new SqlConnection(CSqlConfig.DefaultCnnVal()))
+            using (var sqlConnection = new SqlConnection(ConnectionStringValue()))
             {
                 try
                 {

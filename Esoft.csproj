@@ -208,5 +208,9 @@
   <ItemGroup>
     <Resource Include="Resources\EIcon.png" />
   </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="SqlDbScript\Esoft sql script.sql" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

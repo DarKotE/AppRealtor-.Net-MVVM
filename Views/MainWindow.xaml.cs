@@ -57,7 +57,7 @@ namespace Esoft.Views
 
         private void Add_OnClick(object sender, RoutedEventArgs e)
         {
-            App.Id = default;
+            App.CurrentItemId = default;
             RefreshEvent += new Refresh(RefreshView);
             var winAdd = new HouseAddWindow { UpdateActor = RefreshEvent };
             winAdd.Show();

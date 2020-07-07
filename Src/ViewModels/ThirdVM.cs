@@ -3,9 +3,11 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls.Primitives;
 using Esoft.DataAccess.DataAdapters;
 using Esoft.Models.Apartment;
 using Esoft.Util.Commands;
+using Esoft.Util.Constants;
 using Esoft.Util.Paginators;
 using Esoft.Util.Searchers;
 
@@ -13,7 +15,9 @@ namespace Esoft.ViewModels
 {
     public class ThirdVM : INotifyPropertyChanged
     {
-        
+        private const int ITEMSPERPAGEVAL = Const.ApartmentsVm.DefaultItemsPerPage;
+        private const int MAXDISTANCE = Const.ApartmentsVm.DefaultLevenshteinDistance;
+
         private readonly ApartmentAdapter _apartmentAdapter;
 
         public ThirdVM()
@@ -33,7 +37,8 @@ namespace Esoft.ViewModels
         
         private void LoadData()
         {
-            ApartmentList = new ObservableCollection<ApartmentWithComplexes>(_apartmentAdapter.GetAllApartmentWithComplexes());
+            ApartmentList = new ObservableCollection<ApartmentWithComplexes>(
+                _apartmentAdapter.GetAllApartmentWithComplexes());
             FillFilterLists();
             SelectedRow = new ApartmentWithComplexes();
             SearchText = string.Empty;
@@ -109,7 +114,7 @@ namespace Esoft.ViewModels
                         &&
                         (SelectedPorch.Equals(default)
                          || item.Porch.Equals(SelectedPorch))));
-            PagingApartmentListView = new PagingCollectionView(FilteredApartmentList, 20);
+            PagingApartmentListView = new PagingCollectionView(FilteredApartmentList, ITEMSPERPAGEVAL);
             if (FilteredApartmentList.Any())
                 SelectedRow = FilteredApartmentList[0];
 
@@ -175,28 +180,32 @@ namespace Esoft.ViewModels
         private string _searchText;
         public string SearchText
         {
-            get => _searchText;
+            get { return _searchText; }
             set
             {
                 _searchText = value;
 
                 FilteredApartmentList =
                     new ObservableCollection<ApartmentWithComplexes>(
-                        from item
-                            in ApartmentList
-                        where (
-                            String.IsNullOrWhiteSpace(SearchText)
-                            ||
-                            (Levenshtein.Distance(item.NameHousingComplex.ToUpper(), SearchText.ToUpper().Trim()) < 4
-                            ||
-                            Levenshtein.Distance(item.FullAddress.ToUpper(), SearchText.ToUpper().Trim()) < 4))
-                        select item);
+                        ApartmentList.Where(item =>
+                        (String.IsNullOrWhiteSpace(SearchText)
+                         ||
+                         (Levenshtein.Distance(item.NameHousingComplex
+                              .ToUpper(), SearchText.ToUpper()
+                              .Trim()) < MAXDISTANCE 
+                          ||
+                          Levenshtein.Distance(item.FullAddress
+                              .ToUpper(), SearchText.ToUpper()
+                              .Trim()) < MAXDISTANCE))));
+
                 if (FilteredApartmentList.Any()) SelectedRow = FilteredApartmentList[0];
-                PagingApartmentListView = new PagingCollectionView(FilteredApartmentList, 20);
+
+                PagingApartmentListView = new PagingCollectionView(FilteredApartmentList, ITEMSPERPAGEVAL);
+
                 OnPropertyChanged(nameof(SearchText));
             }
         }
-        
+
 
         public string Message { get; set; }
 
@@ -214,12 +223,12 @@ namespace Esoft.ViewModels
 
         public void Add(object param)
         {
-            App.Id = 0;
+            App.CurrentItemId = 0;
         }
 
         public void Edit(object param)
         {
-            App.Id = SelectedRow.Id;
+            App.CurrentItemId = SelectedRow.Id;
         }
 
         public void Cancel(object param)
@@ -253,12 +262,12 @@ namespace Esoft.ViewModels
                 MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
-                //var isDeleted = _complexAdapter.DeleteComplex(SelectedRow);
-                //Message = isDeleted
-                //    ? "Удалено"
-                //    : "При удалении произошла ошибка";
-                //MessageBox.Show(Message);
-                //LoadData();
+                var isDeleted = _apartmentAdapter.DeleteApartment(SelectedRow);
+                Message = isDeleted
+                    ? "Удалено"
+                    : "При удалении произошла ошибка";
+                MessageBox.Show(Message);
+                LoadData();
             }
         }
 

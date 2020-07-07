@@ -131,13 +131,13 @@ namespace Esoft.ViewModels
 
         public void Add(object param)
         {
-            App.Id = default;
+            App.CurrentItemId = default;
         }
 
 
         public void Edit(object param)
         {
-            App.Id = SelectedRow.IdHouse;
+            App.CurrentItemId = SelectedRow.IdHouse;
         }
 
 

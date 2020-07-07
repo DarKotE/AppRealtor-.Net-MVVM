@@ -2,17 +2,16 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Windows;
-using Esoft.DataAccess.DataSqlGateways.SqlConfig;
 using Esoft.Models.Apartment;
 
 namespace Esoft.DataAccess.DataSqlGateways
 {
-    public class ApartmentSqlGateway
+    public class ApartmentSqlGateway: SqlConfig
     {
         public List<Apartment> SelectAllApartment()
         {
             var tempApartmentList = new List<Apartment>();
-            using (var sqlConnection = new SqlConnection(CSqlConfig.DefaultCnnVal()))
+            using (var sqlConnection = new SqlConnection(ConnectionStringValue()))
             {
                 try
                 {
@@ -78,7 +77,7 @@ namespace Esoft.DataAccess.DataSqlGateways
         public List<ApartmentWithComplexes> SelectAllApartmentWithComplexes()
         {
             var tempApartmentList = new List<ApartmentWithComplexes>();
-            using (var sqlConnection = new SqlConnection(CSqlConfig.DefaultCnnVal()))
+            using (var sqlConnection = new SqlConnection(ConnectionStringValue()))
             {
                 try
                 {

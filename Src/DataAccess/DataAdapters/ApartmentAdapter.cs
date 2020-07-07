@@ -15,12 +15,12 @@ namespace Esoft.DataAccess.DataAdapters
         
         public List<Apartment> GetAllApartment()
         {
-            var apartmentList = ApartmentAccess.SelectAllApartment();
+            List<Apartment> apartmentList = ApartmentAccess.SelectAllApartment();
             return apartmentList ?? new List<Apartment>();
         }
         public List<ApartmentWithComplexes> GetAllApartmentWithComplexes()
         {
-            var apartmentList = ApartmentAccess.SelectAllApartmentWithComplexes();
+            List<ApartmentWithComplexes> apartmentList = ApartmentAccess.SelectAllApartmentWithComplexes();
             return apartmentList ?? new List<ApartmentWithComplexes>();
         }
 

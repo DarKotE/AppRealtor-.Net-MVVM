@@ -27,7 +27,8 @@ namespace Esoft.ViewModels
 
         private void LoadData()
         {
-            ComplexList = new ObservableCollection<ComplexWithHouses>(_complexAdapter.GetAllComplexWithHousesSorted());
+            ComplexList = new ObservableCollection<ComplexWithHouses>(
+                _complexAdapter.GetAllComplexWithHousesSorted());
 
             StatusList = new ObservableCollection<string>(
                     ComplexList.Select(c => c.StatusConstructionHousingComplexName)
@@ -94,7 +95,9 @@ namespace Esoft.ViewModels
                          || item.City.ToUpper().Contains(SelectedCity.ToUpper())) 
                          &&
                          (String.IsNullOrEmpty(SelectedStatus) 
-                          || item.StatusConstructionHousingComplexName.ToUpper().Contains(SelectedStatus.ToUpper()))));
+                          || item.StatusConstructionHousingComplexName
+                              .ToUpper()
+                              .Contains(SelectedStatus.ToUpper()))));
             if (FilteredComplexList.Any())
                 SelectedRow = FilteredComplexList[0];
         }
@@ -102,7 +105,7 @@ namespace Esoft.ViewModels
         private string _searchText;
         public string SearchText
         {
-            get => _searchText;
+            get { return _searchText; }
             set
             {
                 _searchText = value;
@@ -128,13 +131,13 @@ namespace Esoft.ViewModels
         
         public void Add(object param)
         {
-            App.Id = 0;
+            App.CurrentItemId = 0;
         }
 
 
         public void Edit(object param)
         {
-            App.Id = SelectedRow.IdComplex;
+            App.CurrentItemId = SelectedRow.IdComplex;
         }
 
         public void Delete(object param)

@@ -1,11 +1,11 @@
 ﻿using System.Configuration;
 
-namespace Esoft.DataAccess.DataSqlGateways.SqlConfig
+namespace Esoft.DataAccess.DataSqlGateways
 {
-    public static class CSqlConfig
+    public abstract class SqlConfig
     {
         //EsoftDB - value in App.config
-        public static string DefaultCnnVal(string name = "EsoftDB")
+        public static string ConnectionStringValue(string name = "EsoftDB")
         {
             return ConfigurationManager.ConnectionStrings[name].ConnectionString;
         }
