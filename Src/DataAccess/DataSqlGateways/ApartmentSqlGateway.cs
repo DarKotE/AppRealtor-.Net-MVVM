@@ -153,9 +153,10 @@ namespace Esoft.DataAccess.DataSqlGateways
             throw new NotImplementedException();
         }
 
-        public bool SelectApartment(Apartment selectApartment)
+        public Apartment SelectApartment(Apartment selectApartment)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            return new Apartment();
         }
 
         public bool UpdateApartment(Apartment updateApartment)

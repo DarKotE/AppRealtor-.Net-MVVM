@@ -8,7 +8,7 @@ using Esoft.Models.House;
 using Esoft.Util.Commands;
 using Esoft.Util.Validators;
 
-namespace Esoft.ViewModels
+namespace Esoft.ViewModels.Houses
 {
     public class HouseVM 
     {
@@ -42,7 +42,7 @@ namespace Esoft.ViewModels
         }
 
         public Complex CurrentComplex { get; set; }
-
+        public House CurrentHouse { get; set; }
 
         public List<HouseInComplex> HouseList { get; set; }
         public List<Complex> ComplexList { get; set; }
@@ -67,8 +67,7 @@ namespace Esoft.ViewModels
                     CurrentHouse.IdComplex = _selectedComplex.IdComplex;
             }
         }
-
-     
+        
 
         public void Save(object param)
         {
@@ -112,12 +111,7 @@ namespace Esoft.ViewModels
 
         }
         
-        public House CurrentHouse { get; set; }
-
-
        
-
-
 
     }
 }

@@ -1,9 +1,9 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Windows;
-using Esoft.ViewModels;
+using Esoft.ViewModels.Apartments;
+using Esoft.Views.ComplexesSession;
 
-namespace Esoft.Views
+namespace Esoft.Views.ApartmentsSession
 {
     /// <summary>
     /// Interaction logic for .xaml
@@ -70,7 +70,7 @@ namespace Esoft.Views
         {
             await Task.Delay(100);
             RefreshEvent += new Refresh(RefreshView);
-            var winAdd = new ComplexAddWindow { UpdateActor = RefreshEvent };
+            var winAdd = new ApartmentAddWindow() { UpdateActor = RefreshEvent };
             winAdd.Show();
         }
 
@@ -78,7 +78,7 @@ namespace Esoft.Views
         {
             await Task.Delay(100);
             RefreshEvent += new Refresh(RefreshView);
-            var winEdit = new ComplexEditWindow {UpdateActor = RefreshEvent};
+            var winEdit = new ApartmentEditWindow() { UpdateActor = RefreshEvent};
             winEdit.Show();
         }
 

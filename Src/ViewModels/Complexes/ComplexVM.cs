@@ -8,7 +8,7 @@ using Esoft.Util.Commands;
 using Esoft.Util.Constants;
 using Esoft.Util.Validators;
 
-namespace Esoft.ViewModels
+namespace Esoft.ViewModels.Complexes
 {
     public class ComplexVM 
     {

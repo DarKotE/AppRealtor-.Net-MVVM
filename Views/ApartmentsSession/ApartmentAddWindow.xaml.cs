@@ -2,17 +2,17 @@
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
-using Esoft.ViewModels;
+using Esoft.ViewModels.Apartments;
 
-namespace Esoft.Views
+namespace Esoft.Views.ApartmentsSession
 {
     /// <summary>
-    /// Interaction logic for ComplexAddWindow.xaml
+    /// Interaction logic for ApartmentAddWindow.xaml
     /// </summary>
-    public partial class ComplexAddWindow
+    public partial class ApartmentAddWindow
     {
         internal Delegate UpdateActor;
-        public ComplexAddWindow()
+        public ApartmentAddWindow()
         {
             InitializeComponent();
             
@@ -20,9 +20,9 @@ namespace Esoft.Views
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            var complexVM = new ComplexVM();
+            var apartmentVM = new ApartmentVM();
             this.DataContext = null;
-            this.DataContext = complexVM;
+            this.DataContext = apartmentVM;
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)

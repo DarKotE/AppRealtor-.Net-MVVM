@@ -3,7 +3,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
-using System.Windows.Controls.Primitives;
 using Esoft.DataAccess.DataAdapters;
 using Esoft.Models.Apartment;
 using Esoft.Util.Commands;
@@ -11,7 +10,7 @@ using Esoft.Util.Constants;
 using Esoft.Util.Paginators;
 using Esoft.Util.Searchers;
 
-namespace Esoft.ViewModels
+namespace Esoft.ViewModels.Apartments
 {
     public class ThirdVM : INotifyPropertyChanged
     {

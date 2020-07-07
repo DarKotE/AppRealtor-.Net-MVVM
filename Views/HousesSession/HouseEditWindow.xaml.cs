@@ -2,17 +2,17 @@
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
-using Esoft.ViewModels;
+using Esoft.ViewModels.Houses;
 
-namespace Esoft.Views
+namespace Esoft.Views.HousesSession
 {
     /// <summary>
-    /// Interaction logic for ComplexEditWindow.xaml
+    /// Interaction logic for HouseEditWindow.xaml
     /// </summary>
-    public partial class ComplexEditWindow 
+    public partial class HouseEditWindow 
     {
         internal Delegate UpdateActor;
-        public ComplexEditWindow()
+        public HouseEditWindow()
         {
             InitializeComponent();
             
@@ -20,9 +20,9 @@ namespace Esoft.Views
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            var complexVM = new ComplexVM();
+            var houseVM = new HouseVM();
             this.DataContext = null;
-            this.DataContext = complexVM;
+            this.DataContext = houseVM;
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
@@ -37,7 +37,7 @@ namespace Esoft.Views
         }
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {
-            var regex = new Regex("[^0-9]+");
+            Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
         }
 

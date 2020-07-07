@@ -98,57 +98,72 @@
     <Compile Include="Src\Util\Searchers\Levenshtein.cs" />
     <Compile Include="Src\Util\Validators\Validator.cs" />
     <Compile Include="Src\Util\Commands\RelayCommand.cs" />
-    <Compile Include="Src\ViewModels\HouseVM.cs" />
-    <Compile Include="Src\ViewModels\ComplexVM.cs" />
-    <Compile Include="Src\ViewModels\ThirdVM.cs" />
-    <Compile Include="Src\ViewModels\SecondVM.cs" />
-    <Compile Include="Src\ViewModels\MainVM.cs" />
-    <Compile Include="Views\HouseAddWindow.xaml.cs">
+    <Compile Include="Src\ViewModels\Apartments\ApartmentVM.cs" />
+    <Compile Include="Src\ViewModels\Houses\HouseVM.cs" />
+    <Compile Include="Src\ViewModels\Complexes\ComplexVM.cs" />
+    <Compile Include="Src\ViewModels\Apartments\ThirdVM.cs" />
+    <Compile Include="Src\ViewModels\Complexes\SecondVM.cs" />
+    <Compile Include="Src\ViewModels\Houses\MainVM.cs" />
+    <Compile Include="Views\ApartmentsSession\ApartmentEditWindow.xaml.cs">
+      <DependentUpon>ApartmentEditWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ApartmentsSession\ApartmentAddWindow.xaml.cs">
+      <DependentUpon>ApartmentAddWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HousesSession\HouseAddWindow.xaml.cs">
       <DependentUpon>HouseAddWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\HouseEditWindow.xaml.cs">
+    <Compile Include="Views\HousesSession\HouseEditWindow.xaml.cs">
       <DependentUpon>HouseEditWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ComplexEditWindow.xaml.cs">
+    <Compile Include="Views\ComplexesSession\ComplexEditWindow.xaml.cs">
       <DependentUpon>ComplexEditWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ComplexAddWindow.xaml.cs">
+    <Compile Include="Views\ComplexesSession\ComplexAddWindow.xaml.cs">
       <DependentUpon>ComplexAddWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ThirdWindow.xaml.cs">
+    <Compile Include="Views\ApartmentsSession\ThirdWindow.xaml.cs">
       <DependentUpon>ThirdWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SecondWindow.xaml.cs">
+    <Compile Include="Views\ComplexesSession\SecondWindow.xaml.cs">
       <DependentUpon>SecondWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\MainWindow.xaml.cs">
+    <Compile Include="Views\HousesSession\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="Resources\ResourceDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\HouseAddWindow.xaml">
+    <Page Include="Views\ApartmentsSession\ApartmentEditWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\HouseEditWindow.xaml">
+    <Page Include="Views\ApartmentsSession\ApartmentAddWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\ComplexEditWindow.xaml">
+    <Page Include="Views\HousesSession\HouseAddWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\ComplexAddWindow.xaml">
+    <Page Include="Views\HousesSession\HouseEditWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\ThirdWindow.xaml">
+    <Page Include="Views\ComplexesSession\ComplexEditWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\SecondWindow.xaml">
+    <Page Include="Views\ComplexesSession\ComplexAddWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ApartmentsSession\ThirdWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ComplexesSession\SecondWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -156,7 +171,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\MainWindow.xaml">
+    <Page Include="Views\HousesSession\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

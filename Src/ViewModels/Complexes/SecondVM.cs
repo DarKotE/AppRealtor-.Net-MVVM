@@ -7,7 +7,7 @@ using Esoft.DataAccess.DataAdapters;
 using Esoft.Models.Complex;
 using Esoft.Util.Commands;
 
-namespace Esoft.ViewModels
+namespace Esoft.ViewModels.Complexes
 {
     public class SecondVM : INotifyPropertyChanged
     {

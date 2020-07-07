@@ -7,7 +7,7 @@ using Esoft.DataAccess.DataAdapters;
 using Esoft.Models.House;
 using Esoft.Util.Commands;
 
-namespace Esoft.ViewModels
+namespace Esoft.ViewModels.Houses
 
 {
     public class MainVM : INotifyPropertyChanged

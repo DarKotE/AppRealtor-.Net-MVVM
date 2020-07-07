@@ -30,10 +30,19 @@ namespace Esoft.DataAccess.DataAdapters
             return ApartmentAccess != null && ApartmentAccess.InsertApartment(newApartment);
         }
 
-        public bool GetApartment(Apartment selectApartment)
+        public Apartment GetApartment(Apartment selectApartment)
         {
-            return ApartmentAccess != null && ApartmentAccess.SelectApartment(selectApartment);
+            return ApartmentAccess != null 
+                ? ApartmentAccess.SelectApartment(selectApartment) 
+                : new Apartment();
         }
+
+
+        public ApartmentWithComplexes GetApartmentWithComplexes(Apartment selectApartment)
+        {
+            return new ApartmentWithComplexes();
+        }
+
 
         public bool SetApartment(Apartment updateApartment)
         {

@@ -6,6 +6,30 @@ namespace Esoft.Models.House
     //properties for easy binding to view via viewmodel
     public class HouseInComplex :House, INotifyPropertyChanged
     {
+
+        //Поля отсутствуют в бд
+        private int _soldApartmentCount;
+        public int SoldApartmentCount
+        {
+            get { return _soldApartmentCount; }
+            set
+            {
+                _soldApartmentCount = value;
+                OnPropertyChanged(nameof(SoldApartmentCount));
+            }
+        }
+        private int _readyApartmentCount;
+        public int ReadyApartmentCount
+        {
+            get { return _readyApartmentCount; }
+            set
+            {
+                _readyApartmentCount = value;
+                OnPropertyChanged(nameof(ReadyApartmentCount));
+            }
+        }
+
+
         private string _nameHousingComplex;
         public string NameHousingComplex
         {

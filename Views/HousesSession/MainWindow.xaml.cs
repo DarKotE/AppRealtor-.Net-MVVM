@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Windows;
-using Esoft.ViewModels;
+using Esoft.ViewModels.Houses;
+using Esoft.Views.ApartmentsSession;
+using Esoft.Views.ComplexesSession;
 
-namespace Esoft.Views
+namespace Esoft.Views.HousesSession
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Windows;
-using Esoft.ViewModels;
+using Esoft.ViewModels.Complexes;
 
-namespace Esoft.Views
+namespace Esoft.Views.ComplexesSession
 {
     /// <summary>
     /// Interaction logic for .xaml
